@@ -1,0 +1,91 @@
+import FadeUp from "@/components/ui/FadeUp";
+
+const SERVICES = [
+  {
+    title: "Hava Fotoğrafçılığı",
+    desc: "4K RAW formatında profesyonel hava fotoğrafları. Emlak ilanları, mimari ve peyzaj için ideal.",
+    icon: <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />,
+  },
+  {
+    title: "Sinematik Video",
+    desc: "Profesyonel renk düzeltme ve post prodüksiyon dahil sinematik drone video prodüksiyon.",
+    icon: (
+      <>
+        <polygon points="23 7 16 12 23 17 23 7" />
+        <rect x="1" y="5" width="15" height="14" rx="2" />
+      </>
+    ),
+  },
+  {
+    title: "3D Modelleme",
+    desc: "Fotogrametri ile yüksek doğruluklu 3D model üretimi. Yapı kontrolü ve arşivleme için.",
+    icon: <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />,
+  },
+  {
+    title: "360° Sanal Tur",
+    desc: "Gayrimenkul ve otel projeleriniz için interaktif 360° sanal gezinti deneyimleri.",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+      </>
+    ),
+  },
+  {
+    title: "Termal Görüntüleme",
+    desc: "Binalarda ısı kaybı tespiti, çatı kontrolleri ve enerji verimliliği analizleri.",
+    icon: <path d="M22 12h-4l-3 9L9 3l-3 9H2" />,
+  },
+  {
+    title: "Ortofoto & Harita",
+    desc: "Arazi ve yapı envanterleri için yüksek çözünürlüklü ortofoto ve CAD uyumlu haritalar.",
+    icon: (
+      <>
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+      </>
+    ),
+  },
+];
+
+export default function Services() {
+  return (
+    <section id="services" className="bg-brand-black py-25">
+      <div className="mx-auto max-w-[1240px] px-8">
+        <FadeUp className="mb-18">
+          <span className="mb-3.5 inline-block rounded-pill border border-brand-blue/18 bg-brand-blue/8 px-4 py-1.5 text-[10px] font-bold tracking-[4px] text-brand-blue uppercase">
+            Neler Yapıyoruz
+          </span>
+          <h2 className="mb-3.5 font-display text-[clamp(38px,5vw,64px)] leading-none text-brand-white">
+            TÜM <span className="text-brand-blue">HİZMETLER</span>
+          </h2>
+          <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
+            Proje başlangıcından son teslimata kadar kapsamlı drone çekim hizmetleri.
+          </p>
+        </FadeUp>
+
+        <div className="grid grid-cols-3 gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
+          {SERVICES.map((service, i) => (
+            <FadeUp
+              key={service.title}
+              delay={`${i * 0.1}s`}
+              className="rounded-3xl border-1.5 border-white/6 bg-brand-card p-9 px-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/35 hover:shadow-[0_20px_50px_rgba(33,150,243,.12)]"
+            >
+              <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl border border-brand-blue/20 bg-brand-blue/10">
+                <svg width="24" height="24" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+                  {service.icon}
+                </svg>
+              </div>
+              <h3 className="mb-2.5 font-display text-xl tracking-wide text-brand-white">
+                {service.title}
+              </h3>
+              <p className="text-sm leading-relaxed font-light text-brand-offwhite">
+                {service.desc}
+              </p>
+            </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

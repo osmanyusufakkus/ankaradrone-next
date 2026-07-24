@@ -1,26 +1,66 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-brand-blue: #2196f3;
+  --color-brand-blue-dark: #1565c0;
+  --color-brand-blue-light: #64b5f6;
+  --color-brand-black: #080c10;
+  --color-brand-dark: #0d1117;
+  --color-brand-card: #111820;
+  --color-brand-white: #f0f4f8;
+  --color-brand-offwhite: #d0dae6;
+
+  --radius-drone: 32px;
+  --radius-pill: 50px;
+
+  --font-display: var(--font-bebas-neue);
+  --font-body: var(--font-raleway);
+
+  --animate-scroll-pulse: scrollPulse 2s ease-in-out infinite;
+  --animate-float-drone: floatDrone 6s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
+@keyframes floatDrone {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-24px) rotate(2deg);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-brand-black);
+  color: var(--color-brand-white);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
