@@ -1,12 +1,21 @@
 import FadeUp from "@/components/ui/FadeUp";
 
-const SERVICES = [
+type Service = {
+  id: string;
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+};
+
+const SERVICES: Service[] = [
   {
+    id: "hava-fotografciligi",
     title: "Hava Fotoğrafçılığı",
     desc: "4K RAW formatında profesyonel hava fotoğrafları. Emlak ilanları, mimari ve peyzaj için ideal.",
     icon: <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />,
   },
   {
+    id: "sinematik-video",
     title: "Sinematik Video",
     desc: "Profesyonel renk düzeltme ve post prodüksiyon dahil sinematik drone video prodüksiyon.",
     icon: (
@@ -17,11 +26,13 @@ const SERVICES = [
     ),
   },
   {
+    id: "3d-modelleme",
     title: "3D Modelleme",
     desc: "Fotogrametri ile yüksek doğruluklu 3D model üretimi. Yapı kontrolü ve arşivleme için.",
     icon: <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />,
   },
   {
+    id: "360-sanal-tur",
     title: "360° Sanal Tur",
     desc: "Gayrimenkul ve otel projeleriniz için interaktif 360° sanal gezinti deneyimleri.",
     icon: (
@@ -32,11 +43,13 @@ const SERVICES = [
     ),
   },
   {
+    id: "termal-goruntuleme",
     title: "Termal Görüntüleme",
     desc: "Binalarda ısı kaybı tespiti, çatı kontrolleri ve enerji verimliliği analizleri.",
     icon: <path d="M22 12h-4l-3 9L9 3l-3 9H2" />,
   },
   {
+    id: "ortofoto-harita",
     title: "Ortofoto & Harita",
     desc: "Arazi ve yapı envanterleri için yüksek çözünürlüklü ortofoto ve CAD uyumlu haritalar.",
     icon: (
@@ -67,11 +80,11 @@ export default function Services() {
         <div className="grid grid-cols-3 gap-6 max-md:grid-cols-2 max-sm:grid-cols-1">
           {SERVICES.map((service, i) => (
             <FadeUp
-              key={service.title}
+              key={service.id}
               delay={`${i * 0.1}s`}
-              className="rounded-3xl border-1.5 border-white/6 bg-brand-card p-9 px-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/35 hover:shadow-[0_20px_50px_rgba(33,150,243,.12)]"
+              className="group rounded-3xl border-1.5 border-white/6 bg-brand-card p-9 px-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/35 hover:shadow-[0_20px_50px_rgba(33,150,243,.12)]"
             >
-              <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl border border-brand-blue/20 bg-brand-blue/10">
+              <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl border border-brand-blue/20 bg-brand-blue/10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                 <svg width="24" height="24" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
                   {service.icon}
                 </svg>
@@ -79,9 +92,15 @@ export default function Services() {
               <h3 className="mb-2.5 font-display text-xl tracking-wide text-brand-white">
                 {service.title}
               </h3>
-              <p className="text-sm leading-relaxed font-light text-brand-offwhite">
+              <p className="mb-4 text-sm leading-relaxed font-light text-brand-offwhite">
                 {service.desc}
               </p>
+              <a
+                href="#contact"
+                className="inline-block rounded text-xs font-semibold tracking-wide text-brand-blue uppercase decoration-brand-blue underline-offset-4 [text-decoration-line:underline] [text-decoration-color:transparent] transition-[text-decoration-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue group-hover:[text-decoration-color:var(--color-brand-blue)]"
+              >
+                Detaylı Bilgi →
+              </a>
             </FadeUp>
           ))}
         </div>

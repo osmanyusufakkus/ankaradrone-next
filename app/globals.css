@@ -19,6 +19,10 @@
 
   --animate-scroll-pulse: scrollPulse 2s ease-in-out infinite;
   --animate-float-drone: floatDrone 6s ease-in-out infinite;
+  --animate-hero-in: heroFadeUp 0.9s ease both;
+  --animate-pulse-glow: pulseGlow 1.8s ease-out 2;
+  --animate-modal-fade: modalFadeIn 0.3s ease both;
+  --animate-modal-pop: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes scrollPulse {
@@ -41,8 +45,53 @@
   }
 }
 
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(33, 150, 243, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--color-brand-blue) var(--color-brand-black);
+  scrollbar-width: thin;
 }
 
 body {
@@ -50,6 +99,21 @@ body {
   color: var(--color-brand-white);
   font-family: var(--font-body), sans-serif;
   overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-blue);
+  border-radius: 10px;
+  border: 2px solid var(--color-brand-black);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-blue-light);
 }
 
 .fade-up {

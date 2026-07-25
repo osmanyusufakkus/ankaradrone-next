@@ -1,12 +1,27 @@
 import FadeUp from "@/components/ui/FadeUp";
 import VideoCard from "@/components/ui/VideoCard";
+import Button from "@/components/ui/Button";
+import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
-const VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
+type Package = {
+  id: string;
+  num: string;
+  tag: string;
+  title: React.ReactNode;
+  desc: string;
+  features: string[];
+  gradient: string;
+  icon: React.ReactNode;
+  /** Each package owns its own clip — swap independently once real footage exists. */
+  videoSrc: string;
+};
 
-const PACKAGES = [
+const PACKAGES: Package[] = [
   {
+    id: "3d-modelleme",
     num: "01",
     tag: "En Popüler",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
         3D Modelleme &amp;
@@ -29,8 +44,10 @@ const PACKAGES = [
     ),
   },
   {
+    id: "ilerleme-takip",
     num: "02",
     tag: "İnşaat & Şantiye",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
         İlerleme Takip
@@ -54,8 +71,10 @@ const PACKAGES = [
     ),
   },
   {
+    id: "konut-tanitim",
     num: "03",
     tag: "Gayrimenkul",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
         Konut &amp; Site
@@ -79,8 +98,10 @@ const PACKAGES = [
     ),
   },
   {
+    id: "kurumsal-etkinlik",
     num: "04",
     tag: "Kurumsal",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
         Kurumsal &amp;
@@ -126,14 +147,15 @@ export default function Packages() {
           const reverse = i % 2 === 1;
           return (
             <FadeUp
-              key={pkg.num}
+              key={pkg.id}
               className="mb-20 grid grid-cols-2 items-center gap-0 last:mb-0 max-md:grid-cols-1"
             >
               <div className={`mx-auto w-full max-w-85 ${reverse ? "md:order-2" : "md:order-1"}`}>
                 <VideoCard
-                  videoSrc={VIDEO_SRC}
+                  videoSrc={pkg.videoSrc}
                   className={`aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)] ${pkg.gradient}`}
                   hoverHint="▶ Önizle"
+                  pulseHint={i === 0}
                   placeholder={
                     <>
                       <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-1.5 border-brand-blue/30 bg-brand-blue/12 backdrop-blur-sm">
@@ -173,18 +195,10 @@ export default function Packages() {
                   ))}
                 </ul>
                 <div className="flex flex-wrap gap-3.5">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 rounded-pill bg-brand-blue px-10 py-4 text-sm font-bold tracking-wide text-white transition-all duration-250 hover:-translate-y-0.75 hover:bg-brand-blue-dark hover:shadow-[0_12px_36px_rgba(33,150,243,.35)]"
-                  >
-                    Fiyat Al
-                  </a>
-                  <a
-                    href="#"
-                    className="rounded-pill border-1.5 border-white/25 px-10 py-4 text-sm font-semibold tracking-wide text-brand-offwhite transition-all duration-250 hover:-translate-y-0.75 hover:border-brand-blue hover:text-brand-blue"
-                  >
+                  <Button href="#contact">Fiyat Al</Button>
+                  <Button href="#" variant="outline">
                     Daha Fazla Örnek Gör
-                  </a>
+                  </Button>
                 </div>
               </div>
             </FadeUp>

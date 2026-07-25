@@ -1,19 +1,116 @@
+import Image from "next/image";
 import FadeUp from "@/components/ui/FadeUp";
 import VideoCard from "@/components/ui/VideoCard";
+import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
-const VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
+// Drop a logo file in public/images/references/ and set `logoUrl` (e.g. "/images/references/ictas.png")
+// to swap a card's initials badge for the real company logo — no other code changes needed.
+// Same goes for `videoSrc`: each reference owns its own clip, point it at the real
+// hover-preview footage per client once it's ready.
+type Reference = {
+  id: string;
+  code: string;
+  name: string;
+  sector: string;
+  color: string;
+  label: string;
+  videoSrc: string;
+  logoUrl?: string;
+};
 
-const REFERENCES = [
-  { code: "İÇ", name: "İÇTAŞ İNŞAAT", sector: "İnşaat", color: "rgba(33,150,243,.25)", label: "İçtaş İnşaat – Şantiye Çekimi" },
-  { code: "EM", name: "EMLAK KONUT", sector: "Gayrimenkul", color: "rgba(255,150,0,.2)", label: "Emlak Konut – Proje Tanıtım" },
-  { code: "TO", name: "TOKİ", sector: "Konut", color: "rgba(76,175,80,.2)", label: "TOKİ – Hava Belgeleme" },
-  { code: "AN", name: "ANKAMall", sector: "Ticaret", color: "rgba(233,30,99,.2)", label: "ANKAmall – Etkinlik Çekimi" },
-  { code: "AE", name: "AEROPARK", sector: "Sanayi", color: "rgba(255,87,34,.2)", label: "Aeropark – Tesis Dokümantasyonu" },
-  { code: "KY", name: "KAYA YAPI", sector: "İnşaat", color: "rgba(33,150,243,.2)", label: "Kaya Yapı – 3D Modelleme" },
-  { code: "AK", name: "AKFEN", sector: "Altyapı", color: "rgba(156,39,176,.2)", label: "Akfen – Proje Belgeleme" },
-  { code: "OZ", name: "ÖZAK GYO", sector: "Gayrimenkul", color: "rgba(0,188,212,.2)", label: "Özak GYO – Satış Filmi" },
-  { code: "ST", name: "SETUR", sector: "Turizm", color: "rgba(255,193,7,.2)", label: "Setur – Tanıtım Filmi" },
-  { code: "MB", name: "MEB", sector: "Kamu", color: "rgba(33,150,243,.2)", label: "MEB – Kampüs Çekimi" },
+const REFERENCES: Reference[] = [
+  {
+    id: "ictas-insaat",
+    code: "İÇ",
+    name: "İÇTAŞ İNŞAAT",
+    sector: "İnşaat",
+    color: "rgba(33,150,243,.25)",
+    label: "İçtaş İnşaat – Şantiye Çekimi",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    logoUrl: "/images/references/toki.png",
+  },
+  {
+    id: "emlak-konut",
+    code: "EM",
+    name: "EMLAK KONUT",
+    sector: "Gayrimenkul",
+    color: "rgba(255,150,0,.2)",
+    label: "Emlak Konut – Proje Tanıtım",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    logoUrl: "/images/references/emlakkonut.png",
+  },
+  {
+    id: "toki",
+    code: "TO",
+    name: "TOKİ",
+    sector: "Konut",
+    color: "rgba(76,175,80,.2)",
+    label: "TOKİ – Hava Belgeleme",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "ankamall",
+    code: "AN",
+    name: "ANKAMall",
+    sector: "Ticaret",
+    color: "rgba(233,30,99,.2)",
+    label: "ANKAmall – Etkinlik Çekimi",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "aeropark",
+    code: "AE",
+    name: "AEROPARK",
+    sector: "Sanayi",
+    color: "rgba(255,87,34,.2)",
+    label: "Aeropark – Tesis Dokümantasyonu",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "kaya-yapi",
+    code: "KY",
+    name: "KAYA YAPI",
+    sector: "İnşaat",
+    color: "rgba(33,150,243,.2)",
+    label: "Kaya Yapı – 3D Modelleme",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "akfen",
+    code: "AK",
+    name: "AKFEN",
+    sector: "Altyapı",
+    color: "rgba(156,39,176,.2)",
+    label: "Akfen – Proje Belgeleme",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "ozak-gyo",
+    code: "OZ",
+    name: "ÖZAK GYO",
+    sector: "Gayrimenkul",
+    color: "rgba(0,188,212,.2)",
+    label: "Özak GYO – Satış Filmi",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "setur",
+    code: "ST",
+    name: "SETUR",
+    sector: "Turizm",
+    color: "rgba(255,193,7,.2)",
+    label: "Setur – Tanıtım Filmi",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
+  {
+    id: "meb",
+    code: "MB",
+    name: "MEB",
+    sector: "Kamu",
+    color: "rgba(33,150,243,.2)",
+    label: "MEB – Kampüs Çekimi",
+    videoSrc: PLACEHOLDER_VIDEO_SRC,
+  },
 ];
 
 export default function References() {
@@ -32,20 +129,34 @@ export default function References() {
           </p>
         </FadeUp>
 
-        <div className="grid grid-cols-5 gap-5 max-md:grid-cols-3 max-sm:grid-cols-2">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:pb-0 md:grid-cols-5 [&::-webkit-scrollbar]:hidden">
           {REFERENCES.map((ref, i) => (
-            <FadeUp key={ref.name} delay={`${i * 0.05}s`}>
+            <FadeUp
+              key={ref.id}
+              delay={`${i * 0.05}s`}
+              className="w-[72%] shrink-0 snap-center sm:w-auto sm:shrink">
               <VideoCard
-                videoSrc={VIDEO_SRC}
-                className="aspect-16/9 rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
+                videoSrc={ref.videoSrc}
+                className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
                 placeholder={
                   <>
-                    <div
-                      className="flex h-11 w-11 items-center justify-center rounded-xl font-display text-2xl font-black text-white"
-                      style={{ background: ref.color }}
-                    >
-                      {ref.code}
-                    </div>
+                    {ref.logoUrl ? (
+                      <div className="relative h-16 w-32 max-w-[75%] shrink-0">
+                        <Image
+                          src={ref.logoUrl}
+                          alt={ref.name}
+                          fill
+                          sizes="128px"
+                          className="object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl font-display text-3xl font-black text-white"
+                        style={{ background: ref.color }}>
+                        {ref.code}
+                      </div>
+                    )}
                     <div className="text-center font-display text-lg tracking-wide text-white/70">
                       {ref.name}
                     </div>

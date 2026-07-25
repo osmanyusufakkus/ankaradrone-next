@@ -10,10 +10,32 @@ const SERVICE_LINKS = [
 
 const CONTACT_LINKS = [
   { href: "mailto:info@ankaradrone.com", label: "info@ankaradrone.com" },
-  { href: "tel:+905001234567", label: "+90 500 123 45 67" },
+  { href: "tel:+905545480697", label: "+90 554 548 06 97" },
   { href: "#", label: "Ankara, Türkiye" },
-  { href: "#", label: "Instagram" },
-  { href: "#", label: "YouTube" },
+];
+
+const SOCIAL_LINKS = [
+  {
+    href: "#",
+    label: "Instagram",
+    icon: (
+      <>
+        <rect x="2" y="2" width="20" height="20" rx="5" />
+        <circle cx="12" cy="12" r="4.2" />
+        <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+      </>
+    ),
+  },
+  {
+    href: "#",
+    label: "YouTube",
+    icon: (
+      <>
+        <rect x="2" y="5" width="20" height="14" rx="4" />
+        <path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none" />
+      </>
+    ),
+  },
 ];
 
 export default function Footer() {
@@ -29,10 +51,24 @@ export default function Footer() {
               height={1563}
               className="mb-4 block h-12 w-12"
             />
-            <p className="max-w-[280px] text-sm leading-relaxed text-white/40">
+            <p className="mb-5 max-w-[280px] text-sm leading-relaxed text-white/40">
               Ankara merkezli profesyonel drone çekim hizmetleri. İnşaat, gayrimenkul ve
               kurumsal projeler.
             </p>
+            <div className="flex gap-3">
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 text-white/50 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+                >
+                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24">
+                    {social.icon}
+                  </svg>
+                </a>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -44,7 +80,7 @@ export default function Footer() {
                 <li key={service}>
                   <a
                     href="#services"
-                    className="text-sm text-white/50 transition-colors duration-200 hover:text-brand-white"
+                    className="rounded text-sm text-white/50 transition-colors duration-200 hover:text-brand-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
                   >
                     {service}
                   </a>
@@ -62,7 +98,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-white/50 transition-colors duration-200 hover:text-brand-white"
+                    className="rounded text-sm text-white/50 transition-colors duration-200 hover:text-brand-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
                   >
                     {link.label}
                   </a>
