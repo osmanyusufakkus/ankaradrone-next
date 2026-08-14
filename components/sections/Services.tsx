@@ -1,4 +1,5 @@
 import FadeUp from "@/components/ui/FadeUp";
+import Eyebrow from "@/components/ui/Eyebrow";
 
 type Service = {
   id: string;
@@ -65,11 +66,9 @@ export default function Services() {
   return (
     <section id="services" className="bg-brand-black py-25">
       <div className="mx-auto max-w-[1240px] px-8">
-        <FadeUp className="mb-18">
-          <span className="mb-3.5 inline-block rounded-pill border border-brand-blue/18 bg-brand-blue/8 px-4 py-1.5 text-[10px] font-bold tracking-[4px] text-brand-blue uppercase">
-            Neler Yapıyoruz
-          </span>
-          <h2 className="mb-3.5 font-display text-[clamp(38px,5vw,64px)] leading-none text-brand-white">
+        <FadeUp className="mb-20">
+          <Eyebrow>Neler Yapıyoruz</Eyebrow>
+          <h2 className="mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
             TÜM <span className="text-brand-blue">HİZMETLER</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">

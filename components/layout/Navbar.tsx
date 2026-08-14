@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#packages", label: "Paketler" },
-  { href: "#services", label: "Hizmetler" },
-  { href: "#references", label: "Referanslar" },
+  { href: "/#packages", label: "Paketler" },
+  { href: "/#services", label: "Hizmetler" },
+  { href: "/#references", label: "Referanslar" },
+  { href: "/projeler", label: "Projeler" },
 ];
 
 export default function Navbar() {
@@ -27,7 +29,7 @@ export default function Navbar() {
           : "border-brand-blue/12 bg-brand-black/88"
       }`}
     >
-      <a href="#hero" className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue">
+      <Link href="/" className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue">
         <Image
           src="/images/logo.jpg"
           alt="AnkaraDrone"
@@ -36,25 +38,25 @@ export default function Navbar() {
           priority
           className="h-13 w-13"
         />
-      </a>
+      </Link>
       <ul className="flex list-none items-center gap-9 max-md:hidden">
         {NAV_LINKS.map((link) => (
           <li key={link.href}>
-            <a
+            <Link
               href={link.href}
               className="rounded text-[13px] font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-250 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue"
             >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
         <li>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="rounded-pill bg-brand-blue px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Teklif Al
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

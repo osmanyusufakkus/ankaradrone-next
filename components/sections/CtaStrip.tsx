@@ -6,7 +6,7 @@ export default function CtaStrip() {
     <div className="relative overflow-hidden border-y border-brand-blue/15 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_50%,#0d1a2e_100%)] py-20 text-center before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_60%_100%_at_50%_50%,rgba(33,150,243,.08)_0%,transparent_70%)]">
       <div className="relative mx-auto max-w-[1240px] px-8">
         <FadeUp>
-          <h2 className="mb-4.5 font-display text-[clamp(36px,5vw,68px)] tracking-wide text-brand-white">
+          <h2 className="mb-4.5 font-display text-[clamp(40px,5.5vw,76px)] leading-[0.95] tracking-wide text-brand-white">
             PROJENİZ İÇİN <span className="text-brand-blue">TEKLIF</span> ALIN
           </h2>
           <p className="mb-10 text-[17px] font-light text-brand-offwhite">

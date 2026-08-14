@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
 export default function Hero() {
@@ -58,15 +59,12 @@ export default function Hero() {
       </div>
 
       <div className="relative z-30 flex flex-col items-center">
-        <div
-          className="mb-5 animate-hero-in text-[11px] font-bold tracking-[4px] text-brand-blue uppercase"
-          style={{ animationDelay: "0.05s" }}
-        >
-          Ankara · Türkiye · Hava Çekimleri
+        <div className="animate-hero-in" style={{ animationDelay: "0.05s" }}>
+          <Eyebrow className="justify-center">Ankara · Türkiye · Hava Çekimleri</Eyebrow>
         </div>
 
         <h1
-          className="mb-7 animate-hero-in font-display text-[clamp(60px,9vw,130px)] leading-[0.9] tracking-[2px] text-brand-white"
+          className="mb-8 animate-hero-in font-display text-[clamp(64px,10vw,150px)] leading-[0.88] tracking-[1px] text-brand-white"
           style={{ animationDelay: "0.15s" }}
         >
           ANKARA
@@ -75,7 +73,7 @@ export default function Hero() {
         </h1>
 
         <p
-          className="mb-11 max-w-[560px] animate-hero-in text-[17px] leading-relaxed font-light text-brand-offwhite"
+          className="mb-11 max-w-[560px] animate-hero-in text-[18px] leading-relaxed font-light text-brand-offwhite"
           style={{ animationDelay: "0.3s" }}
         >
           İnşaat, gayrimenkul ve kurumsal projeleriniz için profesyonel drone çekimleri, 3D

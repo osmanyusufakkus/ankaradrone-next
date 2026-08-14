@@ -49,6 +49,8 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${bebasNeue.variable} ${raleway.variable}`}>
       <body>
+        <div aria-hidden className="vignette-overlay" />
+        <div aria-hidden className="grain-overlay" />
         <ScrollProgress />
         <Navbar />
         {children}

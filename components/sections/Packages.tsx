@@ -1,6 +1,7 @@
 import FadeUp from "@/components/ui/FadeUp";
 import VideoCard from "@/components/ui/VideoCard";
 import Button from "@/components/ui/Button";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
 type Package = {
@@ -130,11 +131,9 @@ export default function Packages() {
   return (
     <section id="packages" className="bg-brand-dark py-25">
       <div className="mx-auto max-w-[1240px] px-8">
-        <FadeUp className="mb-18">
-          <span className="mb-3.5 inline-block rounded-pill border border-brand-blue/18 bg-brand-blue/8 px-4 py-1.5 text-[10px] font-bold tracking-[4px] text-brand-blue uppercase">
-            Çekim Paketleri
-          </span>
-          <h2 className="mb-3.5 font-display text-[clamp(38px,5vw,64px)] leading-none text-brand-white">
+        <FadeUp className="mb-20">
+          <Eyebrow>Çekim Paketleri</Eyebrow>
+          <h2 className="mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
             HİZMET <span className="text-brand-blue">PAKETLERİMİZ</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
