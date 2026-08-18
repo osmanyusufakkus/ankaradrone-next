@@ -23,6 +23,10 @@ type Reference = {
   youtubeVertical?: boolean;
 };
 
+// TODO(içerik): Bu listenin tamamı yer tutucudur. Yayına almadan önce yalnızca
+// gerçekten çalıştığınız firmaları bırakın. Bir firmanın adını ve logosunu
+// izinsiz kullanmak marka hakkı ihlali sayılabilir — referans göstermek için
+// müşteriden yazılı onay alın.
 const REFERENCES: Reference[] = [
   {
     id: "ictas-insaat",
@@ -32,7 +36,7 @@ const REFERENCES: Reference[] = [
     color: "rgba(33,150,243,.25)",
     label: "İçtaş İnşaat – Şantiye Çekimi",
     videoSrc: PLACEHOLDER_VIDEO_SRC,
-    logoUrl: "/images/references/toki.png",
+    // Elimizde İçtaş logosu yok; baş harf rozeti gösterilir.
   },
   {
     id: "emlak-konut",
@@ -52,6 +56,7 @@ const REFERENCES: Reference[] = [
     color: "rgba(76,175,80,.2)",
     label: "TOKİ – Hava Belgeleme",
     videoSrc: PLACEHOLDER_VIDEO_SRC,
+    logoUrl: "/images/references/toki.png",
   },
   {
     id: "ankamall",
@@ -120,7 +125,7 @@ const REFERENCES: Reference[] = [
 
 export default function References() {
   return (
-    <section id="references" className="bg-brand-dark py-20">
+    <section id="references" className="scroll-mt-24 bg-brand-dark py-20">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-16">
           <Eyebrow>Referanslarımız</Eyebrow>
@@ -128,7 +133,7 @@ export default function References() {
             BİZE <span className="text-brand-blue">GÜVENENLER</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
-            Fare ile üzerine gelin — markayla ilgili çekimimizi izleyin.
+            Kartlara tıklayarak o marka için çektiğimiz videoyu izleyebilirsiniz.
           </p>
         </FadeUp>
 
@@ -142,6 +147,7 @@ export default function References() {
                 videoSrc={ref.videoSrc}
                 youtubeId={ref.youtubeId}
                 youtubeVertical={ref.youtubeVertical}
+                label={ref.label}
                 className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
                 placeholder={
                   <>
@@ -157,7 +163,7 @@ export default function References() {
                       </div>
                     ) : (
                       <div
-                        className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl font-display text-3xl font-black text-white"
+                        className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl font-display text-3xl text-white"
                         style={{ background: ref.color }}>
                         {ref.code}
                       </div>

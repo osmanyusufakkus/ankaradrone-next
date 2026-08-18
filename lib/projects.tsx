@@ -22,6 +22,7 @@ export type Project = {
   gallery?: string[];
 };
 
+// TODO(içerik): Başlıklar, kapak görselleri ve videolar yer tutucudur.
 export const PROJECTS: Project[] = [
   {
     slug: "proje-1",

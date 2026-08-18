@@ -129,8 +129,15 @@ body {
   transform: translateY(0);
 }
 
-/* Cinematic atmosphere: faint film grain + edge vignette over the whole site */
+/* Cinematic atmosphere: faint film grain + edge vignette over the whole site.
+   The grain is a fixed, full-viewport layer with mix-blend-mode, which makes
+   the compositor re-blend the entire screen on every scroll frame. That's free
+   on a desktop GPU and the first thing to stutter on a mid-range Android — so
+   it's desktop-only. At phone size and 3.5% opacity the effect was barely
+   perceptible anyway. The vignette below is a plain gradient with no blending,
+   cheap enough to keep everywhere. */
 .grain-overlay {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 250;
@@ -140,10 +147,41 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+@media (min-width: 768px) {
+  .grain-overlay {
+    display: block;
+  }
+}
+
 .vignette-overlay {
   position: fixed;
   inset: 0;
   z-index: 249;
   pointer-events: none;
   background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* Visitors who've asked their OS to reduce motion — often because animation
+   triggers migraine or vestibular symptoms — get the same site without the
+   floating drone, the scroll pulse, the fade-ups or the smooth scrolling.
+   `.fade-up` needs an explicit reset: it starts at opacity 0 and only becomes
+   visible via a transition, so zeroing durations alone would leave content
+   hidden. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
 }

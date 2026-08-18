@@ -4,7 +4,7 @@ import Packages from "@/components/sections/Packages";
 import Services from "@/components/sections/Services";
 import References from "@/components/sections/References";
 import Testimonials from "@/components/sections/Testimonials";
-import CtaStrip from "@/components/sections/CtaStrip";
+import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <Services />
       <References />
       <Testimonials />
-      <CtaStrip />
+      <Contact />
     </>
   );
 }

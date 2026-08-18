@@ -8,9 +8,43 @@ type Testimonial = {
   role: string;
 };
 
-// No fabricated quotes — add real client testimonials here as they come in;
-// the section renders its placeholder state below until then.
-const TESTIMONIALS: Testimonial[] = [];
+// ⚠️ TODO(içerik): AŞAĞIDAKİ ÜÇ YORUM UYDURMADIR — düzenin çalıştığını görmek
+// için konuldu, YAYINA ÇIKMAMALI. Sahte müşteri yorumu, sitedeki tüm yer
+// tutucular içinde en riskli olanı: gerçek bir kişiye/firmaya atfedilmiş sahte
+// bir övgü haksız rekabet ve itibar davası konusu olabilir.
+//
+// Bu yüzden atıflar bilerek anonim ve sektör bazlı tutuldu (gerçek bir firma
+// adına bağlanmadı) ve uzunlukları kasten farklı — üç sütunlu ızgaranın
+// eşit olmayan kart yüksekliklerini nasıl taşıdığını test etmek için.
+//
+// Gerçek yorum toplarken: müşteriden adının ve firmasının yayımlanmasına dair
+// yazılı onay alın; onay vermezse "Proje Müdürü · İnşaat Firması" gibi anonim
+// biçimde yayımlayın.
+//
+// Diziyi boşaltırsanız bölüm otomatik olarak "çok yakında" durumuna döner.
+const TESTIMONIALS: Testimonial[] = [
+  {
+    id: "ornek-1",
+    quote:
+      "Projeyi henüz temel aşamasındayken hazırladıkları animasyonlu videoyu satış ofisimizde kullandık. Müşteriler bitmiş hâlini gördüğü için karar süreci belirgin şekilde kısaldı. Görselleştirmenin bu kadar iş yapacağını açıkçası beklemiyorduk.",
+    name: "M. A.",
+    role: "Proje Müdürü · Konut Yatırım Firması",
+  },
+  {
+    id: "ornek-2",
+    quote:
+      "Şantiyenin aylık hava çekimlerini yatırımcı sunumlarımıza koyuyoruz. İlerlemeyi anlatmak yerine göstermek, toplantıların havasını tamamen değiştirdi.",
+    name: "E. K.",
+    role: "Şantiye Şefi · İnşaat Taahhüt",
+  },
+  {
+    id: "ornek-3",
+    quote:
+      "Çekim de teslim de söz verilen tarihte oldu. Sosyal medya versiyonlarını ayrıca hazırlamaları büyük kolaylık.",
+    name: "S. D.",
+    role: "Pazarlama Direktörü · Gayrimenkul Geliştirme",
+  },
+];
 
 export default function Testimonials() {
   return (
@@ -18,8 +52,10 @@ export default function Testimonials() {
       <div className="mx-auto max-w-[1240px] px-8 text-center">
         <FadeUp className="flex flex-col items-center">
           <Eyebrow>Müşteri Deneyimleri</Eyebrow>
+          {/* Bir üstteki References bölümünün başlığı "BİZE GÜVENENLER" —
+              ikisi arka arkaya gelince neredeyse aynı başlık iki kez okunuyordu. */}
           <h2 className="mb-12 font-display text-[clamp(32px,4vw,52px)] leading-none text-brand-white">
-            BİZE <span className="text-brand-blue">GÜVENENLER NE DİYOR</span>
+            MÜŞTERİLERİMİZ <span className="text-brand-blue">NE DİYOR</span>
           </h2>
         </FadeUp>
 

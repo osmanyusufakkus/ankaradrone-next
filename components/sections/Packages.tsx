@@ -8,6 +8,8 @@ type Package = {
   id: string;
   num: string;
   tag: string;
+  /** Plain-text version of `title`, for aria labels — `title` carries layout markup. */
+  label: string;
   title: React.ReactNode;
   desc: string;
   features: string[];
@@ -26,6 +28,7 @@ const PACKAGES: Package[] = [
     id: "3d-modelleme",
     num: "01",
     tag: "En Popüler",
+    label: "3D Modelleme & Animasyonlu Video",
     videoSrc: "https://www.youtube.com/shorts/V_-NrZUmLfM?feature=share",
     youtubeId: "V_-NrZUmLfM",
     youtubeVertical: true,
@@ -61,6 +64,7 @@ const PACKAGES: Package[] = [
     id: "ilerleme-takip",
     num: "02",
     tag: "İnşaat & Şantiye",
+    label: "İlerleme Takip Çekimleri",
     videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
@@ -95,6 +99,7 @@ const PACKAGES: Package[] = [
     id: "konut-tanitim",
     num: "03",
     tag: "Gayrimenkul",
+    label: "Konut & Site Tanıtım Filmi",
     videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
@@ -129,6 +134,7 @@ const PACKAGES: Package[] = [
     id: "kurumsal-etkinlik",
     num: "04",
     tag: "Kurumsal",
+    label: "Kurumsal & Etkinlik Çekimi",
     videoSrc: PLACEHOLDER_VIDEO_SRC,
     title: (
       <>
@@ -163,7 +169,7 @@ const PACKAGES: Package[] = [
 
 export default function Packages() {
   return (
-    <section id="packages" className="bg-brand-dark py-25">
+    <section id="packages" className="scroll-mt-24 bg-brand-dark py-25">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Çekim Paketleri</Eyebrow>
@@ -171,8 +177,8 @@ export default function Packages() {
             HİZMET <span className="text-brand-blue">PAKETLERİMİZ</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
-            Her proje için özelleştirilmiş drone çekim paketleri. Hover ile
-            video önizlemesi görün.
+            Her proje için özelleştirilmiş drone çekim paketleri. Örnek videoyu
+            izlemek için kartlara tıklayın.
           </p>
         </FadeUp>
 
@@ -188,6 +194,7 @@ export default function Packages() {
                   videoSrc={pkg.videoSrc}
                   youtubeId={pkg.youtubeId}
                   youtubeVertical={pkg.youtubeVertical}
+                  label={pkg.label}
                   className={`aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)] ${pkg.gradient}`}
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}
@@ -229,7 +236,7 @@ export default function Packages() {
                 </ul>
                 <div className="flex flex-wrap gap-3.5">
                   <Button href="#contact">Fiyat Al</Button>
-                  <Button href="#" variant="outline">
+                  <Button href="/projeler" variant="outline">
                     Daha Fazla Örnek Gör
                   </Button>
                 </div>

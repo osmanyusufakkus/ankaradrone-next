@@ -9,6 +9,10 @@ type Stat = {
   icon: React.ReactNode;
 };
 
+// TODO(içerik): "200+" ve "50+" rakamları yer tutucudur. Doğrulanabilir gerçek
+// sayılarla değiştirin — abartılı bir rakam, müşteri kontrol ettiğinde güveni
+// kazandırmak yerine kaybettirir. Emin olunamayan bir metrik yerine hiç
+// göstermemek daha iyidir.
 const STATS: Stat[] = [
   {
     id: "tamamlanan-proje",

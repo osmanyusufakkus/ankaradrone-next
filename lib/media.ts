@@ -1,3 +1,8 @@
+// TODO(içerik): Bu üçüncü parti (w3schools) örnek klip yayına ÇIKMAMALI —
+// hem amatör durur hem de o sunucu yavaşlarsa/engellerse sitedeki tüm kart
+// önizlemeleri bozulur. Gerçek klipleri public/videos/ altına koyup buradaki
+// tek satırı değiştirmek yeterli.
+//
 // Stand-in clip used everywhere a real AnkaraDrone video hasn't been shot/delivered yet.
 // Each data entry that needs a video (see components/sections/Packages.tsx and
 // References.tsx) has its own `videoSrc` field defaulting to this — swap that one

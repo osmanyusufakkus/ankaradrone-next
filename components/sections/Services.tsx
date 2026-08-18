@@ -64,7 +64,7 @@ const SERVICES: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="bg-brand-black py-25">
+    <section id="services" className="scroll-mt-24 bg-brand-black py-25">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Neler Yapıyoruz</Eyebrow>
@@ -94,11 +94,16 @@ export default function Services() {
               <p className="mb-4 text-sm leading-relaxed font-light text-brand-offwhite">
                 {service.desc}
               </p>
+              {/* Every card used to read "Detaylı Bilgi →" while pointing at the
+                  contact form — six identical links to a page that isn't a detail
+                  page. The label now says where it actually goes, and names the
+                  service so screen-reader users hear six distinct links. */}
               <a
                 href="#contact"
                 className="inline-block rounded text-xs font-semibold tracking-wide text-brand-blue uppercase decoration-brand-blue underline-offset-4 [text-decoration-line:underline] [text-decoration-color:transparent] transition-[text-decoration-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue group-hover:[text-decoration-color:var(--color-brand-blue)]"
               >
-                Detaylı Bilgi →
+                Teklif Al
+                <span className="sr-only"> — {service.title}</span> →
               </a>
             </FadeUp>
           ))}
