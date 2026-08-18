@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { createPortal } from "react-dom";
-import { useMounted } from "@/hooks/useMounted";
 import { useHoverCapable, useReducedMotion } from "@/hooks/useMediaQuery";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
+import VideoLightbox from "@/components/ui/VideoLightbox";
 import { COVER_BLUR_DATA_URL, youtubeThumbnail } from "@/lib/youtube";
 
 /**
@@ -25,16 +24,13 @@ type VideoCardProps = {
   youtubeId?: string;
   /** Video 9:16 (Shorts) ise true — hem kapak varyantını hem lightbox kutusunu belirler. */
   youtubeVertical?: boolean;
-  /** Hover önizlemesinin başlayacağı saniye — girişteki yavaş açılışı atlayıp "vitrin anından" başlatır. */
+  /** Hover önizlemesinin başlayacağı saniye — girişteki yavaş açılışı atlar. */
   previewStart?: number;
   /** Kapak görselini elle vermek için. Boşsa `youtubeId`'den türetilir. */
   posterSrc?: string;
   /** next/image `sizes` değeri — kartın gerçek genişliğine göre verilmeli. */
   posterSizes?: string;
-  /**
-   * Kapağın üzerine binen marka rengi katmanı (Tailwind gradient sınıfı).
-   * Durağan hâlde kapağı renklendirir, önizleme oynarken saydamlaşır.
-   */
+  /** Kapağın üzerine binen marka rengi katmanı (Tailwind gradient sınıfı). */
   tintClassName?: string;
   /** Bu kartın ne gösterdiği — ekran okuyucu etiketi ve lightbox başlığı. */
   label: string;
@@ -67,7 +63,6 @@ export default function VideoCard({
 }: VideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const intentTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -75,7 +70,6 @@ export default function VideoCard({
   const [previewReady, setPreviewReady] = useState(false);
   const [hovering, setHovering] = useState(false);
 
-  const mounted = useMounted();
   const canHover = useHoverCapable();
   const reducedMotion = useReducedMotion();
 
@@ -99,24 +93,6 @@ export default function VideoCard({
   }, []);
 
   useEffect(() => stopPreview, [stopPreview]);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    const card = cardRef.current;
-    closeButtonRef.current?.focus();
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
-      // Odağı lightbox'ı açan karta geri gönder, yoksa sayfanın başına düşer.
-      card?.focus();
-    };
-  }, [lightboxOpen]);
 
   const handleEnter = () => {
     if (!canHover) return;
@@ -253,55 +229,15 @@ export default function VideoCard({
         </div>
       )}
 
-      {mounted &&
-        lightboxOpen &&
-        createPortal(
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={label}
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxOpen(false);
-            }}
-            className="animate-modal-fade fixed inset-0 z-200 flex items-center justify-center bg-brand-black/70 backdrop-blur-xl"
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={`animate-modal-pop relative overflow-hidden rounded-drone bg-black shadow-[0_40px_120px_rgba(0,0,0,.65)] ring-1 ring-white/10 ${
-                youtubeId && !youtubeVertical
-                  ? "aspect-video w-[min(92vw,880px)]"
-                  : "aspect-9/16 w-[min(90vw,420px)]"
-              }`}
-            >
-              {youtubeId ? (
-                // Lightbox videoyu baştan oynatır — previewStart yalnızca hover içindir.
-                <YouTubeEmbed videoId={youtubeId} title={label} autoplay />
-              ) : (
-                <video
-                  autoPlay
-                  loop
-                  playsInline
-                  controls
-                  src={videoSrc}
-                  className="h-full w-full bg-black object-cover"
-                />
-              )}
-              <button
-                ref={closeButtonRef}
-                onClick={() => setLightboxOpen(false)}
-                aria-label="Kapat"
-                className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-colors duration-200 hover:bg-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-          </div>,
-          document.body,
-        )}
+      <VideoLightbox
+        open={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        label={label}
+        youtubeId={youtubeId}
+        youtubeVertical={youtubeVertical}
+        videoSrc={videoSrc}
+        returnFocusTo={cardRef}
+      />
     </div>
   );
 }

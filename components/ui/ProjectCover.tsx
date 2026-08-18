@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Project } from "@/lib/projects";
+import { COVER_BLUR_DATA_URL, youtubeThumbnail } from "@/lib/youtube";
 
 type ProjectCoverProps = {
   project: Project;
@@ -14,19 +15,30 @@ export default function ProjectCover({
   priority = false,
   className = "",
 }: ProjectCoverProps) {
-  if (project.coverImage) {
+  // Elle verilmiş kapak varsa o kazanır; yoksa YouTube id'sinden türetilir.
+  // Kapak görselini ayrıca hazırlamak gerekmiyor.
+  const cover =
+    project.coverImage ??
+    (project.youtubeId
+      ? youtubeThumbnail(project.youtubeId, project.youtubeVertical)
+      : undefined);
+
+  if (cover) {
     return (
       <Image
-        src={project.coverImage}
+        src={cover}
         alt={project.title}
         fill
         sizes={sizes}
         priority={priority}
+        placeholder="blur"
+        blurDataURL={COVER_BLUR_DATA_URL}
         className={`object-cover ${className}`}
       />
     );
   }
 
+  // Ne kapak ne video id'si var — vurgu rengiyle nötr bir yer tutucu.
   return (
     <div
       className={`absolute inset-0 flex items-center justify-center ${className}`}

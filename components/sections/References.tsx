@@ -1,191 +1,30 @@
-import Image from "next/image";
 import FadeUp from "@/components/ui/FadeUp";
-import VideoCard from "@/components/ui/VideoCard";
 import Eyebrow from "@/components/ui/Eyebrow";
-import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
+import ReferenceWall from "@/components/ui/ReferenceWall";
+import { REFERENCE_PROJECTS } from "@/lib/projects";
 
-// Drop a logo file in public/images/references/ and set `logoUrl` (e.g. "/images/references/ictas.png")
-// to swap a card's initials badge for the real company logo — no other code changes needed.
-// Same goes for `videoSrc`: each reference owns its own clip, point it at the real
-// hover-preview footage per client once it's ready.
-type Reference = {
-  id: string;
-  code: string;
-  name: string;
-  sector: string;
-  color: string;
-  label: string;
-  videoSrc: string;
-  logoUrl?: string;
-  /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
-  youtubeId?: string;
-  /** Set true if that YouTube upload is a 9:16 Shorts clip rather than 16:9. */
-  youtubeVertical?: boolean;
-};
-
-// TODO(içerik): Bu listenin tamamı yer tutucudur. Yayına almadan önce yalnızca
-// gerçekten çalıştığınız firmaları bırakın. Bir firmanın adını ve logosunu
-// izinsiz kullanmak marka hakkı ihlali sayılabilir — referans göstermek için
-// müşteriden yazılı onay alın.
-const REFERENCES: Reference[] = [
-  {
-    id: "ictas-insaat",
-    code: "İÇ",
-    name: "İÇTAŞ İNŞAAT",
-    sector: "İnşaat",
-    color: "rgba(33,150,243,.25)",
-    label: "İçtaş İnşaat – Şantiye Çekimi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-    // Elimizde İçtaş logosu yok; baş harf rozeti gösterilir.
-  },
-  {
-    id: "emlak-konut",
-    code: "EM",
-    name: "EMLAK KONUT",
-    sector: "Gayrimenkul",
-    color: "rgba(255,150,0,.2)",
-    label: "Emlak Konut – Proje Tanıtım",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-    logoUrl: "/images/references/emlakkonut.png",
-  },
-  {
-    id: "toki",
-    code: "TO",
-    name: "TOKİ",
-    sector: "Konut",
-    color: "rgba(76,175,80,.2)",
-    label: "TOKİ – Hava Belgeleme",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-    logoUrl: "/images/references/toki.png",
-  },
-  {
-    id: "ankamall",
-    code: "AN",
-    name: "ANKAMall",
-    sector: "Ticaret",
-    color: "rgba(233,30,99,.2)",
-    label: "ANKAmall – Etkinlik Çekimi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "aeropark",
-    code: "AE",
-    name: "AEROPARK",
-    sector: "Sanayi",
-    color: "rgba(255,87,34,.2)",
-    label: "Aeropark – Tesis Dokümantasyonu",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "kaya-yapi",
-    code: "KY",
-    name: "KAYA YAPI",
-    sector: "İnşaat",
-    color: "rgba(33,150,243,.2)",
-    label: "Kaya Yapı – 3D Modelleme",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "akfen",
-    code: "AK",
-    name: "AKFEN",
-    sector: "Altyapı",
-    color: "rgba(156,39,176,.2)",
-    label: "Akfen – Proje Belgeleme",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "ozak-gyo",
-    code: "OZ",
-    name: "ÖZAK GYO",
-    sector: "Gayrimenkul",
-    color: "rgba(0,188,212,.2)",
-    label: "Özak GYO – Satış Filmi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "setur",
-    code: "ST",
-    name: "SETUR",
-    sector: "Turizm",
-    color: "rgba(255,193,7,.2)",
-    label: "Setur – Tanıtım Filmi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-  {
-    id: "meb",
-    code: "MB",
-    name: "MEB",
-    sector: "Kamu",
-    color: "rgba(33,150,243,.2)",
-    label: "MEB – Kampüs Çekimi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
-  },
-];
-
+// Bu bölüm artık kendi veri listesini tutmuyor — lib/projects.tsx içindeki tek
+// kaynaktan `showAsReference` işaretli işleri okuyor. Böylece her referansın
+// gideceği bir proje sayfası olduğu garanti.
 export default function References() {
   return (
-    <section id="references" className="scroll-mt-24 bg-brand-dark py-20">
+    <section id="references" className="scroll-mt-24 bg-brand-dark py-25">
       <div className="mx-auto max-w-[1240px] px-8">
-        <FadeUp className="mb-16">
+        <FadeUp className="mb-14">
           <Eyebrow>Referanslarımız</Eyebrow>
           <h2 className="mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
             BİZE <span className="text-brand-blue">GÜVENENLER</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
-            Kartlara tıklayarak o marka için çektiğimiz videoyu izleyebilirsiniz.
+            Bir markanın üzerine gelin, o iş için çektiğimiz video yandaki panoda
+            görünsün. Tıkladığınızda video büyür ve projenin tamamına
+            geçebilirsiniz.
           </p>
         </FadeUp>
 
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:pb-0 md:grid-cols-5 [&::-webkit-scrollbar]:hidden">
-          {REFERENCES.map((ref, i) => (
-            <FadeUp
-              key={ref.id}
-              delay={`${i * 0.05}s`}
-              className="w-[72%] shrink-0 snap-center sm:w-auto sm:shrink">
-              <VideoCard
-                videoSrc={ref.videoSrc}
-                youtubeId={ref.youtubeId}
-                youtubeVertical={ref.youtubeVertical}
-                label={ref.label}
-                posterSizes="(max-width: 640px) 72vw, (max-width: 768px) 33vw, 220px"
-                className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
-                placeholder={
-                  <>
-                    {ref.logoUrl ? (
-                      <div className="relative h-16 w-32 max-w-[75%] shrink-0">
-                        <Image
-                          src={ref.logoUrl}
-                          alt={ref.name}
-                          fill
-                          sizes="128px"
-                          className="object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl font-display text-3xl text-white"
-                        style={{ background: ref.color }}>
-                        {ref.code}
-                      </div>
-                    )}
-                    <div className="text-center font-display text-lg tracking-wide text-white/70">
-                      {ref.name}
-                    </div>
-                    <div className="text-[10px] tracking-[2px] text-white/30 uppercase">
-                      {ref.sector}
-                    </div>
-                  </>
-                }
-                overlayContent={
-                  <span className="absolute right-2.5 bottom-2.5 left-2.5 text-[11px] font-bold tracking-wide text-white [text-shadow:0_2px_8px_rgba(0,0,0,.8)]">
-                    {ref.label}
-                  </span>
-                }
-              />
-            </FadeUp>
-          ))}
-        </div>
+        <FadeUp delay="0.1s">
+          <ReferenceWall projects={REFERENCE_PROJECTS} />
+        </FadeUp>
       </div>
     </section>
   );

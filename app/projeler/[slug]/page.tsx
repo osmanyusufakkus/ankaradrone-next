@@ -49,6 +49,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           videoSrc={project.videoSrc}
           youtubeId={project.youtubeId}
           youtubeVertical={project.youtubeVertical}
+          previewStart={project.previewStart}
           label={project.title}
           posterSizes="(max-width: 768px) 100vw, 980px"
           className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-1.5 border-white/8"

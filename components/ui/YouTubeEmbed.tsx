@@ -34,16 +34,25 @@ export default function YouTubeEmbed({
   const src = youtubeEmbedUrl({ videoId, background, autoplay, start });
 
   if (background) {
-    // Cover-fill trick: size the iframe by the *opposite* viewport unit so it
-    // never shrinks below the container in either dimension, then center +
-    // clip it — same idea as object-fit: cover for a native <video>. The
-    // ratio swaps depending on the source's own aspect ratio.
+    // Kapak-doldurma: iframe'i *karşıt* eksenin biriminden ölçüp iki boyutta da
+    // kabın altına düşmesini engelliyoruz, sonra ortalayıp kırpıyoruz — yerel
+    // bir <video> için `object-fit: cover` ne yapıyorsa aynısı.
+    //
+    // Birimler `vw/vh` DEĞİL `cqw/cqh`: ölçü ekrandan değil kabın kendisinden
+    // alınmalı. Bu kod ilk olarak tüm ekranı kaplayan Hero için yazıldığından
+    // ekran birimleri doğru sonuç veriyordu; aynı bileşen 340x604'lük bir kartın
+    // içine girince hesap hâlâ ekrana göre yapılıyor ve iframe 506x2560'a
+    // şişiyordu (yükseklikte 4.24 kat) — yani karenin yalnızca %24'lük dar bir
+    // şeridi görünüyordu. Kap birimleriyle iframe tam kabın ölçüsüne oturuyor.
     const coverSize = vertical
-      ? "h-[177.78vw] min-h-full w-[56.25vh] min-w-full"
-      : "h-[56.25vw] min-h-full w-[177.78vh] min-w-full";
+      ? "h-[177.78cqw] min-h-full w-[56.25cqh] min-w-full"
+      : "h-[56.25cqw] min-h-full w-[177.78cqh] min-w-full";
 
     return (
-      <div className={`pointer-events-none overflow-hidden ${className}`}>
+      // `container-type: size` olmadan cqw/cqh'nin dayanacağı bir kap yok.
+      <div
+        className={`pointer-events-none overflow-hidden [container-type:size] ${className}`}
+      >
         <iframe
           src={src}
           title={title}
