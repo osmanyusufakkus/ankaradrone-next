@@ -3,9 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useMounted } from "@/hooks/useMounted";
+import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
 
 type VideoCardProps = {
+  /** Short hover-preview clip — always a local file, never YouTube (needs instant, flicker-free play/pause). */
   videoSrc: string;
+  /**
+   * Real YouTube video id for the lightbox ("watch the full video") once
+   * footage is uploaded there. Leave unset to keep using `videoSrc` in the
+   * lightbox too — no other code changes needed either way.
+   */
+  youtubeId?: string;
   /** Content shown before hover (icon+label, or brand logo area) */
   placeholder: React.ReactNode;
   /** Small pill hint shown before hover, hidden while playing (packages only) */
@@ -20,6 +28,7 @@ type VideoCardProps = {
 
 export default function VideoCard({
   videoSrc,
+  youtubeId,
   placeholder,
   hoverHint,
   overlayContent,
@@ -122,16 +131,22 @@ export default function VideoCard({
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="animate-modal-pop relative aspect-9/16 w-[min(90vw,420px)] overflow-hidden rounded-drone shadow-[0_40px_120px_rgba(0,0,0,.65)] ring-1 ring-white/10"
+              className={`animate-modal-pop relative overflow-hidden rounded-drone bg-black shadow-[0_40px_120px_rgba(0,0,0,.65)] ring-1 ring-white/10 ${
+                youtubeId ? "aspect-video w-[min(92vw,880px)]" : "aspect-9/16 w-[min(90vw,420px)]"
+              }`}
             >
-              <video
-                autoPlay
-                loop
-                playsInline
-                controls
-                src={videoSrc}
-                className="h-full w-full bg-black object-cover"
-              />
+              {youtubeId ? (
+                <YouTubeEmbed videoId={youtubeId} title="Proje videosu" autoplay />
+              ) : (
+                <video
+                  autoPlay
+                  loop
+                  playsInline
+                  controls
+                  src={videoSrc}
+                  className="h-full w-full bg-black object-cover"
+                />
+              )}
               <button
                 ref={closeButtonRef}
                 onClick={() => setLightboxOpen(false)}

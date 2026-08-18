@@ -17,6 +17,8 @@ type Reference = {
   label: string;
   videoSrc: string;
   logoUrl?: string;
+  /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
+  youtubeId?: string;
 };
 
 const REFERENCES: Reference[] = [
@@ -136,6 +138,7 @@ export default function References() {
               className="w-[72%] shrink-0 snap-center sm:w-auto sm:shrink">
               <VideoCard
                 videoSrc={ref.videoSrc}
+                youtubeId={ref.youtubeId}
                 className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
                 placeholder={
                   <>

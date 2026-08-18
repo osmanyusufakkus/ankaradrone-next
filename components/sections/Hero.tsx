@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
-import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
+import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
+import { HERO_YOUTUBE_ID, PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
 export default function Hero() {
   const droneRef = useRef<HTMLDivElement>(null);
@@ -24,14 +25,23 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-35 pb-20 text-center"
     >
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        src={PLACEHOLDER_VIDEO_SRC}
-        className="absolute inset-0 z-0 h-full w-full object-cover opacity-40"
-      />
+      {HERO_YOUTUBE_ID ? (
+        <YouTubeEmbed
+          background
+          videoId={HERO_YOUTUBE_ID}
+          title="AnkaraDrone tanıtım videosu"
+          className="absolute inset-0 z-0 opacity-40"
+        />
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          src={PLACEHOLDER_VIDEO_SRC}
+          className="absolute inset-0 z-0 h-full w-full object-cover opacity-40"
+        />
+      )}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/80 via-brand-black/70 to-brand-black" />
       <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(33,150,243,0.18)_0%,transparent_70%)]" />
 

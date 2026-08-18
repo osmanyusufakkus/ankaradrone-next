@@ -11,6 +11,8 @@ export type Project = {
   title: string;
   accentColor: string;
   videoSrc: string;
+  /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
+  youtubeId?: string;
   coverImage?: string;
   description?: string;
   location?: string;

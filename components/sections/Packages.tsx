@@ -15,6 +15,8 @@ type Package = {
   icon: React.ReactNode;
   /** Each package owns its own clip — swap independently once real footage exists. */
   videoSrc: string;
+  /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
+  youtubeId?: string;
 };
 
 const PACKAGES: Package[] = [
@@ -152,6 +154,7 @@ export default function Packages() {
               <div className={`mx-auto w-full max-w-85 ${reverse ? "md:order-2" : "md:order-1"}`}>
                 <VideoCard
                   videoSrc={pkg.videoSrc}
+                  youtubeId={pkg.youtubeId}
                   className={`aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)] ${pkg.gradient}`}
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}

@@ -47,6 +47,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         <VideoCard
           videoSrc={project.videoSrc}
+          youtubeId={project.youtubeId}
           className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-1.5 border-white/8"
           hoverHint="▶ Videoyu Oynat"
           placeholder={
