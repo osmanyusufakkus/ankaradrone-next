@@ -148,6 +148,7 @@ export default function References() {
                 youtubeId={ref.youtubeId}
                 youtubeVertical={ref.youtubeVertical}
                 label={ref.label}
+                posterSizes="(max-width: 640px) 72vw, (max-width: 768px) 33vw, 220px"
                 className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
                 placeholder={
                   <>

@@ -89,6 +89,13 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${bebasNeue.variable} ${raleway.variable}`}>
       <body>
+        {/* Hover önizlemesi ancak kullanıcı bir karta geldiğinde iframe
+            oluşturuyor; el sıkışmayı şimdiden yaparak o ilk oynatmanın
+            gecikmesini birkaç yüz milisaniye kısaltıyoruz. React bu etiketleri
+            <head> içine kendisi taşır. */}
+        <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+        <link rel="preconnect" href="https://i.ytimg.com" />
+
         {/* Escaping "<" keeps a stray HTML tag in any of the values above from
             breaking out of the script element. */}
         <script

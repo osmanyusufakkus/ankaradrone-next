@@ -1,3 +1,4 @@
+import Link from "next/link";
 import FadeUp from "@/components/ui/FadeUp";
 import VideoCard from "@/components/ui/VideoCard";
 import Button from "@/components/ui/Button";
@@ -15,12 +16,23 @@ type Package = {
   features: string[];
   gradient: string;
   icon: React.ReactNode;
-  /** Each package owns its own clip — swap independently once real footage exists. */
-  videoSrc: string;
-  /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
+  /**
+   * Yalnızca henüz YouTube'a yüklenmemiş işler için geçici yerel klip.
+   * `youtubeId` verildiğinde buna hiç gerek yok.
+   */
+  videoSrc?: string;
+  /**
+   * İşin YouTube id'si. Verildiğinde üç şey birden bundan türer: kart kapağı,
+   * hover önizlemesi ve lightbox. Yani yeni bir iş eklemek için tek gereken bu.
+   */
   youtubeId?: string;
   /** Set true if that YouTube upload is a 9:16 Shorts clip rather than 16:9. */
   youtubeVertical?: boolean;
+  /**
+   * Hover önizlemesinin başlayacağı saniye. Klibin girişindeki logo/yavaş
+   * açılışı atlayıp doğrudan "vitrin anından" başlatmak için.
+   */
+  previewStart?: number;
 };
 
 const PACKAGES: Package[] = [
@@ -29,9 +41,10 @@ const PACKAGES: Package[] = [
     num: "01",
     tag: "En Popüler",
     label: "3D Modelleme & Animasyonlu Video",
-    videoSrc: "https://www.youtube.com/shorts/V_-NrZUmLfM?feature=share",
     youtubeId: "V_-NrZUmLfM",
     youtubeVertical: true,
+    // TODO(içerik): her iş için klibin en iyi anının saniyesini yazın.
+    previewStart: 3,
     title: (
       <>
         3D Modelleme &amp;
@@ -194,19 +207,24 @@ export default function Packages() {
                   videoSrc={pkg.videoSrc}
                   youtubeId={pkg.youtubeId}
                   youtubeVertical={pkg.youtubeVertical}
+                  previewStart={pkg.previewStart}
                   label={pkg.label}
-                  className={`aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)] ${pkg.gradient}`}
+                  posterSizes="(max-width: 768px) 100vw, 340px"
+                  // Gradyan artık kartın arka planı değil, kapağın ÜSTÜNDEKİ
+                  // renk katmanı — önizleme oynarken saydamlaşıyor.
+                  tintClassName={pkg.gradient}
+                  className="aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 bg-brand-dark shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)]"
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}
                   placeholder={
-                    <>
-                      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border-1.5 border-brand-blue/30 bg-brand-blue/12 backdrop-blur-sm">
+                    <div className="flex flex-col items-center gap-3 rounded-2xl bg-brand-black/35 px-5 py-4 backdrop-blur-sm">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full border-1.5 border-brand-blue/30 bg-brand-blue/12">
                         {pkg.icon}
                       </div>
-                      <span className="text-xs font-semibold tracking-[2px] text-white/40 uppercase">
-                        Örnek Video
+                      <span className="text-[11px] font-semibold tracking-[2px] text-white/70 uppercase">
+                        {pkg.tag}
                       </span>
-                    </>
+                    </div>
                   }
                 />
               </div>
@@ -234,16 +252,46 @@ export default function Packages() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-3.5">
-                  <Button href="#contact">Fiyat Al</Button>
-                  <Button href="/projeler" variant="outline">
-                    Daha Fazla Örnek Gör
-                  </Button>
-                </div>
+                {/* "Daha Fazla Örnek Gör" butonu dört pakette de aynıydı, yani
+                    /projeler'e giden dört özdeş link. Bölümün sonundaki tek
+                    "Tüm Projeler" kartında birleştirildi. */}
+                <Button href="#contact">Fiyat Al</Button>
               </div>
             </FadeUp>
           );
         })}
+
+        {/* Bölümü kapatan portföy kartı: dört paketi gezdikten sonra doğal
+            sonraki adım tüm işleri görmek. */}
+        <FadeUp className="mt-20">
+          <Link
+            href="/projeler"
+            className="group relative flex items-center justify-between gap-8 overflow-hidden rounded-drone border-1.5 border-brand-blue/20 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_55%,#0d1a2e_100%)] px-12 py-10 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-[0_28px_70px_rgba(33,150,243,.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex-col max-md:items-start max-md:gap-6 max-md:px-8 max-md:py-8"
+          >
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_120%_at_80%_50%,rgba(33,150,243,.14)_0%,transparent_70%)]"
+            />
+            <span className="relative">
+              <span className="mb-2 block text-[11px] font-bold tracking-[4px] text-brand-blue uppercase">
+                Portföy
+              </span>
+              <span className="block font-display text-[clamp(28px,3.5vw,44px)] leading-none tracking-wide text-brand-white">
+                TÜM PROJELERİMİZİ GÖRÜN
+              </span>
+              <span className="mt-3 block max-w-125 text-sm leading-relaxed font-light text-brand-offwhite">
+                Paketlerin dışında kalan işler, farklı sektörlerden çekimler ve
+                proje detayları burada.
+              </span>
+            </span>
+            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-1.5 border-brand-blue/40 bg-brand-blue/12 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white">
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden>
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </Link>
+        </FadeUp>
       </div>
     </section>
   );

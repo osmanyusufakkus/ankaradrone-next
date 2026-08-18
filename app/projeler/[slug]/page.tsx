@@ -50,6 +50,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           youtubeId={project.youtubeId}
           youtubeVertical={project.youtubeVertical}
           label={project.title}
+          posterSizes="(max-width: 768px) 100vw, 980px"
           className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-1.5 border-white/8"
           hoverHint="▶ Videoyu Oynat"
           placeholder={
