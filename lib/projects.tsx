@@ -13,6 +13,8 @@ export type Project = {
   videoSrc: string;
   /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
   youtubeId?: string;
+  /** Set true if that YouTube upload is a 9:16 Shorts clip rather than 16:9. */
+  youtubeVertical?: boolean;
   coverImage?: string;
   description?: string;
   location?: string;

@@ -14,6 +14,8 @@ type VideoCardProps = {
    * lightbox too — no other code changes needed either way.
    */
   youtubeId?: string;
+  /** The YouTube video above is a 9:16 (e.g. Shorts) upload — sizes the lightbox portrait instead of the 16:9 default. */
+  youtubeVertical?: boolean;
   /** Content shown before hover (icon+label, or brand logo area) */
   placeholder: React.ReactNode;
   /** Small pill hint shown before hover, hidden while playing (packages only) */
@@ -29,6 +31,7 @@ type VideoCardProps = {
 export default function VideoCard({
   videoSrc,
   youtubeId,
+  youtubeVertical = false,
   placeholder,
   hoverHint,
   overlayContent,
@@ -132,7 +135,9 @@ export default function VideoCard({
             <div
               onClick={(e) => e.stopPropagation()}
               className={`animate-modal-pop relative overflow-hidden rounded-drone bg-black shadow-[0_40px_120px_rgba(0,0,0,.65)] ring-1 ring-white/10 ${
-                youtubeId ? "aspect-video w-[min(92vw,880px)]" : "aspect-9/16 w-[min(90vw,420px)]"
+                youtubeId && !youtubeVertical
+                  ? "aspect-video w-[min(92vw,880px)]"
+                  : "aspect-9/16 w-[min(90vw,420px)]"
               }`}
             >
               {youtubeId ? (

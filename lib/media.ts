@@ -9,3 +9,7 @@ export const PLACEHOLDER_VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4
 // the local placeholder mp4 above to a YouTube background embed
 // automatically, no other code changes needed.
 export const HERO_YOUTUBE_ID: string | undefined = undefined;
+
+// Set to true if the hero footage above is a 9:16 (e.g. Shorts) upload rather
+// than standard 16:9 landscape — flips the background cover-fill math.
+export const HERO_YOUTUBE_VERTICAL = false;

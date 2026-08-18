@@ -17,6 +17,8 @@ type Package = {
   videoSrc: string;
   /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
   youtubeId?: string;
+  /** Set true if that YouTube upload is a 9:16 Shorts clip rather than 16:9. */
+  youtubeVertical?: boolean;
 };
 
 const PACKAGES: Package[] = [
@@ -24,7 +26,9 @@ const PACKAGES: Package[] = [
     id: "3d-modelleme",
     num: "01",
     tag: "En Popüler",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    videoSrc: "https://www.youtube.com/shorts/V_-NrZUmLfM?feature=share",
+    youtubeId: "V_-NrZUmLfM",
+    youtubeVertical: true,
     title: (
       <>
         3D Modelleme &amp;
@@ -39,9 +43,16 @@ const PACKAGES: Package[] = [
       "Mimari görselleştirme & render",
       "Proje tamamlanma animasyonu",
     ],
-    gradient: "bg-[linear-gradient(160deg,#0a1628_0%,#0d2040_40%,#0a3060_100%)]",
+    gradient:
+      "bg-[linear-gradient(160deg,#0a1628_0%,#0d2040_40%,#0a3060_100%)]",
     icon: (
-      <svg width="28" height="28" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+      <svg
+        width="28"
+        height="28"
+        fill="none"
+        stroke="#2196F3"
+        strokeWidth="2"
+        viewBox="0 0 24 24">
         <path d="M15 10l4.553-2.069A1 1 0 0121 8.843v6.314a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
       </svg>
     ),
@@ -65,9 +76,16 @@ const PACKAGES: Package[] = [
       "Hacim & alan hesaplama",
       "Termal kamera seçeneği",
     ],
-    gradient: "bg-[linear-gradient(160deg,#0c1a10_0%,#0d2a18_40%,#0a4025_100%)]",
+    gradient:
+      "bg-[linear-gradient(160deg,#0c1a10_0%,#0d2a18_40%,#0a4025_100%)]",
     icon: (
-      <svg width="28" height="28" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+      <svg
+        width="28"
+        height="28"
+        fill="none"
+        stroke="#2196F3"
+        strokeWidth="2"
+        viewBox="0 0 24 24">
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <path d="M9 9h6v6H9z" />
       </svg>
@@ -92,9 +110,16 @@ const PACKAGES: Package[] = [
       "Renk düzeltme & post prodüksiyon",
       "Müzik & ses tasarımı dahil",
     ],
-    gradient: "bg-[linear-gradient(160deg,#1a0a28_0%,#250d40_40%,#300a60_100%)]",
+    gradient:
+      "bg-[linear-gradient(160deg,#1a0a28_0%,#250d40_40%,#300a60_100%)]",
     icon: (
-      <svg width="28" height="28" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+      <svg
+        width="28"
+        height="28"
+        fill="none"
+        stroke="#2196F3"
+        strokeWidth="2"
+        viewBox="0 0 24 24">
         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
         <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
@@ -119,9 +144,16 @@ const PACKAGES: Package[] = [
       "360° sanal tur seçeneği",
       "Sosyal medya versiyonları dahil",
     ],
-    gradient: "bg-[linear-gradient(160deg,#1a0f0a_0%,#2a1a0d_40%,#40280a_100%)]",
+    gradient:
+      "bg-[linear-gradient(160deg,#1a0f0a_0%,#2a1a0d_40%,#40280a_100%)]",
     icon: (
-      <svg width="28" height="28" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+      <svg
+        width="28"
+        height="28"
+        fill="none"
+        stroke="#2196F3"
+        strokeWidth="2"
+        viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 8v4l3 3" />
       </svg>
@@ -139,8 +171,8 @@ export default function Packages() {
             HİZMET <span className="text-brand-blue">PAKETLERİMİZ</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
-            Her proje için özelleştirilmiş drone çekim paketleri. Hover ile video önizlemesi
-            görün.
+            Her proje için özelleştirilmiş drone çekim paketleri. Hover ile
+            video önizlemesi görün.
           </p>
         </FadeUp>
 
@@ -149,12 +181,13 @@ export default function Packages() {
           return (
             <FadeUp
               key={pkg.id}
-              className="mb-20 grid grid-cols-2 items-center gap-0 last:mb-0 max-md:grid-cols-1"
-            >
-              <div className={`mx-auto w-full max-w-85 ${reverse ? "md:order-2" : "md:order-1"}`}>
+              className="mb-20 grid grid-cols-2 items-center gap-0 last:mb-0 max-md:grid-cols-1">
+              <div
+                className={`mx-auto w-full max-w-85 ${reverse ? "md:order-2" : "md:order-1"}`}>
                 <VideoCard
                   videoSrc={pkg.videoSrc}
                   youtubeId={pkg.youtubeId}
+                  youtubeVertical={pkg.youtubeVertical}
                   className={`aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)] ${pkg.gradient}`}
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}
@@ -172,8 +205,7 @@ export default function Packages() {
               </div>
 
               <div
-                className={`px-14 py-10 max-md:px-4 max-md:py-8 ${reverse ? "md:order-1" : "md:order-2"}`}
-              >
+                className={`px-14 py-10 max-md:px-4 max-md:py-8 ${reverse ? "md:order-1" : "md:order-2"}`}>
                 <div className="-mb-4 font-display text-7xl leading-none text-brand-blue/10">
                   {pkg.num}
                 </div>
@@ -190,8 +222,7 @@ export default function Packages() {
                   {pkg.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-center gap-3 text-sm text-brand-offwhite before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-brand-blue"
-                    >
+                      className="flex items-center gap-3 text-sm text-brand-offwhite before:h-1.5 before:w-1.5 before:shrink-0 before:rounded-full before:bg-brand-blue">
                       {feature}
                     </li>
                   ))}

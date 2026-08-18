@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import { HERO_YOUTUBE_ID, PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
+import { HERO_YOUTUBE_ID, HERO_YOUTUBE_VERTICAL, PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
 export default function Hero() {
   const droneRef = useRef<HTMLDivElement>(null);
@@ -28,6 +28,7 @@ export default function Hero() {
       {HERO_YOUTUBE_ID ? (
         <YouTubeEmbed
           background
+          vertical={HERO_YOUTUBE_VERTICAL}
           videoId={HERO_YOUTUBE_ID}
           title="AnkaraDrone tanıtım videosu"
           className="absolute inset-0 z-0 opacity-40"

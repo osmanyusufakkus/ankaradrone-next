@@ -19,6 +19,8 @@ type Reference = {
   logoUrl?: string;
   /** Real YouTube id for the "watch full video" lightbox, once uploaded there. */
   youtubeId?: string;
+  /** Set true if that YouTube upload is a 9:16 Shorts clip rather than 16:9. */
+  youtubeVertical?: boolean;
 };
 
 const REFERENCES: Reference[] = [
@@ -139,6 +141,7 @@ export default function References() {
               <VideoCard
                 videoSrc={ref.videoSrc}
                 youtubeId={ref.youtubeId}
+                youtubeVertical={ref.youtubeVertical}
                 className="aspect-square rounded-xl border-1.5 border-white/8 bg-white/4 transition-all duration-300 hover:z-10 hover:scale-108 hover:border-brand-blue hover:shadow-[0_16px_48px_rgba(33,150,243,.25)]"
                 placeholder={
                   <>

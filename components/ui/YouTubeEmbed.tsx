@@ -11,6 +11,8 @@ type YouTubeEmbedProps = {
   background?: boolean;
   /** Defaults to `background` — pass explicitly to autoplay a player-mode embed too (e.g. opened via click). */
   autoplay?: boolean;
+  /** Source is a 9:16 video (e.g. a Shorts upload) — flips the background cover-fill math. Ignored in player mode, where the parent container controls the box. */
+  vertical?: boolean;
 };
 
 // youtube-nocookie.com defers setting any cookies until the viewer presses
@@ -21,6 +23,7 @@ export default function YouTubeEmbed({
   className = "",
   background = false,
   autoplay = background,
+  vertical = false,
 }: YouTubeEmbedProps) {
   const params = new URLSearchParams({
     autoplay: autoplay ? "1" : "0",
@@ -35,13 +38,21 @@ export default function YouTubeEmbed({
   const src = `https://www.youtube-nocookie.com/embed/${videoId}?${params}`;
 
   if (background) {
+    // Cover-fill trick: size the iframe by the *opposite* viewport unit so it
+    // never shrinks below the container in either dimension, then center +
+    // clip it — same idea as object-fit: cover for a native <video>. The
+    // ratio swaps depending on the source's own aspect ratio.
+    const coverSize = vertical
+      ? "h-[177.78vw] min-h-full w-[56.25vh] min-w-full"
+      : "h-[56.25vw] min-h-full w-[177.78vh] min-w-full";
+
     return (
       <div className={`pointer-events-none overflow-hidden ${className}`}>
         <iframe
           src={src}
           title={title}
           allow="autoplay; encrypted-media"
-          className="absolute top-1/2 left-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2"
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${coverSize}`}
         />
       </div>
     );
