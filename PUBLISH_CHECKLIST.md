@@ -50,6 +50,15 @@ grep -rn "TODO(içerik)" app components lib
       **yazılı onay** alın; vermezse "Proje Müdürü · İnşaat Firması" gibi anonim
       yayımlayın.
 
+- [ ] ⚠️ **SSS cevapları** — `lib/faq.ts`
+      Şu an 6 taslak soru-cevap var. Özellikle **izin süreci, teslim süresi ve
+      kullanım hakları** maddeleri bağlayıcı taahhüt niteliğindedir; kendi
+      süreçlerinize göre yeniden yazın. Soru eklemek/çıkarmak için sadece
+      `FAQ_ITEMS` dizisini düzenlemeniz yeterli — numaralandırma, düzen ve
+      arama motorlarına verilen yapısal veri kendiliğinden güncellenir.
+      Yayınladıktan sonra `id` değerlerini değiştirmeyin, paylaşılan
+      bağlantılar kırılır.
+
 ## 3. İletişim bilgileri — `lib/site.ts`
 
 Sitedeki tüm iletişim bilgisi bu tek dosyadan gelir.

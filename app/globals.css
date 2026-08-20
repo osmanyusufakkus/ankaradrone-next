@@ -161,6 +161,38 @@ body {
   background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.4) 100%);
 }
 
+/* SSS akordeonunun yumuşak açılışı.
+   `<details>` içeriğinin yüksekliği `auto` olduğu için normalde animasyonlanamaz;
+   `interpolate-size: allow-keywords` bunu mümkün kılar. Destekleyen tarayıcıda
+   yumuşak açılır, desteklemeyende anında — ikisi de doğru davranış olduğu için
+   @supports ile güvenle sarmalanabiliyor. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.35s ease,
+      content-visibility 0.35s allow-discrete;
+  }
+
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* site.com/#sss-teslimat gibi bir bağlantıyla gelindiğinde o soruyu işaretle.
+   Tarayıcı hedeflenen <details>'i kendiliğinden AÇMIYOR (sadece oraya
+   kaydırıyor); açtırmak JS gerektirirdi. Bunun yerine soruyu vurguluyoruz —
+   kullanıcı hangi soruya yönlendirildiğini görüp tıklıyor. */
+.faq-item:target > summary {
+  box-shadow: inset 3px 0 0 0 var(--color-brand-blue);
+  padding-left: 1.25rem;
+}
+
 /* Visitors who've asked their OS to reduce motion — often because animation
    triggers migraine or vestibular symptoms — get the same site without the
    floating drone, the scroll pulse, the fade-ups or the smooth scrolling.
@@ -183,5 +215,11 @@ body {
   .fade-up {
     opacity: 1;
     transform: none;
+  }
+
+  /* Yukarıdaki `*` kuralı sözde-elemanlardan yalnızca ::before/::after'ı
+     kapsıyor; akordeonun açılış geçişini ayrıca durdurmak gerekiyor. */
+  .faq-item::details-content {
+    transition: none;
   }
 }
