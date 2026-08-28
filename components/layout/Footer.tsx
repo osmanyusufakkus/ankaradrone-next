@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AnchorLink from "@/components/ui/AnchorLink";
 import { CONTACT, SITE_NAME, SOCIAL_LINKS } from "@/lib/site";
 
 const SERVICE_LINKS = [
@@ -77,12 +78,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {SERVICE_LINKS.map((service) => (
                 <li key={service}>
-                  <Link
+                  <AnchorLink
                     href="/#services"
                     className="rounded text-sm text-white/50 transition-colors duration-200 hover:text-brand-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
                   >
                     {service}
-                  </Link>
+                  </AnchorLink>
                 </li>
               ))}
             </ul>

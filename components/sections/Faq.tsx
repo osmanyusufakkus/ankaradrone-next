@@ -1,4 +1,4 @@
-import Link from "next/link";
+import AnchorLink from "@/components/ui/AnchorLink";
 import FadeUp from "@/components/ui/FadeUp";
 import Eyebrow from "@/components/ui/Eyebrow";
 import { FAQ_ITEMS } from "@/lib/faq";
@@ -51,7 +51,9 @@ export default function Faq() {
             En sık aldığımız soruları burada topladık. Aradığınız cevabı
             bulamazsanız yazın, aynı gün dönüş yapalım.
           </p>
-          <Link
+          {/* AnchorLink: next/link ile giderken adres zaten #contact ise sayfa
+              kaydırılmıyordu — buton bir kez çalışıp sonra ölüyordu. */}
+          <AnchorLink
             href="/#contact"
             className="inline-flex items-center gap-2.5 rounded-pill border-1.5 border-white/25 px-7 py-3.5 text-sm font-bold tracking-wide text-brand-offwhite transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
           >
@@ -60,7 +62,7 @@ export default function Faq() {
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
-          </Link>
+          </AnchorLink>
         </FadeUp>
 
         <FadeUp delay="0.1s" className="flex flex-col">

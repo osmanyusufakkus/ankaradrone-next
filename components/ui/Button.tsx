@@ -1,4 +1,4 @@
-import Link from "next/link";
+import AnchorLink from "@/components/ui/AnchorLink";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
 type BaseProps = {
@@ -59,14 +59,15 @@ export default function Button({
 
   const { href, ...anchorProps } = rest as { href: string } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-  // Route-internal targets ("/projeler", "/#contact") go through next/link so
-  // navigation stays client-side. Everything else — same-page "#hash" anchors,
-  // mailto:, tel:, external URLs — is a plain anchor, which is what those are.
+  // Site içi hedefler ("/projeler", "/#contact") AnchorLink'ten geçer: başka bir
+  // sayfaya gidiyorsa client-side geçiş yapar, hedef çapa zaten bulunduğumuz
+  // sayfadaysa düz <a>'ya düşer (yoksa aynı çapaya ikinci tıklama kaydırmaz).
+  // Geri kalan her şey — "#hash", mailto:, tel:, dış adresler — düz anchor.
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...anchorProps} className={classes}>
+      <AnchorLink href={href} {...anchorProps} className={classes}>
         {content}
-      </Link>
+      </AnchorLink>
     );
   }
 

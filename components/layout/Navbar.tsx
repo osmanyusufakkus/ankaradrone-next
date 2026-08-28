@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AnchorLink from "@/components/ui/AnchorLink";
 import { useRafScroll } from "@/hooks/useRafScroll";
 
 const NAV_LINKS = [
@@ -71,24 +72,26 @@ export default function Navbar() {
           />
         </Link>
 
+        {/* Çapa bağlantılarında AnchorLink kullanılıyor: next/link, adres zaten o
+            çapadayken tekrar tıklandığında kaydırmıyor. Bkz. AnchorLink.tsx */}
         <ul className="flex list-none items-center gap-9 max-md:hidden">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <Link
+              <AnchorLink
                 href={link.href}
                 className="rounded text-[13px] font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-250 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue"
               >
                 {link.label}
-              </Link>
+              </AnchorLink>
             </li>
           ))}
           <li>
-            <Link
+            <AnchorLink
               href="/#contact"
               className="rounded-pill bg-brand-blue px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Teklif Al
-            </Link>
+            </AnchorLink>
           </li>
         </ul>
 
@@ -127,23 +130,23 @@ export default function Navbar() {
         <ul className="flex list-none flex-col">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <Link
+              <AnchorLink
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="block rounded-lg border-b border-white/6 py-4 text-sm font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-200 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 {link.label}
-              </Link>
+              </AnchorLink>
             </li>
           ))}
         </ul>
-        <Link
+        <AnchorLink
           href="/#contact"
           onClick={() => setMenuOpen(false)}
           className="mt-5 block rounded-pill bg-brand-blue px-6 py-3.5 text-center text-sm font-bold tracking-wider text-white uppercase transition-colors duration-250 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           Teklif Al
-        </Link>
+        </AnchorLink>
       </div>
     </nav>
   );
