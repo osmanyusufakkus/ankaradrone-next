@@ -78,7 +78,9 @@ const PACKAGES: Package[] = [
     num: "02",
     tag: "İnşaat & Şantiye",
     label: "İlerleme Takip Çekimleri",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    youtubeId: "V_-NrZUmLfM",
+    youtubeVertical: true,
+    previewStart: 3,
     title: (
       <>
         İlerleme Takip
@@ -113,7 +115,9 @@ const PACKAGES: Package[] = [
     num: "03",
     tag: "Gayrimenkul",
     label: "Konut & Site Tanıtım Filmi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    youtubeId: "vF0Psg_Hsm4",
+    youtubeVertical: true,
+    previewStart: 3,
     title: (
       <>
         Konut &amp; Site
@@ -148,7 +152,9 @@ const PACKAGES: Package[] = [
     num: "04",
     tag: "Kurumsal",
     label: "Kurumsal & Etkinlik Çekimi",
-    videoSrc: PLACEHOLDER_VIDEO_SRC,
+    youtubeId: "V_-NrZUmLfM",
+    youtubeVertical: true,
+    previewStart: 3,
     title: (
       <>
         Kurumsal &amp;
@@ -266,8 +272,7 @@ export default function Packages() {
         <FadeUp className="mt-20">
           <Link
             href="/projeler"
-            className="group relative flex items-center justify-between gap-8 overflow-hidden rounded-drone border-1.5 border-brand-blue/20 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_55%,#0d1a2e_100%)] px-12 py-10 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-[0_28px_70px_rgba(33,150,243,.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex-col max-md:items-start max-md:gap-6 max-md:px-8 max-md:py-8"
-          >
+            className="group relative flex items-center justify-between gap-8 overflow-hidden rounded-drone border-1.5 border-brand-blue/20 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_55%,#0d1a2e_100%)] px-12 py-10 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-[0_28px_70px_rgba(33,150,243,.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex-col max-md:items-start max-md:gap-6 max-md:px-8 max-md:py-8">
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_120%_at_80%_50%,rgba(33,150,243,.14)_0%,transparent_70%)]"
@@ -285,7 +290,16 @@ export default function Packages() {
               </span>
             </span>
             <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-1.5 border-brand-blue/40 bg-brand-blue/12 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white">
-              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden>
+              <svg
+                width="22"
+                height="22"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+                aria-hidden>
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
