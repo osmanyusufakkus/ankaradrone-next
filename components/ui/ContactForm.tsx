@@ -7,6 +7,7 @@ import {
   type ContactFormState,
 } from "@/lib/actions/contact";
 import { PROJECT_TYPES } from "@/lib/site";
+import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/validation/contact";
 
 // Lives here rather than beside the action: a "use server" module can only
 // export async functions, and a const export there fails at runtime only.
@@ -59,54 +60,87 @@ export default function ContactForm() {
   }
 
   return (
-    <form action={formAction} noValidate className="text-left">
-      {/* Honeypot: off-screen and skipped by keyboard/screen readers, so only bots fill it. */}
+    <form action={formAction} className="text-left">
+      {/*
+        Honeypot: the neutral name and password-manager hints reduce false
+        positives from browser autofill while bots that fill every text field
+        still trip it.
+      */}
       <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor={fieldId("name") + "-website"}>Web siteniz</label>
+        <label htmlFor={fieldId("name") + "-guard"}>Bu alanı boş bırakın</label>
         <input
-          id={fieldId("name") + "-website"}
+          id={fieldId("name") + "-guard"}
           type="text"
-          name="website"
+          name="form_guard"
           tabIndex={-1}
           autoComplete="off"
+          data-1p-ignore="true"
+          data-lpignore="true"
+          data-form-type="other"
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+      <div>
+        <label htmlFor={fieldId("name")} className={LABEL_CLASSES}>
+          Ad Soyad
+        </label>
+        <input
+          id={fieldId("name")}
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          defaultValue={state.values?.name}
+          placeholder="Adınız ve soyadınız"
+          className={FIELD_CLASSES}
+          {...errorProps("name")}
+        />
+        <FieldError id={errorId("name")}>{state.fieldErrors?.name}</FieldError>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
         <div>
-          <label htmlFor={fieldId("name")} className={LABEL_CLASSES}>
-            Ad Soyad
+          <label htmlFor={fieldId("email")} className={LABEL_CLASSES}>
+            E-posta
           </label>
           <input
-            id={fieldId("name")}
-            name="name"
-            type="text"
+            id={fieldId("email")}
+            name="email"
+            type="email"
             required
-            autoComplete="name"
-            defaultValue={state.values?.name}
-            placeholder="Adınız"
+            autoComplete="email"
+            inputMode="email"
+            maxLength={254}
+            pattern={EMAIL_REGEX.source}
+            title="ornek@firma.com biçiminde geçerli bir e-posta adresi girin."
+            defaultValue={state.values?.email}
+            placeholder="ornek@firma.com"
             className={FIELD_CLASSES}
-            {...errorProps("name")}
+            {...errorProps("email")}
           />
-          <FieldError id={errorId("name")}>{state.fieldErrors?.name}</FieldError>
+          <FieldError id={errorId("email")}>{state.fieldErrors?.email}</FieldError>
         </div>
 
         <div>
-          <label htmlFor={fieldId("contact")} className={LABEL_CLASSES}>
-            E-posta veya Telefon
+          <label htmlFor={fieldId("phone")} className={LABEL_CLASSES}>
+            Telefon
           </label>
           <input
-            id={fieldId("contact")}
-            name="contact"
-            type="text"
+            id={fieldId("phone")}
+            name="phone"
+            type="tel"
             required
-            autoComplete="email tel"
-            defaultValue={state.values?.contact}
-            placeholder="ornek@firma.com"
+            autoComplete="tel"
+            inputMode="tel"
+            maxLength={24}
+            pattern={PHONE_REGEX.source}
+            title="+90 5xx xxx xx xx biçiminde geçerli bir Türkiye mobil numarası girin."
+            defaultValue={state.values?.phone}
+            placeholder="+90 5xx xxx xx xx"
             className={FIELD_CLASSES}
-            {...errorProps("contact")}
+            {...errorProps("phone")}
           />
-          <FieldError id={errorId("contact")}>{state.fieldErrors?.contact}</FieldError>
+          <FieldError id={errorId("phone")}>{state.fieldErrors?.phone}</FieldError>
         </div>
       </div>
 

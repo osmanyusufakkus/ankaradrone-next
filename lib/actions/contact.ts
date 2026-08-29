@@ -2,8 +2,15 @@
 
 import { Resend } from "resend";
 import { CONTACT, PROJECT_TYPES } from "@/lib/site";
+import { isValidEmail, isValidTurkishMobile } from "@/lib/validation/contact";
 
-export type ContactField = "name" | "contact" | "projectType" | "message" | "consent";
+export type ContactField =
+  | "name"
+  | "email"
+  | "phone"
+  | "projectType"
+  | "message"
+  | "consent";
 
 export type ContactFormState = {
   status: "idle" | "success" | "error";
@@ -20,7 +27,8 @@ export type ContactFormState = {
 
 const MAX_LENGTHS: Record<Exclude<ContactField, "consent">, number> = {
   name: 100,
-  contact: 120,
+  email: 254,
+  phone: 24,
   projectType: 60,
   message: 2000,
 };
@@ -38,14 +46,6 @@ function safeHeader(value: string) {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
-/** Accepts either an email address or a Turkish phone number — visitors give whichever they prefer. */
-function looksReachable(value: string) {
-  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
-  const digits = value.replace(/\D/g, "");
-  const isPhone = digits.length >= 10 && digits.length <= 15;
-  return isEmail || isPhone;
-}
-
 export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData,
@@ -53,7 +53,9 @@ export async function submitContactForm(
   // Honeypot: a field hidden from humans via CSS. Bots fill every input they
   // find, so anything arriving here is automated — answer with a normal-looking
   // success so the bot doesn't learn to retry, but send nothing.
-  if (typeof formData.get("website") === "string" && formData.get("website") !== "") {
+  const honeypot = formData.get("form_guard");
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    console.warn("[contact] Honeypot tetiklendi; Resend çağrısı yapılmadı.");
     return { status: "success", message: "Mesajınız alındı. En kısa sürede dönüş yapacağız." };
   }
 
@@ -62,15 +64,19 @@ export async function submitContactForm(
 
   const values = {
     name: read("name"),
-    contact: read("contact"),
+    email: read("email"),
+    phone: read("phone"),
     projectType: read("projectType"),
     message: read("message"),
   };
 
   const fieldErrors: Partial<Record<ContactField, string>> = {};
   if (values.name.length < 2) fieldErrors.name = "Lütfen adınızı yazın.";
-  if (!looksReachable(values.contact)) {
-    fieldErrors.contact = "Geçerli bir e-posta adresi veya telefon numarası girin.";
+  if (!isValidEmail(values.email)) {
+    fieldErrors.email = "Geçerli bir e-posta adresi girin.";
+  }
+  if (!isValidTurkishMobile(values.phone)) {
+    fieldErrors.phone = "Geçerli bir Türkiye mobil numarası girin.";
   }
   if (values.message.length < 10) {
     fieldErrors.message = "Projenizden biraz bahsedin (en az 10 karakter).";
@@ -80,6 +86,9 @@ export async function submitContactForm(
   }
 
   if (Object.keys(fieldErrors).length > 0) {
+    console.warn(
+      `[contact] Doğrulama başarısız: ${Object.keys(fieldErrors).join(", ")}`,
+    );
     return {
       status: "error",
       message: "Lütfen işaretli alanları kontrol edin.",
@@ -109,17 +118,18 @@ export async function submitContactForm(
     PROJECT_TYPES.find((type) => type.id === values.projectType)?.label ?? "Belirtilmedi";
 
   try {
-    const { error } = await new Resend(apiKey).emails.send({
+    const { data, error } = await new Resend(apiKey).emails.send({
       // Test: onboarding@resend.dev. Production: an address on the verified
       // notify.ankara-drone.com subdomain; see EMAIL_SETUP.md.
       from: sender,
       to: [recipient],
-      // Lets you hit "reply" and answer the lead directly, when they left an email.
-      replyTo: values.contact.includes("@") ? values.contact : undefined,
+      // Replies from the notification email go directly to the visitor.
+      replyTo: values.email,
       subject: `Yeni teklif talebi: ${safeHeader(values.name)} — ${safeHeader(projectLabel)}`,
       text: [
         `Ad: ${values.name}`,
-        `İletişim: ${values.contact}`,
+        `E-posta: ${values.email}`,
+        `Telefon: ${values.phone}`,
         `Proje tipi: ${projectLabel}`,
         "",
         values.message,
@@ -128,7 +138,8 @@ export async function submitContactForm(
         <h2 style="font-family:sans-serif">Yeni teklif talebi</h2>
         <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
           <tr><td style="padding:4px 12px 4px 0"><b>Ad</b></td><td>${escapeHtml(values.name)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0"><b>İletişim</b></td><td>${escapeHtml(values.contact)}</td></tr>
+          <tr><td style="padding:4px 12px 4px 0"><b>E-posta</b></td><td>${escapeHtml(values.email)}</td></tr>
+          <tr><td style="padding:4px 12px 4px 0"><b>Telefon</b></td><td>${escapeHtml(values.phone)}</td></tr>
           <tr><td style="padding:4px 12px 4px 0"><b>Proje tipi</b></td><td>${escapeHtml(projectLabel)}</td></tr>
         </table>
         <p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(values.message)}</p>
@@ -136,6 +147,7 @@ export async function submitContactForm(
     });
 
     if (error) throw new Error(error.message);
+    console.info("[contact] Resend gönderimi kabul etti.", { id: data?.id ?? "unknown" });
   } catch (cause) {
     console.error(
       "[contact] Mail gönderilemedi:",
