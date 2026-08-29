@@ -1,6 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
+import { buildContactNotification } from "@/lib/email/contact-notification";
 import { CONTACT, PROJECT_TYPES } from "@/lib/site";
 import { isValidEmail, isValidTurkishMobile } from "@/lib/validation/contact";
 
@@ -32,19 +33,6 @@ const MAX_LENGTHS: Record<Exclude<ContactField, "consent">, number> = {
   projectType: 60,
   message: 2000,
 };
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-/** Mail header values must never contain a CR/LF sequence. */
-function safeHeader(value: string) {
-  return value.replace(/[\r\n]+/g, " ").trim();
-}
 
 export async function submitContactForm(
   _prevState: ContactFormState,
@@ -116,6 +104,14 @@ export async function submitContactForm(
 
   const projectLabel =
     PROJECT_TYPES.find((type) => type.id === values.projectType)?.label ?? "Belirtilmedi";
+  const notification = buildContactNotification({
+    name: values.name,
+    email: values.email,
+    phone: values.phone,
+    projectLabel,
+    message: values.message,
+    receivedAt: new Date(),
+  });
 
   try {
     const { data, error } = await new Resend(apiKey).emails.send({
@@ -125,25 +121,9 @@ export async function submitContactForm(
       to: [recipient],
       // Replies from the notification email go directly to the visitor.
       replyTo: values.email,
-      subject: `Yeni teklif talebi: ${safeHeader(values.name)} — ${safeHeader(projectLabel)}`,
-      text: [
-        `Ad: ${values.name}`,
-        `E-posta: ${values.email}`,
-        `Telefon: ${values.phone}`,
-        `Proje tipi: ${projectLabel}`,
-        "",
-        values.message,
-      ].join("\n"),
-      html: `
-        <h2 style="font-family:sans-serif">Yeni teklif talebi</h2>
-        <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
-          <tr><td style="padding:4px 12px 4px 0"><b>Ad</b></td><td>${escapeHtml(values.name)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0"><b>E-posta</b></td><td>${escapeHtml(values.email)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0"><b>Telefon</b></td><td>${escapeHtml(values.phone)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0"><b>Proje tipi</b></td><td>${escapeHtml(projectLabel)}</td></tr>
-        </table>
-        <p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(values.message)}</p>
-      `,
+      subject: notification.subject,
+      text: notification.text,
+      html: notification.html,
     });
 
     if (error) throw new Error(error.message);
