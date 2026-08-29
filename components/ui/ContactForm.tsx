@@ -61,15 +61,22 @@ export default function ContactForm() {
 
   return (
     <form action={formAction} className="text-left">
-      {/* Honeypot: off-screen and skipped by keyboard/screen readers, so only bots fill it. */}
+      {/*
+        Honeypot: the neutral name and password-manager hints reduce false
+        positives from browser autofill while bots that fill every text field
+        still trip it.
+      */}
       <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor={fieldId("name") + "-website"}>Web siteniz</label>
+        <label htmlFor={fieldId("name") + "-guard"}>Bu alanı boş bırakın</label>
         <input
-          id={fieldId("name") + "-website"}
+          id={fieldId("name") + "-guard"}
           type="text"
-          name="website"
+          name="form_guard"
           tabIndex={-1}
           autoComplete="off"
+          data-1p-ignore="true"
+          data-lpignore="true"
+          data-form-type="other"
         />
       </div>
 

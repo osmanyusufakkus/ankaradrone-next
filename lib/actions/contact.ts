@@ -53,7 +53,9 @@ export async function submitContactForm(
   // Honeypot: a field hidden from humans via CSS. Bots fill every input they
   // find, so anything arriving here is automated — answer with a normal-looking
   // success so the bot doesn't learn to retry, but send nothing.
-  if (typeof formData.get("website") === "string" && formData.get("website") !== "") {
+  const honeypot = formData.get("form_guard");
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
+    console.warn("[contact] Honeypot tetiklendi; Resend çağrısı yapılmadı.");
     return { status: "success", message: "Mesajınız alındı. En kısa sürede dönüş yapacağız." };
   }
 
@@ -84,6 +86,9 @@ export async function submitContactForm(
   }
 
   if (Object.keys(fieldErrors).length > 0) {
+    console.warn(
+      `[contact] Doğrulama başarısız: ${Object.keys(fieldErrors).join(", ")}`,
+    );
     return {
       status: "error",
       message: "Lütfen işaretli alanları kontrol edin.",
@@ -113,7 +118,7 @@ export async function submitContactForm(
     PROJECT_TYPES.find((type) => type.id === values.projectType)?.label ?? "Belirtilmedi";
 
   try {
-    const { error } = await new Resend(apiKey).emails.send({
+    const { data, error } = await new Resend(apiKey).emails.send({
       // Test: onboarding@resend.dev. Production: an address on the verified
       // notify.ankara-drone.com subdomain; see EMAIL_SETUP.md.
       from: sender,
@@ -142,6 +147,7 @@ export async function submitContactForm(
     });
 
     if (error) throw new Error(error.message);
+    console.info("[contact] Resend gönderimi kabul etti.", { id: data?.id ?? "unknown" });
   } catch (cause) {
     console.error(
       "[contact] Mail gönderilemedi:",
