@@ -76,11 +76,15 @@ hosting sağlayıcısının ortam değişkeni ekranına girin.
 
 - [ ] `NEXT_PUBLIC_SITE_URL` — gerçek alan adı (sonunda eğik çizgi olmadan).
       `sitemap.xml`, `robots.txt`, JSON-LD ve paylaşım görselleri buna bağlı.
-- [ ] `RESEND_API_KEY` — https://resend.com/api-keys
-- [ ] `CONTACT_FROM_EMAIL` — **alan adı Resend'de doğrulanmış olmalı**
-      (resend.com/domains → DNS'e SPF + DKIM kaydı). Doğrulanmazsa formdan gelen
-      mailler ya gitmez ya da spam'e düşer.
-- [ ] `CONTACT_TO_EMAIL` — mesajların düşeceği kutu
+- [ ] `RESEND_API_KEY` — Resend panelinden oluşturulmuş production key
+- [ ] `CONTACT_FROM_EMAIL` — Resend'de doğrulanmış gönderen:
+      `Ankara Drone Web <form@notify.ankara-drone.com>`
+- [ ] `CONTACT_TO_EMAIL` — `osmanyusufakkus@gmail.com`
+- [ ] `info@ankara-drone.com` için Cloudflare Email Routing kuralı etkin ve hedef
+      adres `osmanyusufakkus@gmail.com` olarak doğrulanmış
+- [ ] Formu canlıda test ettikten sonra Resend Emails kaydını ve Gmail Inbox/Spam
+      klasörlerini kontrol edin
+- [ ] Ayrıntılı kurulum ve DNS adımları için `EMAIL_SETUP.md` tamamlanmış
 
 ## 5. Analitik
 

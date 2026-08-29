@@ -15,7 +15,8 @@
  * provider's env vars and this follows automatically.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://www.ankaradrone.com";
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  "https://ankara-drone.com";
 
 export const SITE_NAME = "AnkaraDrone";
 
@@ -28,7 +29,7 @@ export const SITE_DESCRIPTION =
 const PHONE_E164 = "905545480697";
 
 export const CONTACT = {
-  email: "info@ankaradrone.com",
+  email: "info@ankara-drone.com",
   /** Human-readable, used as link text. */
   phoneDisplay: "+90 554 548 06 97",
   phoneHref: `tel:+${PHONE_E164}`,
