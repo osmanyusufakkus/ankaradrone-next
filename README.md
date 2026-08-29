@@ -313,8 +313,10 @@ eder ve Resend üzerinden mail atar. Doğrulama kuralları burada:
 
 Hata mesajlarını değiştirmek isterseniz bu dosyadaki metinleri düzenleyin.
 
-> `RESEND_API_KEY` tanımlı değilse form çökmez; kullanıcıya WhatsApp ve mail adresini
-> gösteren bir mesaj döner.
+> `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` veya `CONTACT_TO_EMAIL` tanımlı değilse
+> form çökmez; kullanıcıya WhatsApp ve mail adresini gösteren bir mesaj döner.
+> Cloudflare ve Resend kurulumu için [EMAIL_SETUP.md](./EMAIL_SETUP.md) dosyasını
+> izleyin.
 
 ---
 
@@ -361,11 +363,14 @@ Dosyanın sonunda üç özel bölüm var:
 | Değişken | Zorunlu mu | Açıklama |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Evet | Gerçek alan adı, sonda `/` olmadan |
-| `RESEND_API_KEY` | Form için | resend.com/api-keys — ücretsiz katman 3.000 mail/ay |
-| `CONTACT_FROM_EMAIL` | Form için | **Alan adı Resend'de doğrulanmış olmalı** (DNS'e SPF + DKIM) |
-| `CONTACT_TO_EMAIL` | Hayır | Formun düşeceği kutu. Boşsa `lib/site.ts`'teki adres kullanılır. |
+| `RESEND_API_KEY` | Form için | Resend API key; sadece server-side secret olarak saklanır |
+| `CONTACT_FROM_EMAIL` | Form için | Testte `onboarding@resend.dev`, production'da doğrulanmış `notify.ankara-drone.com` adresi |
+| `CONTACT_TO_EMAIL` | Form için | Formun düşeceği kutu: `osmanyusufakkus@gmail.com` |
 
-Canlıda bu değerleri hosting sağlayıcısının ortam değişkeni ekranına girersiniz.
+Canlıda bu değerleri hosting sağlayıcısının environment variable/secret ekranına
+girersiniz. API key'i Git'e, ekran görüntüsüne veya istemci tarafı koda koymayın.
+Gelen `info@ankara-drone.com` yönlendirmesi uygulama değişkeni değil, Cloudflare
+Email Routing ayarıdır.
 
 ---
 

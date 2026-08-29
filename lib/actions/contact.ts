@@ -33,6 +33,11 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
+/** Mail header values must never contain a CR/LF sequence. */
+function safeHeader(value: string) {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
 /** Accepts either an email address or a Turkish phone number — visitors give whichever they prefer. */
 function looksReachable(value: string) {
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
@@ -83,11 +88,16 @@ export async function submitContactForm(
     };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const sender = process.env.CONTACT_FROM_EMAIL?.trim();
+  const recipient = process.env.CONTACT_TO_EMAIL?.trim();
+
+  if (!apiKey || !sender || !recipient) {
     // Misconfiguration, not the visitor's fault — never leave them staring at a
     // dead form, hand them the WhatsApp/mail route instead.
-    console.error("[contact] RESEND_API_KEY tanımlı değil — mail gönderilemedi.");
+    console.error(
+      "[contact] Resend yapılandırması eksik — RESEND_API_KEY, CONTACT_FROM_EMAIL ve CONTACT_TO_EMAIL değerlerini kontrol edin.",
+    );
     return {
       status: "error",
       message: `Form şu anda gönderilemiyor. Bize doğrudan ${CONTACT.email} adresinden veya WhatsApp'tan ulaşabilirsiniz.`,
@@ -100,12 +110,13 @@ export async function submitContactForm(
 
   try {
     const { error } = await new Resend(apiKey).emails.send({
-      // Must be an address on a domain verified in Resend — see .env.example.
-      from: process.env.CONTACT_FROM_EMAIL ?? `AnkaraDrone Web <bildirim@ankaradrone.com>`,
-      to: [process.env.CONTACT_TO_EMAIL ?? CONTACT.email],
+      // Test: onboarding@resend.dev. Production: an address on the verified
+      // notify.ankara-drone.com subdomain; see EMAIL_SETUP.md.
+      from: sender,
+      to: [recipient],
       // Lets you hit "reply" and answer the lead directly, when they left an email.
       replyTo: values.contact.includes("@") ? values.contact : undefined,
-      subject: `Yeni teklif talebi: ${values.name} — ${projectLabel}`,
+      subject: `Yeni teklif talebi: ${safeHeader(values.name)} — ${safeHeader(projectLabel)}`,
       text: [
         `Ad: ${values.name}`,
         `İletişim: ${values.contact}`,
@@ -126,7 +137,10 @@ export async function submitContactForm(
 
     if (error) throw new Error(error.message);
   } catch (cause) {
-    console.error("[contact] Mail gönderilemedi:", cause);
+    console.error(
+      "[contact] Mail gönderilemedi:",
+      cause instanceof Error ? cause.message : "Bilinmeyen hata",
+    );
     return {
       status: "error",
       message: `Mesaj gönderilemedi. Lütfen WhatsApp'tan veya ${CONTACT.email} adresinden ulaşın.`,
