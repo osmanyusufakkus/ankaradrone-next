@@ -22,7 +22,7 @@ const SECTIONS = [
   },
   {
     heading: "2. İşlenen Kişisel Veriler",
-    body: "Web sitemizdeki iletişim formu aracılığıyla yalnızca sizin ilettiğiniz ad soyad bilginiz, e-posta adresiniz veya telefon numaranız, ilgilendiğiniz hizmet türü ve mesaj içeriğiniz işlenmektedir. Form üzerinden bunların dışında herhangi bir veri toplanmamaktadır.",
+    body: "Web sitemizdeki iletişim formu aracılığıyla yalnızca sizin ilettiğiniz ad soyad bilginiz, e-posta adresiniz ve telefon numaranız, ilgilendiğiniz hizmet türü ve mesaj içeriğiniz işlenmektedir. Form üzerinden bunların dışında herhangi bir veri toplanmamaktadır.",
   },
   {
     heading: "3. İşleme Amacı",

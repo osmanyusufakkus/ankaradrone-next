@@ -85,12 +85,12 @@ adresi olmalıdır.
 ### Local test
 
 1. `npm run dev` ile siteyi başlatın.
-2. İletişim formuna geçerli bir ad, e-posta/telefon ve en az 10 karakterlik mesaj
-   girin; KVKK onayını işaretleyin.
+2. İletişim formuna geçerli bir ad, e-posta, Türkiye mobil telefon numarası ve en
+   az 10 karakterlik mesaj girin; KVKK onayını işaretleyin.
 3. Başarı mesajını, Resend Dashboard > **Emails** kaydını ve Gmail Inbox/Spam
    klasörlerini birlikte kontrol edin.
-4. Formda bir e-posta adresi bırakıldıysa Gmail'deki mesajda **Yanıtla** komutunun
-   o ziyaretçi adresine gittiğini doğrulayın.
+4. Gmail'deki mesajda **Yanıtla** komutunun formda girilen ziyaretçi e-posta
+   adresine gittiğini doğrulayın.
 
 ### Domain doğrulandıktan sonraki gönderen
 
