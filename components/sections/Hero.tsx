@@ -44,11 +44,12 @@ export default function Hero() {
           playsInline
           preload="auto"
           src="/video/hero-background.mp4"
-          className="absolute inset-0 z-0 h-full w-full object-cover opacity-90"
+          className="absolute inset-0 z-0 h-full w-full object-cover object-[center_40%] opacity-100 brightness-110 contrast-110 saturate-110"
         />
       )}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/80 via-brand-black/70 to-brand-black" />
-      <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(33,150,243,0.18)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/30 via-brand-black/35 to-brand-black/80" />
+
+      <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(33,150,243,0.10)_0%,transparent_70%)]" />
       {/*
       <div
         ref={droneRef}
