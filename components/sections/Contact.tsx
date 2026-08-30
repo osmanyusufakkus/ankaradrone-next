@@ -57,8 +57,8 @@ export default function Contact() {
       <div className="relative mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-12 text-center">
           <Eyebrow className="justify-center">İletişim</Eyebrow>
-          <h2 className="mb-4.5 font-display text-[clamp(40px,5.5vw,76px)] leading-[0.95] tracking-wide text-brand-white">
-            PROJENİZ İÇİN <span className="text-brand-blue">TEKLİF</span> ALIN
+          <h2 className="section-title-glow mb-4.5 font-display text-[clamp(40px,5.5vw,76px)] leading-[0.95] tracking-wide text-brand-white">
+            PROJENİZ İÇİN <span className="section-title-glow-accent text-brand-blue">TEKLİF</span> ALIN
           </h2>
           <p className="text-[17px] font-light text-brand-offwhite">
             24 saat içinde size özel fiyat teklifi hazırlıyoruz.

@@ -191,8 +191,8 @@ export default function Packages() {
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Çekim Paketleri</Eyebrow>
-          <h2 className="mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
-            HİZMET <span className="text-brand-blue">PAKETLERİMİZ</span>
+          <h2 className="section-title-glow mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
+            HİZMET <span className="section-title-glow-accent text-brand-blue">PAKETLERİMİZ</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
             Her proje için özelleştirilmiş drone çekim paketleri. Örnek videoyu

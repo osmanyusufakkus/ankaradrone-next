@@ -44,8 +44,8 @@ export default function Faq() {
             kalıyor, kullanıcı nerede olduğunu kaybetmiyor. */}
         <FadeUp className="md:sticky md:top-28 md:self-start">
           <Eyebrow>Sık Sorulan Sorular</Eyebrow>
-          <h2 className="mb-5 font-display text-[clamp(38px,4.5vw,60px)] leading-[0.95] text-brand-white">
-            AKLINIZDA <span className="text-brand-blue">SORU MU VAR</span>
+          <h2 className="section-title-glow mb-5 font-display text-[clamp(38px,4.5vw,60px)] leading-[0.95] text-brand-white">
+            AKLINIZDA <span className="section-title-glow-accent text-brand-blue">SORU MU VAR</span>
           </h2>
           <p className="mb-8 max-w-95 text-base leading-relaxed font-light text-brand-offwhite">
             En sık aldığımız soruları burada topladık. Aradığınız cevabı

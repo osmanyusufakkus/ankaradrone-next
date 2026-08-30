@@ -93,11 +93,11 @@ export default function Hero() {
         </div>
 
         <h1
-          className="mb-8 animate-hero-in font-display text-[clamp(64px,10vw,150px)] leading-[0.88] tracking-[1px] text-brand-white"
+          className="section-title-glow mb-8 animate-hero-in font-display text-[clamp(64px,10vw,150px)] leading-[0.88] tracking-[1px] text-brand-white"
           style={{ animationDelay: "0.15s" }}>
           ANKARA
           <br />
-          <span className="text-brand-blue">DRONE</span>
+          <span className="section-title-glow-accent text-brand-blue">DRONE</span>
         </h1>
 
         <p

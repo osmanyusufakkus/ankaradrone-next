@@ -68,8 +68,8 @@ export default function Services() {
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Neler Yapıyoruz</Eyebrow>
-          <h2 className="mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
-            TÜM <span className="text-brand-blue">HİZMETLER</span>
+          <h2 className="section-title-glow mb-4 font-display text-[clamp(42px,5.5vw,72px)] leading-[0.95] text-brand-white">
+            TÜM <span className="section-title-glow-accent text-brand-blue">HİZMETLER</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
             Proje başlangıcından son teslimata kadar kapsamlı drone çekim hizmetleri.

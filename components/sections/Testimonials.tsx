@@ -54,8 +54,8 @@ export default function Testimonials() {
           <Eyebrow>Müşteri Deneyimleri</Eyebrow>
           {/* Bir üstteki References bölümünün başlığı "BİZE GÜVENENLER" —
               ikisi arka arkaya gelince neredeyse aynı başlık iki kez okunuyordu. */}
-          <h2 className="mb-12 font-display text-[clamp(32px,4vw,52px)] leading-none text-brand-white">
-            MÜŞTERİLERİMİZ <span className="text-brand-blue">NE DİYOR</span>
+          <h2 className="section-title-glow mb-12 font-display text-[clamp(32px,4vw,52px)] leading-none text-brand-white">
+            MÜŞTERİLERİMİZ <span className="section-title-glow-accent text-brand-blue">NE DİYOR</span>
           </h2>
         </FadeUp>
 
