@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -25,7 +24,7 @@ export default function Hero() {
     <section
       id="hero"
       onMouseMove={handleMouseMove}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-35 pb-20 text-center">
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-brand-black px-6 pt-35 pb-20 text-center">
       {HERO_YOUTUBE_ID ? (
         <YouTubeEmbed
           background
@@ -35,27 +34,18 @@ export default function Hero() {
           className="absolute inset-0 z-0 opacity-40"
         />
       ) : (
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <Image
-            src="/images/kaleloop.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            preload
-            className="object-cover object-[center_40%] brightness-110 contrast-110 saturate-110"
-          />
-
+        <div className="absolute inset-0 z-0 overflow-hidden bg-brand-black">
           <video
+            aria-hidden="true"
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            poster="/images/kaleloop.jpg"
             src="/video/kale_loop.mp4"
             onPlaying={() => setIsVideoPlaying(true)}
             onError={() => setIsVideoPlaying(false)}
-            className={`absolute inset-0 h-full w-full object-cover object-[center_40%] brightness-110 contrast-110 saturate-110 transition-opacity duration-1000 ease-out ${
+            className={`absolute inset-0 h-full w-full object-cover object-[center_40%] brightness-110 contrast-110 saturate-110 transition-opacity duration-[1600ms] ease-out will-change-opacity ${
               isVideoPlaying ? "opacity-100" : "opacity-0"
             }`}
           />
