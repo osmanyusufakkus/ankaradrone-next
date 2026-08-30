@@ -97,7 +97,9 @@ export default function Hero() {
           style={{ animationDelay: "0.15s" }}>
           ANKARA
           <br />
-          <span className="section-title-glow-accent text-brand-blue">DRONE</span>
+          <span className="section-title-glow-accent text-brand-blue">
+            DRONE
+          </span>
         </h1>
 
         <p
@@ -129,7 +131,7 @@ export default function Hero() {
           </Button>
         </div>
       </div>
-      <div className="absolute bottom-9.5 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[2px] text-white/30 uppercase">
+      <div className="absolute bottom-18 left-1/2 z-90 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[2px] text-white/30 uppercase">
         <div className="h-9 w-0.5 animate-scroll-pulse rounded-full bg-gradient-to-b from-brand-blue/60 to-transparent" />
         <span>Kaydır</span>
       </div>

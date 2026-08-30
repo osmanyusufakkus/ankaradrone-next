@@ -63,13 +63,19 @@ const STATS: Stat[] = [
 
 export default function Stats() {
   return (
-    <div className="bg-brand-black py-20">
-      <div className="mx-auto max-w-[1240px] px-8">
+    <div className="relative z-40 bg-brand-black py-20 before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-gradient-to-b before:from-transparent before:via-brand-black/55 before:to-brand-black md:before:-top-64 md:before:h-64">
+      <div className="relative z-20 mx-auto max-w-[1240px] px-8">
         <div className="grid grid-cols-4 gap-8 text-center max-md:grid-cols-2">
           {STATS.map((stat, i) => (
             <FadeUp key={stat.id} delay={`${i * 0.1}s`} className="px-4 py-8">
               <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-brand-blue/25 bg-brand-blue/10">
-                <svg width="20" height="20" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#2196F3"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24">
                   {stat.icon}
                 </svg>
               </div>
