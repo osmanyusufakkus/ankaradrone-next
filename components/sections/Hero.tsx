@@ -1,17 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import {
-  HERO_YOUTUBE_ID,
-  HERO_YOUTUBE_VERTICAL,
-  PLACEHOLDER_VIDEO_SRC,
-} from "@/lib/media";
+import { HERO_YOUTUBE_ID, HERO_YOUTUBE_VERTICAL } from "@/lib/media";
 
 export default function Hero() {
   const droneRef = useRef<HTMLDivElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = droneRef.current;
@@ -37,15 +35,31 @@ export default function Hero() {
           className="absolute inset-0 z-0 opacity-40"
         />
       ) : (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          src="/video/hero-background.mp4"
-          className="absolute inset-0 z-0 h-full w-full object-cover object-[center_40%] opacity-100 brightness-110 contrast-110 saturate-110"
-        />
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Image
+            src="/images/kaleloop.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            preload
+            className="object-cover object-[center_40%] brightness-110 contrast-110 saturate-110"
+          />
+
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/kaleloop.jpg"
+            src="/video/kale_loop.mp4"
+            onPlaying={() => setIsVideoPlaying(true)}
+            onError={() => setIsVideoPlaying(false)}
+            className={`absolute inset-0 h-full w-full object-cover object-[center_40%] brightness-110 contrast-110 saturate-110 transition-opacity duration-1000 ease-out ${
+              isVideoPlaying ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </div>
       )}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/30 via-brand-black/35 to-brand-black/80" />
 
