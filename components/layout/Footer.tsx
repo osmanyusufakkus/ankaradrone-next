@@ -46,9 +46,10 @@ export default function Footer() {
               <Image
                 src="/images/AnkaraDrone.png"
                 alt={SITE_NAME}
-                fill
-                sizes="128px"
-                className="scale-[1.8] object-contain"
+                width={1563}
+                height={1563}
+                sizes="173px"
+                className="absolute -top-9 -left-[22px] h-[173px] w-[173px] max-w-none object-contain"
               />
             </div>
             <p className="mb-5 max-w-[280px] text-sm leading-relaxed text-white/40">

@@ -61,7 +61,7 @@ export default function Hero() {
         style={{
           transform: "translate(var(--parallax-x, 0), var(--parallax-y, 0))",
         }}
-        className="pointer-events-none absolute top-[23%] right-[3%] z-20 hidden opacity-[0.12] transition-transform duration-300 ease-out md:block">
+        className="pointer-events-none absolute top-[23%] right-[3%] z-20 hidden opacity-50 transition-transform duration-300 ease-out md:block">
         <div className="animate-float-drone">
           <Image
             src="/images/AnkaraDroneDüz.png"
@@ -83,7 +83,7 @@ export default function Hero() {
             width={747}
             height={747}
             loading="eager"
-            className="h-16 w-16 drop-shadow-[0_0_22px_rgba(33,150,243,.28)]"
+            className="h-64 w-64 drop-shadow-[0_0_30px_rgba(33,150,243,.30)]"
           />
         </div>
         <div className="animate-hero-in" style={{ animationDelay: "0.05s" }}>
