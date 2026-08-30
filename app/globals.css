@@ -33,7 +33,7 @@
  */
 @utility section-black-to-dark {
   background: linear-gradient(
-    to bottom,
+    in oklab to bottom,
     var(--color-brand-black) 0,
     var(--color-brand-dark) 10rem,
     var(--color-brand-dark) 100%
@@ -42,11 +42,29 @@
 
 @utility section-dark-to-black {
   background: linear-gradient(
-    to bottom,
+    in oklab to bottom,
     var(--color-brand-dark) 0,
     var(--color-brand-black) 10rem,
     var(--color-brand-black) 100%
   );
+}
+
+/* The contact surface spans a much wider blue range than the near-black
+   sections, so their one-pass viewport dither is not enough. Keeping the noise
+   as the first background layer means it is composited after both gradients,
+   while form controls, text and the logo remain perfectly clean. */
+@utility contact-gradient-dither {
+  background-color: #0d1a2e;
+  background-image:
+    url("/images/dither-noise.png"),
+    radial-gradient(
+      ellipse 60% 100% at 50% 50%,
+      rgba(33, 150, 243, 0.08) 0%,
+      transparent 70%
+    ),
+    linear-gradient(135deg in oklab, #0d1a2e 0%, #0a2040 50%, #0d1a2e 100%);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: 64px 64px, 100% 100%, 100% 100%;
 }
 
 @keyframes scrollPulse {
@@ -153,28 +171,19 @@ body {
   transform: translateY(0);
 }
 
-/* Cinematic atmosphere: faint film grain + edge vignette over the whole site.
-   The grain is a fixed, full-viewport layer with mix-blend-mode, which makes
-   the compositor re-blend the entire screen on every scroll frame. That's free
-   on a desktop GPU and the first thing to stutter on a mid-range Android — so
-   it's desktop-only. At phone size and 3.5% opacity the effect was barely
-   perceptible anyway. The vignette below is a plain gradient with no blending,
-   cheap enough to keep everywhere. */
+/* Near-black gradients have very few representable steps in an 8-bit output
+   pipeline, so a smooth vignette can turn into visible rings (banding). This
+   tiny pre-rasterized dither tile breaks up those rings without a runtime SVG
+   filter or mix-blend-mode. It is cheap enough for mobile and deliberately
+   changes pixels by only about one RGB level. */
 .grain-overlay {
-  display: none;
   position: fixed;
   inset: 0;
   z-index: 250;
   pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-@media (min-width: 768px) {
-  .grain-overlay {
-    display: block;
-  }
+  background-image: url("/images/dither-noise.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }
 
 .vignette-overlay {
@@ -182,7 +191,11 @@ body {
   inset: 0;
   z-index: 249;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.4) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 70%,
+    rgba(0, 0, 0, 0.24) 100%
+  );
 }
 
 /* SSS akordeonunun yumuşak açılışı.

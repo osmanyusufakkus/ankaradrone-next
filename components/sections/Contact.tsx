@@ -45,7 +45,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden border-y border-brand-blue/15 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_50%,#0d1a2e_100%)] py-25 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_60%_100%_at_50%_50%,rgba(33,150,243,.08)_0%,transparent_70%)]"
+      className="contact-gradient-dither relative scroll-mt-24 overflow-hidden border-y border-brand-blue/15 py-25"
     >
       <Image
         src="/images/AnkaraDroneDüz.png"
