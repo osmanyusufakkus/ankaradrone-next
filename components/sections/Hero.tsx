@@ -44,7 +44,7 @@ export default function Hero() {
           playsInline
           preload="auto"
           src="/video/hero-background.mp4"
-          className="absolute inset-0 z-0 h-full w-full object-cover opacity-40"
+          className="absolute inset-0 z-0 h-full w-full object-cover opacity-90"
         />
       )}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/80 via-brand-black/70 to-brand-black" />
