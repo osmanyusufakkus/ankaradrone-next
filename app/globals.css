@@ -54,15 +54,22 @@
    as the first background layer means it is composited after both gradients,
    while form controls, text and the logo remain perfectly clean. */
 @utility contact-gradient-dither {
-  background-color: #0d1a2e;
+  background-color: #081421;
   background-image:
     url("/images/dither-noise.png"),
     radial-gradient(
       ellipse 60% 100% at 50% 50%,
-      rgba(33, 150, 243, 0.08) 0%,
+      rgba(33, 150, 243, 0.055) 0%,
       transparent 70%
     ),
-    linear-gradient(135deg in oklab, #0d1a2e 0%, #0a2040 50%, #0d1a2e 100%);
+    linear-gradient(
+      135deg in oklab,
+      #081421 0%,
+      #0b2340 28%,
+      #0d3158 50%,
+      #0b2340 72%,
+      #081421 100%
+    );
   background-repeat: repeat, no-repeat, no-repeat;
   background-size: 64px 64px, 100% 100%, 100% 100%;
 }
