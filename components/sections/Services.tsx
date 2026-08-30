@@ -64,7 +64,7 @@ const SERVICES: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-24 bg-brand-black py-25">
+    <section id="services" className="section-dark-to-black scroll-mt-24 py-25">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Neler Yapıyoruz</Eyebrow>

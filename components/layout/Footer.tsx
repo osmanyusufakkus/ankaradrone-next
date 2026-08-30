@@ -42,13 +42,15 @@ export default function Footer() {
       <div className="mx-auto max-w-[1240px] px-8">
         <div className="mb-12 grid grid-cols-[1.6fr_1fr_1fr] gap-12 max-md:grid-cols-1">
           <div>
-            <Image
-              src="/images/logo.jpg"
-              alt={SITE_NAME}
-              width={1563}
-              height={1563}
-              className="mb-4 block h-12 w-12"
-            />
+            <div className="relative -ml-2 mb-2 h-24 w-32 overflow-hidden">
+              <Image
+                src="/images/AnkaraDrone.png"
+                alt={SITE_NAME}
+                fill
+                sizes="128px"
+                className="scale-[1.8] object-contain"
+              />
+            </div>
             <p className="mb-5 max-w-[280px] text-sm leading-relaxed text-white/40">
               Ankara merkezli profesyonel drone çekim hizmetleri. İnşaat, gayrimenkul ve
               kurumsal projeler.

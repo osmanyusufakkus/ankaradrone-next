@@ -31,7 +31,7 @@ export default function Faq() {
   };
 
   return (
-    <section id="sss" className="scroll-mt-24 bg-brand-black py-25">
+    <section id="sss" className="section-dark-to-black scroll-mt-24 py-25">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

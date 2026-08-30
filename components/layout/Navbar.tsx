@@ -55,21 +55,23 @@ export default function Navbar() {
         scrolled || menuOpen
           ? "border-brand-blue/25 bg-brand-black/95 shadow-[0_8px_30px_rgba(0,0,0,.35)]"
           : "border-brand-blue/12 bg-brand-black/88"
-      }`}
-    >
+      }`}>
       <div className="flex items-center justify-between px-12 py-4.5 max-md:px-6 max-md:py-3.5">
         <Link
           href="/"
-          className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-        >
-          <Image
-            src="/images/logo.jpg"
-            alt="AnkaraDrone"
-            width={1563}
-            height={1563}
-            priority
-            className="h-13 w-13"
-          />
+          aria-label="AnkaraDrone ana sayfa"
+          className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue">
+          <span className="relative block h-14 w-20 overflow-hidden max-md:h-12 max-md:w-18">
+            <Image
+              src="/images/AnkaraDrone.png"
+              alt="AnkaraDrone"
+              width={1563}
+              height={1563}
+              sizes="(max-width: 768px) 86px, 101px"
+              preload
+              className="absolute -top-[21px] -left-[11px] h-[101px] w-[101px] max-w-none object-contain max-md:-top-[18px] max-md:-left-[7px] max-md:h-[86px] max-md:w-[86px]"
+            />
+          </span>
         </Link>
 
         {/* Çapa bağlantılarında AnchorLink kullanılıyor: next/link, adres zaten o
@@ -79,8 +81,7 @@ export default function Navbar() {
             <li key={link.href}>
               <AnchorLink
                 href={link.href}
-                className="rounded text-[13px] font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-250 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue"
-              >
+                className="rounded text-[13px] font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-250 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-blue">
                 {link.label}
               </AnchorLink>
             </li>
@@ -88,8 +89,7 @@ export default function Navbar() {
           <li>
             <AnchorLink
               href="/#contact"
-              className="rounded-pill bg-brand-blue px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
+              className="rounded-pill bg-brand-blue px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Teklif Al
             </AnchorLink>
           </li>
@@ -101,9 +101,16 @@ export default function Navbar() {
           aria-expanded={menuOpen}
           aria-controls={MENU_ID}
           aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
-          className="hidden h-11 w-11 items-center justify-center rounded-xl border border-white/12 text-brand-white transition-colors duration-200 hover:border-brand-blue/50 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex"
-        >
-          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24" aria-hidden>
+          className="hidden h-11 w-11 items-center justify-center rounded-xl border border-white/12 text-brand-white transition-colors duration-200 hover:border-brand-blue/50 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex">
+          <svg
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            viewBox="0 0 24 24"
+            aria-hidden>
             {menuOpen ? (
               <>
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -125,16 +132,14 @@ export default function Navbar() {
       <div
         id={MENU_ID}
         hidden={!menuOpen}
-        className="border-t border-white/8 px-6 pt-2 pb-6 md:hidden"
-      >
+        className="border-t border-white/8 px-6 pt-2 pb-6 md:hidden">
         <ul className="flex list-none flex-col">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <AnchorLink
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-lg border-b border-white/6 py-4 text-sm font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-200 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-              >
+                className="block rounded-lg border-b border-white/6 py-4 text-sm font-semibold tracking-wider text-brand-offwhite uppercase transition-colors duration-200 hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue">
                 {link.label}
               </AnchorLink>
             </li>
@@ -143,8 +148,7 @@ export default function Navbar() {
         <AnchorLink
           href="/#contact"
           onClick={() => setMenuOpen(false)}
-          className="mt-5 block rounded-pill bg-brand-blue px-6 py-3.5 text-center text-sm font-bold tracking-wider text-white uppercase transition-colors duration-250 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
+          className="mt-5 block rounded-pill bg-brand-blue px-6 py-3.5 text-center text-sm font-bold tracking-wider text-white uppercase transition-colors duration-250 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
           Teklif Al
         </AnchorLink>
       </div>

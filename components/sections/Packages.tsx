@@ -3,7 +3,6 @@ import FadeUp from "@/components/ui/FadeUp";
 import VideoCard from "@/components/ui/VideoCard";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
-import { PLACEHOLDER_VIDEO_SRC } from "@/lib/media";
 
 type Package = {
   id: string;
@@ -188,7 +187,7 @@ const PACKAGES: Package[] = [
 
 export default function Packages() {
   return (
-    <section id="packages" className="scroll-mt-24 bg-brand-dark py-25">
+    <section id="packages" className="section-black-to-dark scroll-mt-24 py-25">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-20">
           <Eyebrow>Çekim Paketleri</Eyebrow>

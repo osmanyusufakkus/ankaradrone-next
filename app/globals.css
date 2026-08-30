@@ -25,6 +25,30 @@
   --animate-modal-pop: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/*
+ * Ardışık ana sayfa bölümlerinin farklı düz zeminleri doğrudan temas ettiğinde
+ * oluşan yatay renk çizgisini giderir. Geçiş yüksekliğini burada tutmak, her
+ * section içinde farklı ve zamanla tutarsız gradient değerleri oluşmasını
+ * önler.
+ */
+@utility section-black-to-dark {
+  background: linear-gradient(
+    to bottom,
+    var(--color-brand-black) 0,
+    var(--color-brand-dark) 10rem,
+    var(--color-brand-dark) 100%
+  );
+}
+
+@utility section-dark-to-black {
+  background: linear-gradient(
+    to bottom,
+    var(--color-brand-dark) 0,
+    var(--color-brand-black) 10rem,
+    var(--color-brand-black) 100%
+  );
+}
+
 @keyframes scrollPulse {
   0%,
   100% {

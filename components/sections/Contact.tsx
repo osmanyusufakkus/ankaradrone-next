@@ -1,3 +1,4 @@
+import Image from "next/image";
 import FadeUp from "@/components/ui/FadeUp";
 import ContactForm from "@/components/ui/ContactForm";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -46,6 +47,13 @@ export default function Contact() {
       id="contact"
       className="relative scroll-mt-24 overflow-hidden border-y border-brand-blue/15 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_50%,#0d1a2e_100%)] py-25 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_60%_100%_at_50%_50%,rgba(33,150,243,.08)_0%,transparent_70%)]"
     >
+      <Image
+        src="/images/AnkaraDroneDüz.png"
+        alt=""
+        width={747}
+        height={747}
+        className="pointer-events-none absolute top-1/2 -right-24 h-[420px] w-[420px] -translate-y-1/2 opacity-[0.045] max-md:-right-20 max-md:h-64 max-md:w-64"
+      />
       <div className="relative mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-12 text-center">
           <Eyebrow className="justify-center">İletişim</Eyebrow>

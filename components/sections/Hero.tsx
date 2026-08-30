@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -54,106 +55,37 @@ export default function Hero() {
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/30 via-brand-black/35 to-brand-black/80" />
 
       <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(33,150,243,0.10)_0%,transparent_70%)]" />
-      {/*
+
       <div
         ref={droneRef}
         style={{
           transform: "translate(var(--parallax-x, 0), var(--parallax-y, 0))",
         }}
-        className="pointer-events-none absolute top-[30%] right-[6%] z-20 opacity-6 transition-transform duration-300 ease-out">
+        className="pointer-events-none absolute top-[23%] right-[3%] z-20 hidden opacity-[0.12] transition-transform duration-300 ease-out md:block">
         <div className="animate-float-drone">
-          <svg
-            width="380"
-            height="380"
-            viewBox="0 0 380 380"
-            fill="white"
-            xmlns="http://www.w3.org/2000/svg">
-            <ellipse
-              cx="190"
-              cy="190"
-              rx="185"
-              ry="185"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-            />
-            <circle
-              cx="190"
-              cy="190"
-              r="60"
-              fill="none"
-              stroke="white"
-              strokeWidth="3"
-            />
-            <circle
-              cx="82"
-              cy="82"
-              r="48"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-            />
-            <circle
-              cx="298"
-              cy="82"
-              r="48"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-            />
-            <circle
-              cx="82"
-              cy="298"
-              r="48"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-            />
-            <circle
-              cx="298"
-              cy="298"
-              r="48"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-            />
-            <line
-              x1="120"
-              y1="120"
-              x2="160"
-              y2="160"
-              stroke="white"
-              strokeWidth="3"
-            />
-            <line
-              x1="260"
-              y1="120"
-              x2="220"
-              y2="160"
-              stroke="white"
-              strokeWidth="3"
-            />
-            <line
-              x1="120"
-              y1="260"
-              x2="160"
-              y2="220"
-              stroke="white"
-              strokeWidth="3"
-            />
-            <line
-              x1="260"
-              y1="260"
-              x2="220"
-              y2="220"
-              stroke="white"
-              strokeWidth="3"
-            />
-          </svg>
+          <Image
+            src="/images/AnkaraDroneDüz.png"
+            alt=""
+            width={747}
+            height={747}
+            loading="eager"
+            className="h-[clamp(280px,30vw,440px)] w-[clamp(280px,30vw,440px)] drop-shadow-[0_0_45px_rgba(33,150,243,.28)]"
+          />
         </div>
       </div>
-      */}
       <div className="relative z-30 flex flex-col items-center">
+        <div
+          className="mb-4 animate-hero-in md:hidden"
+          style={{ animationDelay: "0.02s" }}>
+          <Image
+            src="/images/AnkaraDroneDüz.png"
+            alt=""
+            width={747}
+            height={747}
+            loading="eager"
+            className="h-16 w-16 drop-shadow-[0_0_22px_rgba(33,150,243,.28)]"
+          />
+        </div>
         <div className="animate-hero-in" style={{ animationDelay: "0.05s" }}>
           <Eyebrow className="justify-center">
             Ankara · Türkiye · Hava Çekimleri

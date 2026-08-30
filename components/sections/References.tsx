@@ -8,7 +8,7 @@ import { REFERENCE_PROJECTS } from "@/lib/projects";
 // gideceği bir proje sayfası olduğu garanti.
 export default function References() {
   return (
-    <section id="references" className="scroll-mt-24 bg-brand-dark py-25">
+    <section id="references" className="section-black-to-dark scroll-mt-24 py-25">
       <div className="mx-auto max-w-[1240px] px-8">
         <FadeUp className="mb-14">
           <Eyebrow>Referanslarımız</Eyebrow>
