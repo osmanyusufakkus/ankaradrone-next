@@ -49,7 +49,7 @@ export default function Hero() {
       )}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/80 via-brand-black/70 to-brand-black" />
       <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(33,150,243,0.18)_0%,transparent_70%)]" />
-
+      {/*
       <div
         ref={droneRef}
         style={{
@@ -147,7 +147,7 @@ export default function Hero() {
           </svg>
         </div>
       </div>
-
+      */}
       <div className="relative z-30 flex flex-col items-center">
         <div className="animate-hero-in" style={{ animationDelay: "0.05s" }}>
           <Eyebrow className="justify-center">
@@ -192,7 +192,6 @@ export default function Hero() {
           </Button>
         </div>
       </div>
-
       <div className="absolute bottom-9.5 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[2px] text-white/30 uppercase">
         <div className="h-9 w-0.5 animate-scroll-pulse rounded-full bg-gradient-to-b from-brand-blue/60 to-transparent" />
         <span>Kaydır</span>
