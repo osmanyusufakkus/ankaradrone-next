@@ -41,10 +41,19 @@ export const CONTACT = {
 } as const;
 
 export const SOCIAL_LINKS = [
-  // TODO(içerik): gerçek Instagram profil adresi.
-  { href: "https://www.instagram.com/", label: "Instagram", key: "instagram" },
-  // TODO(içerik): gerçek YouTube kanal adresi.
-  { href: "https://www.youtube.com/", label: "YouTube", key: "youtube" },
+  // Instagram ve YouTube aynı kullanıcı adını kullanıyor (ankaranin.dronecusu).
+  // YouTube kanalı, sitedeki videoların YouTube kaydındaki sahip bilgisinden
+  // doğrulandı; Instagram kullanıcı adını işletme sahibi teyit etti.
+  {
+    href: "https://www.instagram.com/ankaranin.dronecusu/",
+    label: "Instagram",
+    key: "instagram",
+  },
+  {
+    href: "https://www.youtube.com/@ankaranin.dronecusu",
+    label: "YouTube",
+    key: "youtube",
+  },
 ] as const;
 
 /**
