@@ -46,8 +46,31 @@ export const PROJECT_OVERRIDES: Record<string, ProjectOverride> = {
     showAsReference: false,
     title: "Ankara Drone – Tanıtım Videosu",
   },
-  // Arsa tanıtımları: başlıkta proje/marka adı olmadığı için duvarda değil,
-  // /projeler'de görünüyorlar.
-  "P7N2s8DfzZM": { showAsReference: false, sector: "Arsa" },
-  "E8zgd9xOhOI": { showAsReference: false, sector: "Arsa" },
+
+  // ── Müşteri firmalar ────────────────────────────────────────────────────
+  // Duvarda proje adı yerine firma adı görünür. Adlar her videonun YouTube
+  // açıklamasında yazdığı haliyle alındı ("… için hazırladık", "… tarafından
+  // hayata geçirilen", "… imzasını taşıyan"). Aynı firmanın birden fazla işi
+  // varsa duvarda tek kart olur (en yeni işi); diğerleri /projeler'de kalır.
+  "P7N2s8DfzZM": { clientName: "Musaoğulları Wohnbau", sector: "Arsa" },
+  "E8zgd9xOhOI": { clientName: "Musaoğulları Wohnbau", sector: "Arsa" },
+  "8UrXWCEwtjk": { clientName: "Leda Grup & Yedisalkım İnşaat" },
+  "NLmWdMysivw": { clientName: "Leda Grup & Yedisalkım İnşaat" },
+  "gGKwXakttqs": { clientName: "Türk Group" },
+  "8hvHuyiMfgM": { clientName: "Türk Group" },
+  "BZYy_up4uiI": { clientName: "Helka İnşaat" },
+  "6Fr03xwU2pk": { clientName: "Helka İnşaat", sector: "Kurumsal Film" },
+  "9GTZmRRHSkc": { clientName: "Mesken Arsa" },
+  "3tB-dcwUSs4": { clientName: "Ünsal Group" },
+  "sooZ2YGqx20": { clientName: "Hit Yapı" },
+  "Q3mLxhVRCPw": { clientName: "TPY Yapı" },
+  "vF0Psg_Hsm4": { clientName: "Şahinler Group" },
+
+  // TODO(içerik): Aşağıdaki dört videonun açıklamasında firma adı geçmiyor;
+  // duvarda şimdilik proje adıyla görünüyorlar. Firma adını biliyorsanız
+  // `clientName` ekleyin:
+  //   "eAjV9RHsxDY" Santra Çayyolu
+  //   "J0Rvb-IQ3oE" Silva Bağlıca
+  //   "6paS-VmutN4" Vantage Ofis
+  //   "043jp9LPDv4" Yeni Batı Plus Ankara
 };

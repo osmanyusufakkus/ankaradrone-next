@@ -164,9 +164,18 @@ export function getProjectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((project) => project.slug === slug);
 }
 
-/** Ana sayfadaki Referanslar duvarında gösterilecek işler. */
+/**
+ * Ana sayfadaki Referanslar duvarında gösterilecek işler — müşteri başına bir
+ * kart. Aynı firmanın birden fazla işi varsa (ör. Türk Group'un Royal Office ve
+ * Royal Skyport'u) duvar, sıralamada ilk gelen (varsayılan olarak en yeni) işi
+ * gösterir; firmanın diğer işleri /projeler'de durur. Hangi işin görüneceğini
+ * değiştirmek için lib/project-overrides.ts → `order`.
+ */
 export const REFERENCE_PROJECTS = PROJECTS.filter(
   (project) => project.showAsReference && project.client,
+).filter(
+  (project, i, list) =>
+    list.findIndex((other) => other.client?.name === project.client?.name) === i,
 );
 
 /**
