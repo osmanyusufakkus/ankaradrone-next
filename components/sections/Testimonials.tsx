@@ -82,7 +82,7 @@ export default function Testimonials() {
               <FadeUp
                 key={t.id}
                 delay={`${i * 0.1}s`}
-                className="rounded-3xl border-1.5 border-white/6 bg-brand-card p-8"
+                className="rounded-3xl border-[1.5px] border-white/6 bg-brand-card p-8"
               >
                 <p className="mb-6 text-[15px] leading-relaxed font-light text-brand-offwhite">
                   “{t.quote}”

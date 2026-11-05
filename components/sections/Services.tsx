@@ -81,7 +81,7 @@ export default function Services() {
             <FadeUp
               key={service.id}
               delay={`${i * 0.1}s`}
-              className="group rounded-3xl border-1.5 border-white/6 bg-brand-card p-9 px-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/35 hover:shadow-[0_20px_50px_rgba(33,150,243,.12)]"
+              className="group rounded-3xl border-[1.5px] border-white/6 bg-brand-card p-9 px-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/35 hover:shadow-[0_20px_50px_rgba(33,150,243,.12)]"
             >
               <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl border border-brand-blue/20 bg-brand-blue/10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
                 <svg width="24" height="24" fill="none" stroke="#2196F3" strokeWidth="2" viewBox="0 0 24 24">

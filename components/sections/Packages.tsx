@@ -115,7 +115,10 @@ const PACKAGES: Package[] = [
     tag: "Gayrimenkul",
     label: "Konut & Site Tanıtım Filmi",
     youtubeId: "vF0Psg_Hsm4",
-    youtubeVertical: true,
+    // Bu yükleme YATAY (16:9) — `true` olunca kapak 9:16 adresinden (oardefault)
+    // isteniyordu, YouTube yatay videoda o adreste 404 veriyor. Kart 9:16 kalıyor;
+    // kapak ve önizleme ortadan kırpılarak doldurur, lightbox 16:9 açılır.
+    youtubeVertical: false,
     previewStart: 3,
     title: (
       <>
@@ -218,12 +221,12 @@ export default function Packages() {
                   // Gradyan artık kartın arka planı değil, kapağın ÜSTÜNDEKİ
                   // renk katmanı — önizleme oynarken saydamlaşıyor.
                   tintClassName={pkg.gradient}
-                  className="aspect-9/16 rounded-drone border-1.5 border-brand-blue/15 bg-brand-dark shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-101.5 hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)]"
+                  className="aspect-9/16 rounded-drone border-[1.5px] border-brand-blue/15 bg-brand-dark shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-brand-blue hover:shadow-[0_32px_80px_rgba(33,150,243,.25)]"
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}
                   placeholder={
                     <div className="flex flex-col items-center gap-3 rounded-2xl bg-brand-black/35 px-5 py-4 backdrop-blur-sm">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full border-1.5 border-brand-blue/30 bg-brand-blue/12">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-brand-blue/30 bg-brand-blue/12">
                         {pkg.icon}
                       </div>
                       <span className="text-[11px] font-semibold tracking-[2px] text-white/70 uppercase">
@@ -271,7 +274,7 @@ export default function Packages() {
         <FadeUp className="mt-20">
           <Link
             href="/projeler"
-            className="group relative flex items-center justify-between gap-8 overflow-hidden rounded-drone border-1.5 border-brand-blue/20 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_55%,#0d1a2e_100%)] px-12 py-10 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-[0_28px_70px_rgba(33,150,243,.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex-col max-md:items-start max-md:gap-6 max-md:px-8 max-md:py-8">
+            className="group relative flex items-center justify-between gap-8 overflow-hidden rounded-drone border-[1.5px] border-brand-blue/20 bg-[linear-gradient(135deg,#0d1a2e_0%,#0a2040_55%,#0d1a2e_100%)] px-12 py-10 transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue hover:shadow-[0_28px_70px_rgba(33,150,243,.2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue max-md:flex-col max-md:items-start max-md:gap-6 max-md:px-8 max-md:py-8">
             <span
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_120%_at_80%_50%,rgba(33,150,243,.14)_0%,transparent_70%)]"
@@ -288,7 +291,7 @@ export default function Packages() {
                 proje detayları burada.
               </span>
             </span>
-            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-1.5 border-brand-blue/40 bg-brand-blue/12 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white">
+            <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-brand-blue/40 bg-brand-blue/12 text-brand-blue transition-all duration-300 group-hover:bg-brand-blue group-hover:text-white">
               <svg
                 width="22"
                 height="22"
