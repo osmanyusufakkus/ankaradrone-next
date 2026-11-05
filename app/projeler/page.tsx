@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Eyebrow from "@/components/ui/Eyebrow";
 import ProjectCover from "@/components/ui/ProjectCover";
@@ -32,8 +33,21 @@ export default function ProjelerPage() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-5">
+                {/* Logo varsa başlığın üstünde; yoksa kart yalnızca başlıkla
+                    görünür (bkz. lib/project-overrides.ts → logoUrl). */}
+                {project.client?.logoUrl && (
+                  <span className="relative mb-3 block h-11 w-1/2">
+                    <Image
+                      src={project.client.logoUrl}
+                      alt={project.client.name}
+                      fill
+                      sizes="200px"
+                      className="object-contain object-left-bottom"
+                    />
+                  </span>
+                )}
                 <h2 className="font-display text-2xl leading-tight tracking-wide text-white">
                   {project.title}
                 </h2>
