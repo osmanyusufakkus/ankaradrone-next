@@ -141,7 +141,7 @@ export default function VideoLightbox({
           </p>
           <Link
             href={projectHref}
-            className="inline-flex items-center gap-2.5 rounded-pill bg-brand-blue px-8 py-3.5 text-sm font-bold tracking-wide text-white transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="inline-flex items-center gap-2.5 rounded-pill bg-brand-blue-cta px-8 py-3.5 text-sm font-bold tracking-wide text-white transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Projeyi İncele
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden>

@@ -208,7 +208,9 @@ export default function Packages() {
           return (
             <FadeUp
               key={pkg.id}
-              className="mb-20 grid grid-cols-2 items-center gap-0 last:mb-0 max-md:grid-cols-1">
+              // Hizmetler bölümündeki "Paket 02'de" etiketleri buraya bağlanıyor.
+              id={`paket-${pkg.id}`}
+              className="mb-20 scroll-mt-24 grid grid-cols-2 items-center gap-0 last:mb-0 max-md:grid-cols-1">
               <div
                 className={`mx-auto w-full max-w-85 ${reverse ? "md:order-2" : "md:order-1"}`}>
                 <VideoCard
@@ -227,6 +229,16 @@ export default function Packages() {
                   hoverHint="▶ Önizle"
                   pulseHint={i === 0}
                   placeholder={
+                    pkg.youtubeId ? (
+                      // Kapak varken rozet köşede duruyor: eskiden ortada,
+                      // koyu bir kutu içinde çekimin tam üstünü kapatıyordu.
+                      <span className="absolute top-4 left-4 flex items-center gap-2 rounded-pill border border-brand-blue/25 bg-brand-black/60 py-1.5 pr-3.5 pl-2 backdrop-blur-sm [&_svg]:h-4 [&_svg]:w-4">
+                        {pkg.icon}
+                        <span className="text-[10px] font-semibold tracking-[2px] text-white/85 uppercase">
+                          {pkg.tag}
+                        </span>
+                      </span>
+                    ) : (
                     <div className="flex flex-col items-center gap-3 rounded-2xl bg-brand-black/35 px-5 py-4 backdrop-blur-sm">
                       <div className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-brand-blue/30 bg-brand-blue/12">
                         {pkg.icon}
@@ -235,6 +247,7 @@ export default function Packages() {
                         {pkg.tag}
                       </span>
                     </div>
+                    )
                   }
                 />
               </div>

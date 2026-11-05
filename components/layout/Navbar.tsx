@@ -89,7 +89,7 @@ export default function Navbar() {
           <li>
             <AnchorLink
               href="/#contact"
-              className="rounded-pill bg-brand-blue px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              className="rounded-pill bg-brand-blue-cta px-6.5 py-2.5 text-[13px] font-bold tracking-wider text-white uppercase transition-all duration-250 hover:-translate-y-0.5 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               Teklif Al
             </AnchorLink>
           </li>
@@ -148,7 +148,7 @@ export default function Navbar() {
         <AnchorLink
           href="/#contact"
           onClick={() => setMenuOpen(false)}
-          className="mt-5 block rounded-pill bg-brand-blue px-6 py-3.5 text-center text-sm font-bold tracking-wider text-white uppercase transition-colors duration-250 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          className="mt-5 block rounded-pill bg-brand-blue-cta px-6 py-3.5 text-center text-sm font-bold tracking-wider text-white uppercase transition-colors duration-250 hover:bg-brand-blue-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
           Teklif Al
         </AnchorLink>
       </div>
