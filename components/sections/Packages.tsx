@@ -32,6 +32,13 @@ type Package = {
    * açılışı atlayıp doğrudan "vitrin anından" başlatmak için.
    */
   previewStart?: number;
+  /**
+   * Kapağı elle vermek için. Boşsa yönden türetilir (dikeyde 9:16 oardefault);
+   * özel 16:9 kapak yüklenmiş dikey videolarda o adres 404 verdiği için burada
+   * maxresdefault verilmeli. lib/youtube-catalog.json hangisinin var olduğunu
+   * `cover` alanında tutar.
+   */
+  posterSrc?: string;
 };
 
 const PACKAGES: Package[] = [
@@ -115,10 +122,10 @@ const PACKAGES: Package[] = [
     tag: "Gayrimenkul",
     label: "Konut & Site Tanıtım Filmi",
     youtubeId: "vF0Psg_Hsm4",
-    // Bu yükleme YATAY (16:9) — `true` olunca kapak 9:16 adresinden (oardefault)
-    // isteniyordu, YouTube yatay videoda o adreste 404 veriyor. Kart 9:16 kalıyor;
-    // kapak ve önizleme ortadan kırpılarak doldurur, lightbox 16:9 açılır.
-    youtubeVertical: false,
+    // Video DİKEY (1080x1920), ama özel 16:9 kapak yüklenmiş: 9:16 kapak
+    // (oardefault) yok, 404 veriyor. Yön ve kapak bu yüzden ayrı veriliyor.
+    youtubeVertical: true,
+    posterSrc: "https://i.ytimg.com/vi/vF0Psg_Hsm4/maxresdefault.jpg",
     previewStart: 3,
     title: (
       <>
@@ -218,6 +225,7 @@ export default function Packages() {
                   youtubeId={pkg.youtubeId}
                   youtubeVertical={pkg.youtubeVertical}
                   previewStart={pkg.previewStart}
+                  posterSrc={pkg.posterSrc}
                   label={pkg.label}
                   // Kart her ekranda en fazla 340px (max-w-85); mobilde
                   // "100vw" demek gereğinden büyük kapak indirtiyordu.

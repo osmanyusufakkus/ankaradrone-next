@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:youtube": "node scripts/sync-youtube.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

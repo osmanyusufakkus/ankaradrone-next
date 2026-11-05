@@ -1,13 +1,7 @@
-// TODO(içerik): Bu üçüncü parti (w3schools) örnek klip yayına ÇIKMAMALI —
-// hem amatör durur hem de o sunucu yavaşlarsa/engellerse sitedeki tüm kart
-// önizlemeleri bozulur. Gerçek klipleri public/videos/ altına koyup buradaki
-// tek satırı değiştirmek yeterli.
-//
-// Stand-in clip used everywhere a real AnkaraDrone video hasn't been shot/delivered yet.
-// Each data entry that needs a video (see components/sections/Packages.tsx and
-// References.tsx) has its own `videoSrc` field defaulting to this — swap that one
-// field per entry once the real footage is ready, no other code changes needed.
-export const PLACEHOLDER_VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
+// Projelerin videoları artık YouTube kanalından geliyor (bkz. lib/projects.tsx).
+// Eskiden burada duran w3schools örnek klibi (PLACEHOLDER_VIDEO_SRC) kaldırıldı;
+// `videoSrc` alanı hâlâ var, YouTube'a yüklenmemiş bir iş için yerel bir mp4
+// göstermek isterseniz kullanılabilir.
 
 /**
  * Hero arka plan videosu — `public/video/kale_loop.mp4` kaynağından web için

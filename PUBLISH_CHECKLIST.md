@@ -13,14 +13,13 @@ grep -rn "TODO(içerik)" app components lib
 
 ## 1. İçerik — hukuki risk taşıyanlar (önce bunlar)
 
-- [ ] **Referans listesi** — `components/sections/References.tsx`
-      Şu an 10 büyük kurum yer tutucu olarak listeli (İÇTAŞ, EMLAK KONUT, TOKİ,
-      ANKAmall, AKFEN, SETUR, MEB…). Yalnızca **gerçekten çalıştığınız** firmaları
-      bırakın. Bir firmanın adını veya logosunu izinsiz kullanmak marka hakkı
-      ihlali sayılabilir — referans göstermek için müşteriden **yazılı onay** alın.
-- [ ] **Logo dosyaları** — `public/images/references/`
-      Yalnızca izin alınmış logolar dursun. Logosu olmayan firmalar baş harf
-      rozetiyle görünür, bu da düzgün bir görünümdür.
+- [x] **Referans listesi** — 2026-11-05: yer tutucu 10 kurum kaldırıldı; duvar
+      artık YouTube kanalındaki gerçek işlerden üretiliyor (`npm run sync:youtube`,
+      bkz. README → `lib/projects.tsx`). Duvarda firma adı göstermek isterseniz
+      `lib/project-overrides.ts` → `clientName`.
+- [x] **Logo dosyaları** — `public/images/references/`
+      Yer tutucu TOKİ / Emlak Konut logoları silindi; şu an hiç logo yok, kartlar
+      baş harf rozetiyle görünüyor. Logo eklerken müşteriden **yazılı onay** alın.
 - [ ] **İstatistikler** — `components/sections/Stats.tsx`
       "200+ proje", "50+ kurumsal referans" doğrulanabilir gerçek sayılar mı?
       Emin olunamayan bir metriği göstermemek, abartmaktan iyidir.
@@ -30,17 +29,16 @@ grep -rn "TODO(içerik)" app components lib
 
 ## 2. İçerik — medya
 
-- [ ] **Yer tutucu video** — `lib/media.ts` içindeki `PLACEHOLDER_VIDEO_SRC`
-      Şu an w3schools'un örnek klibini gösteriyor ve **kesinlikle yayına
-      çıkmamalı.** Gerçek kliplerinizi `public/videos/` altına koyup ilgili
-      `videoSrc` alanlarını güncelleyin.
+- [x] **Yer tutucu video** — w3schools örnek klibi kaldırıldı (2026-11-05);
+      bütün proje videoları YouTube'dan geliyor.
 - [ ] **Hero arka plan videosu** — `lib/media.ts` içindeki `HERO_YOUTUBE_ID`
       YouTube arka plan gömmesi (~1MB iframe) sayfa açılışını yavaşlatır ve
       açılış hızı doğrudan güven algısıdır. Hero için 10-15 saniyelik, sessiz,
       ~2MB'a sıkıştırılmış kendi MP4'ünüzü kullanın; YouTube'u diğer kartların
       lightbox'ında bırakın.
-- [ ] **Proje sayfaları** — `lib/projects.tsx`
-      "Proje 1…4" başlıkları, kapak görselleri, açıklama, konum ve tarih.
+- [x] **Proje sayfaları** — başlık, kapak, açıklama, konum ve tarih YouTube
+      kanalından üretiliyor (2026-11-05). Düzeltmek istediğiniz alanı
+      `lib/project-overrides.ts` içinde videonun kimliğiyle değiştirin.
 - [ ] ⚠️ **Müşteri yorumları** — `components/sections/Testimonials.tsx`
       **Şu an dosyada üç adet UYDURMA yorum var**, düzenin çalıştığını görmek
       için konuldu. Yayına çıkmadan önce ya gerçek yorumlarla değiştirin ya da
