@@ -75,8 +75,7 @@ const localBusinessSchema = {
     addressCountry: CONTACT.country,
   },
   areaServed: { "@type": "AdministrativeArea", name: "Ankara" },
-  // TODO(içerik): gerçek Instagram/YouTube adresleri lib/site.ts içinde doldurulunca
-  // Google bu hesapları işletmeyle ilişkilendirir.
+  // Google bu hesapları işletmeyle ilişkilendirir (lib/site.ts → SOCIAL_LINKS).
   sameAs: SOCIAL_LINKS.map((social) => social.href),
   knowsLanguage: ["tr"],
 };

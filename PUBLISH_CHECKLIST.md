@@ -63,9 +63,9 @@ grep -rn "TODO(içerik)" app components lib
 
 Sitedeki tüm iletişim bilgisi bu tek dosyadan gelir.
 
-- [ ] `SOCIAL_LINKS` — gerçek Instagram ve YouTube adresleri
-      (şu an genel ana sayfalara gidiyor). Instagram arşiviniz en güçlü güven
-      kaynağınız; buranın doğru olması önemli.
+- [x] `SOCIAL_LINKS` — gerçek Instagram ve YouTube adresleri
+      (`ankaranin.dronecusu`, 2026-11-05). Instagram arşiviniz en güçlü güven
+      kaynağınız; kullanıcı adı değişirse burayı güncelleyin.
 - [ ] `CONTACT.addressLine` — tam açık adres (JSON-LD ve footer bunu kullanır)
 - [ ] `CONTACT.email` / `phoneDisplay` — doğrulayın
 
