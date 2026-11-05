@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import FadeUp from "@/components/ui/FadeUp";
 import Eyebrow from "@/components/ui/Eyebrow";
@@ -15,13 +16,16 @@ import { PROJECTS, REFERENCE_PROJECTS } from "@/lib/projects";
  *
  * Veri lib/projects.tsx → REFERENCE_PROJECTS'ten gelir (firma başına bir iş).
  * Masaüstünde ilk MAX_CARDS iş + "tamamı" kartı; mobilde aynı liste yana
- * kaydırılan tek sıra. Logolar gelince kart üstündeki firma adının yerine ya
- * da yanına konabilir (client.logoUrl).
+ * kaydırılan tek sıra. Logo varsa kartta firma adının yerine logo görünür
+ * (client.logoUrl, bkz. lib/project-overrides.ts).
  */
 const MAX_CARDS = 11;
 
 export default function References() {
-  const shown = REFERENCE_PROJECTS.slice(0, MAX_CARDS);
+  // Logolu firmalar önce: sınıra takılan kartlar logosu olmayanlar olsun.
+  const shown = [...REFERENCE_PROJECTS]
+    .sort((a, b) => Number(Boolean(b.client?.logoUrl)) - Number(Boolean(a.client?.logoUrl)))
+    .slice(0, MAX_CARDS);
   const total = PROJECTS.length;
 
   return (
@@ -93,9 +97,23 @@ export default function References() {
                         </span>
                       )}
                       <span className="absolute inset-x-0 bottom-0 p-3.5 pr-12 text-left">
-                        <span className="block font-display text-[21px] leading-none tracking-wide text-brand-white">
-                          {project.client?.name}
-                        </span>
+                        {project.client?.logoUrl && (
+                          <span className="relative mb-2.5 block h-11 w-full">
+                            <Image
+                              src={project.client.logoUrl}
+                              alt={project.client.name}
+                              fill
+                              sizes="170px"
+                              className="object-contain object-left-bottom"
+                            />
+                          </span>
+                        )}
+                        {/* Logo firmanın kendisiyse ad tekrar yazılmıyor. */}
+                        {(!project.client?.logoUrl || project.client.logoIsProject) && (
+                          <span className="block font-display text-[21px] leading-none tracking-wide text-brand-white">
+                            {project.client?.name}
+                          </span>
+                        )}
                         <span className="mt-1.5 block text-[11px] leading-snug text-white/65">
                           {/* Kartta proje adı; tür ve konum proje sayfasında. */}
                           {project.title.split(" – ")[0]}

@@ -25,6 +25,8 @@ export type ProjectClient = {
   color: string;
   /** public/images/references/ altındaki logo — yalnızca izin alınmış logolar. */
   logoUrl?: string;
+  /** Logo firmanın değil projenin — kartta firma adı ayrıca yazılır. */
+  logoIsProject?: boolean;
 };
 
 export type Project = {
@@ -145,6 +147,7 @@ function toProject(video: CatalogVideo, index: number, override: ProjectOverride
       code: override.code ?? initials(name),
       color,
       logoUrl: override.logoUrl,
+      logoIsProject: override.projectLogo,
     },
   };
 }
