@@ -14,6 +14,15 @@ import { COVER_BLUR_DATA_URL, youtubeThumbnail } from "@/lib/youtube";
  */
 const HOVER_INTENT_MS = 200;
 
+/**
+ * iframe yüklendikten sonra önizlemenin görünür olması için beklenen süre.
+ * YouTube, `controls=0` olsa bile oynatmanın ilk ~3 saniyesinde başlık, kanal
+ * adı, oynat/duraklat tuşları ve logoyu (dar kartlarda Shorts arayüzünü:
+ * Beğen, Paylaş…) gösteriyor; 5. saniyede kare temiz. Bu sürede kapak
+ * görünmeye devam ediyor, video arayüz kalktıktan sonra beliriyor.
+ */
+const PREVIEW_REVEAL_MS = 3500;
+
 type VideoCardProps = {
   /**
    * Yerel kısa klip — yalnızca `youtubeId` verilmediğinde (henüz YouTube'a
@@ -44,6 +53,18 @@ type VideoCardProps = {
   className?: string;
   /** Kartın etkileşimli olduğunu ima eden kısa parıltı animasyonu. */
   pulseHint?: boolean;
+  /**
+   * Üzerine gelince önizleme oynatılsın mı (varsayılan: evet). Dar kartlarda
+   * kapatın: YouTube ~200px genişlikteki dikey oynatıcılarda, `controls=0`
+   * olsa bile tutarsız biçimde Shorts arayüzü (Beğen, Paylaş, kanal adı) ya da
+   * otomatik altyazı gösteriyor ve bunu dışarıdan kapatmanın güvenilir yolu
+   * yok. Kapalıyken kart kapağı gösterir, tıklayınca lightbox açılır.
+   */
+  hoverPreview?: boolean;
+  /** Lightbox'taki "Projeyi incele" bağlantısı ve yanındaki başlık/etiket. */
+  projectHref?: string;
+  caption?: string;
+  meta?: string;
 };
 
 export default function VideoCard({
@@ -60,10 +81,15 @@ export default function VideoCard({
   overlayContent,
   className = "",
   pulseHint = false,
+  hoverPreview = true,
+  projectHref,
+  caption,
+  meta,
 }: VideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const intentTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const revealTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [previewing, setPreviewing] = useState(false);
@@ -83,6 +109,10 @@ export default function VideoCard({
       clearTimeout(intentTimer.current);
       intentTimer.current = null;
     }
+    if (revealTimer.current) {
+      clearTimeout(revealTimer.current);
+      revealTimer.current = null;
+    }
     setPreviewing(false);
     setPreviewReady(false);
     const video = videoRef.current;
@@ -99,7 +129,7 @@ export default function VideoCard({
     setHovering(true);
     // "Hareketi azalt" seçili kullanıcıda kendiliğinden oynatma hiç başlamasın —
     // kapak ve tıklayınca açılan lightbox onlar için de çalışmaya devam eder.
-    if (reducedMotion) return;
+    if (reducedMotion || !hoverPreview) return;
 
     if (youtubeId) {
       intentTimer.current = setTimeout(() => setPreviewing(true), HOVER_INTENT_MS);
@@ -167,7 +197,9 @@ export default function VideoCard({
             start={previewStart}
             title={`${label} önizleme`}
             className="absolute inset-0"
-            onReady={() => setPreviewReady(true)}
+            onReady={() => {
+              revealTimer.current = setTimeout(() => setPreviewReady(true), PREVIEW_REVEAL_MS);
+            }}
           />
         </div>
       )}
@@ -238,6 +270,9 @@ export default function VideoCard({
         youtubeId={youtubeId}
         youtubeVertical={youtubeVertical}
         videoSrc={videoSrc}
+        projectHref={projectHref}
+        caption={caption}
+        meta={meta}
         returnFocusTo={cardRef}
       />
     </div>

@@ -263,10 +263,9 @@ Bazı bölümlerin verisi kendi dosyasının en üstünde durur:
 | Bileşen | Ne yapar | Nerede kullanılır |
 |---|---|---|
 | `Button.tsx` | Buton/bağlantı. `href` verilirse bağlantı, verilmezse gerçek buton olur. `/` ile başlayan adreslerde sayfa yenilenmeden geçiş yapar. `variant="outline"` ikinci stil. | Her yer |
-| `VideoCard.tsx` | Kapak + hover'da YouTube önizlemesi + tıklayınca lightbox açan kart | Paketler, proje detayı |
-| `VideoLightbox.tsx` | Videoyu büyük açan pencere. `projectHref` verilirse yanında "Projeyi İncele" düğmesi çıkar. ESC ve dışarı tıklama kapatır. | VideoCard, ReferenceWall |
-| `ReferenceWall.tsx` | Logo duvarı + vitrin panosu. Hangi logonun üzerine gelinirse pano onu gösterir. | Referanslar |
-| `YouTubeEmbed.tsx` | YouTube gömme. `background` modu sessiz/döngülü/kontrolsüz oynatır ve kabı kaplar. | VideoCard, ReferenceWall, Hero |
+| `VideoCard.tsx` | Kapak + hover'da YouTube önizlemesi + tıklayınca lightbox açan kart. `projectHref` verilirse lightbox'ta "Projeyi İncele" çıkar. | Paketler, Referanslar, proje detayı |
+| `VideoLightbox.tsx` | Videoyu büyük açan pencere. `projectHref` verilirse yanında "Projeyi İncele" düğmesi çıkar. ESC ve dışarı tıklama kapatır. | VideoCard |
+| `YouTubeEmbed.tsx` | YouTube gömme. `background` modu sessiz/döngülü/kontrolsüz oynatır ve kabı kaplar. | VideoCard, Hero |
 | `ProjectCover.tsx` | Proje kapak görseli. Sırayla: elle verilen kapak → YouTube kapağı → renkli yer tutucu. | Projeler sayfaları |
 | `ContactForm.tsx` | Formun kendisi: doğrulama, hata mesajları, gönderiliyor durumu, spam tuzağı, KVKK onayı | İletişim |
 | `Eyebrow.tsx` | Bölüm başlıklarının üstündeki küçük mavi etiket | Tüm bölümler |
