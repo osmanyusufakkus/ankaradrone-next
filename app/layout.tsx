@@ -118,16 +118,23 @@ export default function RootLayout({
             page we're trying to convert on. These two set no cookies and build
             no cross-site profile, so no banner is required.
 
-            Both only report when the site is deployed on Vercel; on any other
-            host they're inert. If you deploy elsewhere, swap these two lines
-            for Plausible or Umami (also cookieless) — nothing else changes.
+            Both only report when the site is deployed on Vercel. Elsewhere
+            their scripts (/_vercel/insights, /_vercel/speed-insights) 404 and
+            log console errors on every visit — which is what happened on
+            Netlify — so they are only rendered when Vercel's own build sets
+            VERCEL=1. On any other host, add Plausible or Umami (also
+            cookieless) here instead; nothing else changes.
 
             Analytics = who visits and which pages/packages draw interest.
             SpeedInsights = real-device Core Web Vitals, which is how you'll
             actually find out whether the hero video or the grain overlay is
             hurting phones, instead of guessing. */}
-        <Analytics />
-        <SpeedInsights />
+        {process.env.VERCEL === "1" && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );

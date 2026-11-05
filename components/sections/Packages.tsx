@@ -217,7 +217,9 @@ export default function Packages() {
                   youtubeVertical={pkg.youtubeVertical}
                   previewStart={pkg.previewStart}
                   label={pkg.label}
-                  posterSizes="(max-width: 768px) 100vw, 340px"
+                  // Kart her ekranda en fazla 340px (max-w-85); mobilde
+                  // "100vw" demek gereğinden büyük kapak indirtiyordu.
+                  posterSizes="340px"
                   // Gradyan artık kartın arka planı değil, kapağın ÜSTÜNDEKİ
                   // renk katmanı — önizleme oynarken saydamlaşıyor.
                   tintClassName={pkg.gradient}
