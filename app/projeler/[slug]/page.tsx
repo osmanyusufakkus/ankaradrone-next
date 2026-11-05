@@ -52,12 +52,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           previewStart={project.previewStart}
           label={project.title}
           posterSizes="(max-width: 768px) 100vw, 980px"
-          className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-1.5 border-white/8"
+          className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-[1.5px] border-white/8"
           hoverHint="▶ Videoyu Oynat"
           placeholder={
             <div className="flex flex-col items-center gap-3">
               <div
-                className="flex h-16 w-16 items-center justify-center rounded-full border-1.5 border-brand-blue/30 backdrop-blur-sm"
+                className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-brand-blue/30 backdrop-blur-sm"
                 style={{ background: project.accentColor }}
               >
                 <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   {project.gallery.map((image) => (
                     <div
                       key={image}
-                      className="relative aspect-square overflow-hidden rounded-xl border-1.5 border-white/8"
+                      className="relative aspect-square overflow-hidden rounded-xl border-[1.5px] border-white/8"
                     >
                       <ProjectCover
                         project={{ ...project, coverImage: image }}
@@ -129,7 +129,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="mt-16 rounded-drone border-1.5 border-brand-blue/15 bg-brand-card px-8 py-10 text-center">
+        <div className="mt-16 rounded-drone border-[1.5px] border-brand-blue/15 bg-brand-card px-8 py-10 text-center">
           <h2 className="mb-3 font-display text-2xl tracking-wide text-brand-white">
             Benzer Bir Proje mi Planlıyorsunuz?
           </h2>

@@ -14,7 +14,7 @@ import { EMAIL_REGEX, PHONE_REGEX } from "@/lib/validation/contact";
 const INITIAL_STATE: ContactFormState = { status: "idle", message: "" };
 
 const FIELD_CLASSES =
-  "w-full rounded-2xl border-1.5 border-white/10 bg-brand-black/40 px-4 py-3 text-[15px] text-brand-white transition-colors duration-200 placeholder:text-white/30 focus:border-brand-blue focus:outline-none aria-[invalid=true]:border-red-400/70";
+  "w-full rounded-2xl border-[1.5px] border-white/10 bg-brand-black/40 px-4 py-3 text-[15px] text-brand-white transition-colors duration-200 placeholder:text-white/30 focus:border-brand-blue focus:outline-none aria-[invalid=true]:border-red-400/70";
 
 const LABEL_CLASSES =
   "mb-2 block text-[11px] font-bold tracking-[2px] text-white/50 uppercase";
@@ -44,9 +44,9 @@ export default function ContactForm() {
     return (
       <div
         role="status"
-        className="flex h-full min-h-75 flex-col items-center justify-center rounded-3xl border-1.5 border-brand-blue/25 bg-brand-black/40 p-10 text-center"
+        className="flex h-full min-h-75 flex-col items-center justify-center rounded-3xl border-[1.5px] border-brand-blue/25 bg-brand-black/40 p-10 text-center"
       >
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border-1.5 border-brand-blue/40 bg-brand-blue/12">
+        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-brand-blue/40 bg-brand-blue/12">
           <svg width="26" height="26" fill="none" stroke="#2196F3" strokeWidth="2.2" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12" />
           </svg>

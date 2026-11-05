@@ -8,8 +8,13 @@ export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 /**
  * Accepts Turkish mobile numbers written as +90 5xx, 0090 5xx, 05xx or 5xx.
  * Spaces, dots, dashes and parentheses are allowed only as visual separators.
+ *
+ * Every punctuation mark inside the character class is escaped on purpose.
+ * Browsers compile the HTML `pattern` attribute with the `v` flag, where a bare
+ * `(`, `)` or `-` inside `[...]` is a syntax error — the browser then silently
+ * drops the pattern and the field is never checked client-side.
  */
-export const PHONE_REGEX = /^(?:(?:\+|00)90[\s().-]*|0[\s().-]*)?5\d{2}(?:[\s().-]*\d){7}$/;
+export const PHONE_REGEX = /^(?:(?:\+|00)90[\s\(\)\.\-]*|0[\s\(\)\.\-]*)?5\d{2}(?:[\s\(\)\.\-]*\d){7}$/;
 
 export function isValidEmail(value: string) {
   return EMAIL_REGEX.test(value);

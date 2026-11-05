@@ -66,7 +66,7 @@ export default function Contact() {
         </FadeUp>
 
         <div className="grid grid-cols-[1.5fr_1fr] gap-10 max-md:grid-cols-1">
-          <FadeUp className="rounded-3xl border-1.5 border-white/8 bg-brand-card/60 p-8 max-sm:p-6 backdrop-blur-sm">
+          <FadeUp className="rounded-3xl border-[1.5px] border-white/8 bg-brand-card/60 p-8 max-sm:p-6 backdrop-blur-sm">
             <ContactForm />
           </FadeUp>
 
@@ -83,7 +83,7 @@ export default function Contact() {
                 {...(channel.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="group flex items-center gap-4 rounded-2xl border-1.5 border-white/8 bg-brand-black/30 px-5 py-4 transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue/50 hover:bg-brand-black/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+                className="group flex items-center gap-4 rounded-2xl border-[1.5px] border-white/8 bg-brand-black/30 px-5 py-4 transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue/50 hover:bg-brand-black/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-blue/25 bg-brand-blue/10 text-brand-blue transition-transform duration-250 group-hover:scale-110">
                   <svg

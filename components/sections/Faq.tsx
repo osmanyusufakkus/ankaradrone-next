@@ -55,7 +55,7 @@ export default function Faq() {
               kaydırılmıyordu — buton bir kez çalışıp sonra ölüyordu. */}
           <AnchorLink
             href="/#contact"
-            className="inline-flex items-center gap-2.5 rounded-pill border-1.5 border-white/25 px-7 py-3.5 text-sm font-bold tracking-wide text-brand-offwhite transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+            className="inline-flex items-center gap-2.5 rounded-pill border-[1.5px] border-white/25 px-7 py-3.5 text-sm font-bold tracking-wide text-brand-offwhite transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
           >
             Sorunuzu Sorun
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden>

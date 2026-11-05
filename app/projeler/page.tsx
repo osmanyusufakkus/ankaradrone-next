@@ -25,7 +25,7 @@ export default function ProjelerPage() {
             <Link
               key={project.slug}
               href={`/projeler/${project.slug}`}
-              className="group relative block aspect-4/3 overflow-hidden rounded-2xl border-1.5 border-white/8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue hover:shadow-[0_20px_50px_rgba(33,150,243,.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+              className="group relative block aspect-4/3 overflow-hidden rounded-2xl border-[1.5px] border-white/8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue hover:shadow-[0_20px_50px_rgba(33,150,243,.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
             >
               <ProjectCover
                 project={project}

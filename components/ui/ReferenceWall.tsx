@@ -84,7 +84,7 @@ export default function ReferenceWall({ projects }: { projects: Project[] }) {
           onClick={(e) => openLightbox(active, e.currentTarget)}
           aria-label={`${active.title} — videoyu büyüt`}
           aria-haspopup="dialog"
-          className="group relative block aspect-9/16 w-full cursor-pointer overflow-hidden rounded-drone border-1.5 border-brand-blue/20 bg-brand-dark text-left shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-colors duration-300 hover:border-brand-blue/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          className="group relative block aspect-9/16 w-full cursor-pointer overflow-hidden rounded-drone border-[1.5px] border-brand-blue/20 bg-brand-dark text-left shadow-[0_24px_60px_rgba(0,0,0,.5)] transition-colors duration-300 hover:border-brand-blue/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
           {activeCover && (
             <Image
@@ -189,7 +189,7 @@ export default function ReferenceWall({ projects }: { projects: Project[] }) {
                 onClick={(e) => openLightbox(project, e.currentTarget)}
                 aria-label={`${project.title} — videoyu büyüt`}
                 aria-haspopup="dialog"
-                className={`group relative flex aspect-square w-full cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border-1.5 p-3 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue ${
+                className={`group relative flex aspect-square w-full cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-xl border-[1.5px] p-3 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue ${
                   isActive
                     ? "border-brand-blue/70 bg-brand-blue/8"
                     : "border-white/8 bg-white/4 hover:border-brand-blue/40 hover:bg-white/6"

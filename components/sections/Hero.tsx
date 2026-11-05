@@ -5,11 +5,37 @@ import { useRef, useState } from "react";
 import Button from "@/components/ui/Button";
 import Eyebrow from "@/components/ui/Eyebrow";
 import YouTubeEmbed from "@/components/ui/YouTubeEmbed";
-import { HERO_YOUTUBE_ID, HERO_YOUTUBE_VERTICAL } from "@/lib/media";
+import { useMediaQuery, useReducedMotion } from "@/hooks/useMediaQuery";
+import { useMounted } from "@/hooks/useMounted";
+import {
+  HERO_VIDEO,
+  HERO_YOUTUBE_ID,
+  HERO_YOUTUBE_VERTICAL,
+} from "@/lib/media";
+
+const HERO_MEDIA_FILTER = "brightness-110 contrast-110 saturate-110";
+
+/** Tarayıcının "veri tasarrufu" modu (Chrome/Android). Desteklemeyende false. */
+function prefersSaveData() {
+  const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
+  return nav.connection?.saveData === true;
+}
 
 export default function Hero() {
   const droneRef = useRef<HTMLDivElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  // Kaynak ancak tarayıcıda seçiliyor: sunucu ekran yönünü bilemez, yanlış
+  // dosyayı HTML'e yazarsak tarayıcı onu indirmeye başlar.
+  const mounted = useMounted();
+  const portrait = useMediaQuery("(orientation: portrait)", true);
+  const reducedMotion = useReducedMotion();
+  const heroVideoSrc =
+    !mounted || reducedMotion || prefersSaveData()
+      ? undefined
+      : portrait
+        ? HERO_VIDEO.portrait
+        : HERO_VIDEO.landscape;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = droneRef.current;
@@ -36,20 +62,37 @@ export default function Hero() {
         />
       ) : (
         <div className="absolute inset-0 z-0 overflow-hidden bg-brand-black">
-          <video
-            aria-hidden="true"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            src="/video/kale_loop.mp4"
-            onPlaying={() => setIsVideoPlaying(true)}
-            onError={() => setIsVideoPlaying(false)}
-            className={`absolute inset-0 h-full w-full object-cover object-[center_40%] brightness-110 contrast-110 saturate-110 transition-opacity duration-[1600ms] ease-out will-change-opacity ${
-              isVideoPlaying ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          {/* Poster sunucuda render ediliyor: video inene kadar (ya da hiç
+              oynatılmayacaksa) ekranda boş siyah yerine ilk kare duruyor.
+              <picture> yönlendirmesi için next/image yerine düz <img>. */}
+          <picture>
+            <source media="(orientation: portrait)" srcSet={HERO_VIDEO.posterPortrait} />
+            <img
+              src={HERO_VIDEO.posterLandscape}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+              className={`absolute inset-0 h-full w-full object-cover object-[center_40%] ${HERO_MEDIA_FILTER}`}
+            />
+          </picture>
+          {heroVideoSrc && (
+            <video
+              // Ekran döndürülünce kaynak değişiyor; key ile yeni öğe açılıyor.
+              key={heroVideoSrc}
+              aria-hidden="true"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              src={heroVideoSrc}
+              onPlaying={() => setIsVideoPlaying(true)}
+              onError={() => setIsVideoPlaying(false)}
+              className={`absolute inset-0 h-full w-full object-cover object-[center_40%] ${HERO_MEDIA_FILTER} transition-opacity duration-[1600ms] ease-out will-change-opacity ${
+                isVideoPlaying ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          )}
         </div>
       )}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-brand-black/30 via-brand-black/35 to-brand-black/80" />
