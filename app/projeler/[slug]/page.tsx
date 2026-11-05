@@ -22,6 +22,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${project.title} – AnkaraDrone`,
+    // Arama sonucundaki açıklama: YouTube açıklamasının ilk cümlesi.
+    description: project.description?.split("\n")[0],
   };
 }
 
@@ -49,6 +51,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           videoSrc={project.videoSrc}
           youtubeId={project.youtubeId}
           youtubeVertical={project.youtubeVertical}
+          posterSrc={project.coverImage}
           previewStart={project.previewStart}
           label={project.title}
           // Kutu videonun yönüne uyuyor: dikey (Shorts) işler 16:9 kutuda
@@ -84,9 +87,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <h2 className="mb-4 text-[11px] font-bold tracking-widest text-brand-blue uppercase">
               Proje Hakkında
             </h2>
-            <p className="max-w-165 text-[15px] leading-loose font-light text-brand-offwhite">
-              {project.description ?? "İçerik yakında eklenecek."}
-            </p>
+            {/* Metin YouTube açıklamasından geliyor (bkz. lib/projects.tsx);
+                satır sonları paragraf olarak basılıyor. */}
+            <div className="flex max-w-165 flex-col gap-4">
+              {(project.description ?? "İçerik yakında eklenecek.")
+                .split(/\n+/)
+                .map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-[15px] leading-loose font-light text-brand-offwhite"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+            </div>
 
             {project.gallery && project.gallery.length > 0 && (
               <div className="mt-14">
@@ -131,7 +145,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 <dt className="mb-1 text-[10px] tracking-[2px] text-white/40 uppercase">
                   Hizmet
                 </dt>
-                <dd className="text-sm text-brand-offwhite">Drone Çekimi</dd>
+                <dd className="text-sm text-brand-offwhite">
+                  {project.service ?? "Drone Çekimi"}
+                </dd>
               </div>
             </dl>
           </div>

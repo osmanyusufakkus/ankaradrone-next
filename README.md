@@ -60,7 +60,8 @@ Aradığınız satırı bulun, karşısındaki dosyayı açın.
 | Instagram / YouTube bağlantısı | `lib/site.ts` → `SOCIAL_LINKS` |
 | Site başlığı, açıklaması, alan adı | `lib/site.ts` |
 | İletişim formundaki "proje tipi" seçenekleri | `lib/site.ts` → `PROJECT_TYPES` |
-| Proje eklemek/çıkarmak, referans duvarı | `lib/projects.tsx` → `PROJECTS` |
+| Proje eklemek (YouTube'a yükleyip `npm run sync:youtube`) | `lib/youtube-catalog.json` (üretilir) |
+| Referans duvarında gösterme, sıra, firma adı, sektör, logo | `lib/project-overrides.ts` → `PROJECT_OVERRIDES` |
 | SSS soruları ve cevapları | `lib/faq.ts` → `FAQ_ITEMS` |
 | Hero arka plan videosu | `lib/media.ts` → `HERO_YOUTUBE_ID` |
 | Yer tutucu (dummy) video | `lib/media.ts` → `PLACEHOLDER_VIDEO_SRC` |
@@ -137,37 +138,36 @@ tanımlı (ikonlar `components/layout/Footer.tsx` → `SOCIAL_ICONS`).
 ### `lib/projects.tsx` — projeler + referanslar
 
 **Tek veri kaynağı.** Hem `/projeler` sayfasını hem ana sayfadaki Referanslar duvarını
-besler. Bir kaydı burada düzenlediğinizde ikisi birden güncellenir.
+besler. Kayıtlar elle yazılmıyor, YouTube kanalından üretiliyor:
+
+1. **`lib/youtube-catalog.json`**: `npm run sync:youtube` (`scripts/sync-youtube.mjs`)
+   kanaldaki her video için kimliği, başlığı, dikey/yatay olduğunu, yayın tarihini ve
+   açıklamanın projeye özel kısmını yazar. **Elle düzenlemeyin**; bir sonraki
+   çalıştırmada üzerine yazılır.
+2. **`lib/project-overrides.ts`**: kanalda olmayan ya da farklı göstermek istediğiniz
+   her şey, videonun YouTube kimliğiyle:
 
 ```ts
-{
-  slug: "ictas-santiye-cekimi",     // ZORUNLU. Adres: /projeler/ictas-santiye-cekimi
-  title: "İçtaş İnşaat – Şantiye Çekimi",  // ZORUNLU
-  accentColor: "rgba(33,150,243,.25)",     // ZORUNLU. Kapak yoksa kullanılan renk
-  youtubeId: "V_-NrZUmLfM",         // Videonun YouTube id'si
-  youtubeVertical: true,            // 9:16 (Shorts) ise true
-  previewStart: 3,                  // Hover önizlemesi kaçıncı saniyeden başlasın
-  showAsReference: true,            // Ana sayfadaki referans duvarında görünsün mü
-  client: {                         // Müşteri bilgisi (referans duvarı bunu gösterir)
-    name: "İÇTAŞ İNŞAAT",
-    sector: "İnşaat",
-    code: "İÇ",                     // Logo yoksa gösterilen baş harf rozeti
-    color: "rgba(33,150,243,.25)",  // Rozetin arka plan rengi
-    logoUrl: "/images/references/x.png",  // İsteğe bağlı
-  },
-  // İsteğe bağlı ek alanlar:
-  description: "...",  location: "...",  date: "...",
-  coverImage: "/images/...",   // Elle kapak vermek isterseniz
-  gallery: ["/images/a.jpg"],  // Proje sayfasındaki galeri
-  videoSrc: "...",             // Henüz YouTube'a yüklenmemişse geçici yerel video
+"8UrXWCEwtjk": {
+  showAsReference: false,  // duvarda gösterme (yine de /projeler'de görünür)
+  hidden: true,            // sitede hiç gösterme
+  order: 1,                // öne al (küçük önce; verilmeyenler en yeni önce)
+  clientName: "Leda Grup", // duvarda proje adı yerine firma adı
+  sector: "Konut",         // başlıktan çıkarılanın yerine
+  logoUrl: "/images/references/leda.png",  // yalnızca izin alınmış logolar
+  title: "...", description: "...", location: "...", date: "...",
+  previewStart: 5,         // önizleme kaçıncı saniyeden başlasın (varsayılan 3)
 }
 ```
 
-**Yeni bir iş eklemek için asgari üç alan yeter: `slug`, `title`, `youtubeId`.**
-Kapak görselini ayrıca hazırlamanız gerekmez — YouTube'dan otomatik alınır.
+Varsayılanlar: kart **proje adını** gösterir (başlıkta "|" işaretinden önceki kısım),
+sektör başlıktaki türden çıkarılır (villa, ofis, arsa, karma, rezidans, loft, konut),
+konum başlıkta geçen semtten (İncek, Çayyolu…), tarih YouTube yayın ayından, proje
+metni YouTube açıklamasının ilk paragraflarından ("Ankara Drone olarak…" ile başlayan
+ortak hizmet listesi atılır). Kapak, önizleme ve lightbox YouTube videosundan gelir.
 
-`youtubeId` nereden bulunur: video adresindeki `v=` sonrası veya Shorts adresindeki
-son parça. Örnek: `youtube.com/shorts/V_-NrZUmLfM` → `V_-NrZUmLfM`
+Betik başlığın şu kalıpta olduğunu varsayar: `Proje Adı | Tür | Ankara Drone #etiket`.
+Yeni videolarda da bu kalıbı korursanız kart kendiliğinden doğru çıkar.
 
 Dosyanın sonunda üç türetilmiş değer var, bunlara dokunmanıza gerek yok:
 `getProjectBySlug()`, `REFERENCE_PROJECTS` (duvarda görünenler), `SHOWCASE_DEFAULT`
@@ -378,28 +378,25 @@ Email Routing ayarıdır.
 
 ### Yeni bir proje / referans eklemek
 
-1. Videoyu YouTube'a yükleyin, adresteki id'yi kopyalayın
-2. `lib/projects.tsx` içindeki `PROJECTS` dizisine yeni bir nesne ekleyin:
+1. Videoyu YouTube kanalına yükleyin. Başlığı her zamanki kalıpta tutun:
+   `Proje Adı | Tür | Ankara Drone #etiketler`
+2. Proje klasöründe çalıştırın:
 
-```ts
-{
-  slug: "firma-adi-is-turu",
-  title: "Firma Adı – İş Türü",
-  accentColor: "rgba(33,150,243,.25)",
-  youtubeId: "BURAYA_ID",
-  youtubeVertical: true,
-  previewStart: 5,
-  showAsReference: true,
-  client: { name: "FİRMA ADI", sector: "İnşaat", code: "FA", color: "rgba(33,150,243,.25)" },
-}
+```bash
+npm run sync:youtube
 ```
 
-3. Kaydedin. Proje sayfası, referans duvarındaki kart ve sitemap kaydı kendiliğinden oluşur.
+   Betik eklenen ve kanaldan kalkan videoları listeler. Sorun görürse (ağ hatası,
+   beklenenden çok az video) mevcut dosyanın üzerine yazmadan hata verir.
+3. `lib/youtube-catalog.json` değişikliğini commit edin. Proje sayfası, referans
+   duvarındaki kart ve sitemap kaydı kendiliğinden oluşur.
+4. Gerekirse `lib/project-overrides.ts` içine o videonun kimliğiyle ayar ekleyin
+   (duvarda gösterme, firma adı, sıra…).
 
 ### Bir referansa gerçek logo eklemek
 
 1. Logo dosyasını (tercihen şeffaf arka planlı PNG) `public/images/references/` klasörüne koyun
-2. İlgili projenin `client` bloğuna `logoUrl: "/images/references/dosyaadi.png"` satırını ekleyin
+2. `lib/project-overrides.ts` içinde o videonun kaydına `logoUrl: "/images/references/dosyaadi.png"` ekleyin
 3. Logo yoksa baş harf rozeti gösterilmeye devam eder — bozulma olmaz
 
 > Bir firmanın adını veya logosunu kullanmak için **yazılı onay** alın.

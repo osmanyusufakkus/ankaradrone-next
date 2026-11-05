@@ -68,9 +68,11 @@ export default function ReferenceWall({ projects }: { projects: Project[] }) {
 
   if (!active) return null;
 
-  const activeCover = active.youtubeId
-    ? youtubeThumbnail(active.youtubeId, active.youtubeVertical)
-    : active.coverImage;
+  // Elle/katalogdan gelen kapak önce: dikey videolarda bile 9:16 kapak her
+  // zaman yok, yönden türetmek bazı işlerde 404 veriyordu.
+  const activeCover =
+    active.coverImage ??
+    (active.youtubeId ? youtubeThumbnail(active.youtubeId, active.youtubeVertical) : undefined);
   const panelPlaying = previewing && previewReady && Boolean(active.youtubeId);
 
   return (
