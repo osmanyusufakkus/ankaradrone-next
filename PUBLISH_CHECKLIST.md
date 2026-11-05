@@ -18,8 +18,9 @@ grep -rn "TODO(içerik)" app components lib
       bkz. README → `lib/projects.tsx`). Duvarda firma adı göstermek isterseniz
       `lib/project-overrides.ts` → `clientName`.
 - [x] **Logo dosyaları** — `public/images/references/`
-      Yer tutucu TOKİ / Emlak Konut logoları silindi; şu an hiç logo yok, kartlar
-      baş harf rozetiyle görünüyor. Logo eklerken müşteriden **yazılı onay** alın.
+      Yer tutucu TOKİ / Emlak Konut logoları silindi. Gerçek müşteri logoları
+      eklendi (2026-11-05); hangi videoya gittiği `lib/project-overrides.ts`
+      içinde. Yeni logo eklerken müşteriden **yazılı onay** alın.
 - [ ] **İstatistikler** — `components/sections/Stats.tsx`
       "200+ proje", "50+ kurumsal referans" doğrulanabilir gerçek sayılar mı?
       Emin olunamayan bir metriği göstermemek, abartmaktan iyidir.

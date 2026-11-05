@@ -129,6 +129,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               Proje Bilgileri
             </h2>
             <dl className="flex flex-col gap-4">
+              {project.client && (
+                <div>
+                  <dt className="mb-1 text-[10px] tracking-[2px] text-white/40 uppercase">
+                    Firma
+                  </dt>
+                  <dd className="text-sm text-brand-offwhite">{project.client.name}</dd>
+                </div>
+              )}
               <div>
                 <dt className="mb-1 text-[10px] tracking-[2px] text-white/40 uppercase">
                   Konum
