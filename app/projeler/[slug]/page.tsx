@@ -51,23 +51,31 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           youtubeVertical={project.youtubeVertical}
           previewStart={project.previewStart}
           label={project.title}
-          posterSizes="(max-width: 768px) 100vw, 980px"
-          className="mb-14 aspect-video w-full overflow-hidden rounded-drone border-[1.5px] border-white/8"
+          // Kutu videonun yönüne uyuyor: dikey (Shorts) işler 16:9 kutuda
+          // ortadan kırpılıyor, karenin üçte ikisi kayboluyordu.
+          posterSizes={
+            project.youtubeVertical ? "400px" : "(max-width: 768px) 100vw, 980px"
+          }
+          className={`mb-14 overflow-hidden rounded-drone border-[1.5px] border-white/8 ${
+            project.youtubeVertical
+              ? "mx-auto aspect-9/16 w-full max-w-100"
+              : "aspect-video w-full"
+          }`}
           hoverHint="▶ Videoyu Oynat"
+          // Kapak varken ortada ayrıca bir oynat ikonu ve "Örnek Video" yazısı
+          // göstermiyoruz: "▶ Videoyu Oynat" ipucuyla aynı şeyi iki kez
+          // söylüyordu. Kapağı olmayan işlerde yalnızca oynat ikonu kalıyor.
           placeholder={
-            <div className="flex flex-col items-center gap-3">
+            project.youtubeId ? null : (
               <div
                 className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-brand-blue/30 backdrop-blur-sm"
                 style={{ background: project.accentColor }}
               >
-                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden>
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
-              <span className="text-xs font-semibold tracking-[2px] text-white/40 uppercase">
-                Örnek Video
-              </span>
-            </div>
+            )
           }
         />
 

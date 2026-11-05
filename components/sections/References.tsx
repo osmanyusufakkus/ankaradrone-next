@@ -16,9 +16,17 @@ export default function References() {
             BİZE <span className="section-title-glow-accent text-brand-blue">GÜVENENLER</span>
           </h2>
           <p className="max-w-[580px] text-base leading-relaxed font-light text-brand-offwhite">
-            Bir markanın üzerine gelin, o iş için çektiğimiz video yandaki panoda
-            görünsün. Tıkladığınızda video büyür ve projenin tamamına
-            geçebilirsiniz.
+            {/* Yan pano ve hover yalnızca md ve üstünde var (bkz.
+                ReferenceWall); mobilde dokununca doğrudan video açılıyor. */}
+            <span className="max-md:hidden">
+              Bir markanın üzerine gelin, o iş için çektiğimiz video yandaki
+              panoda görünsün. Tıkladığınızda video büyür ve projenin tamamına
+              geçebilirsiniz.
+            </span>
+            <span className="md:hidden">
+              Bir markaya dokunun, o iş için çektiğimiz video açılsın. Oradan
+              projenin tamamına geçebilirsiniz.
+            </span>
           </p>
         </FadeUp>
 

@@ -213,7 +213,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-3 inline-flex items-center gap-2 rounded-pill bg-brand-blue px-10 py-4 text-sm font-bold tracking-wide text-white transition-all duration-250 hover:-translate-y-0.75 hover:bg-brand-blue-dark hover:shadow-[0_12px_36px_rgba(33,150,243,.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="mt-3 inline-flex items-center gap-2 rounded-pill bg-brand-blue-cta px-10 py-4 text-sm font-bold tracking-wide text-white transition-all duration-250 hover:-translate-y-0.75 hover:bg-brand-blue-dark hover:shadow-[0_12px_36px_rgba(33,150,243,.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
         {pending ? "Gönderiliyor…" : "Teklif İste"}
       </button>

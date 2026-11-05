@@ -153,10 +153,14 @@ export default function Hero() {
         </p>
 
         <div
-          className="flex animate-hero-in flex-wrap justify-center gap-4"
+          className="flex animate-hero-in flex-wrap justify-center gap-4 max-sm:gap-3"
           style={{ animationDelay: "0.45s" }}>
+          {/* Mobilde iç boşluk daraltılıyor: büyük logo (bilinçli tercih) ekranı
+              doldurduğu için butonlar alt alta düşünce "Teklif Al" ilk ekranın
+              altında kalıyordu. Tek satırda ikisi birden görünüyor. */}
           <Button
             href="#packages"
+            className="max-sm:px-6 max-sm:py-3.5"
             icon={
               <svg
                 width="16"
@@ -169,12 +173,17 @@ export default function Hero() {
             }>
             Paketleri İncele
           </Button>
-          <Button href="#contact" variant="outline">
+          <Button
+            href="#contact"
+            variant="outline"
+            className="max-sm:px-6 max-sm:py-3.5">
             Teklif Al
           </Button>
         </div>
       </div>
-      <div className="absolute bottom-18 left-1/2 z-90 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[2px] text-white/30 uppercase">
+      {/* Mobilde gizli: büyük logo yüzünden butonlar ekranın altına iniyor ve
+          bu gösterge (z-90) "Paketleri İncele" butonunun üstüne biniyordu. */}
+      <div className="absolute bottom-18 left-1/2 z-90 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] tracking-[2px] text-white/30 uppercase max-sm:hidden">
         <div className="h-9 w-0.5 animate-scroll-pulse rounded-full bg-gradient-to-b from-brand-blue/60 to-transparent" />
         <span>Kaydır</span>
       </div>

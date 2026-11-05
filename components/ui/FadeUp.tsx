@@ -7,9 +7,11 @@ type FadeUpProps = {
   className?: string;
   /** Transition delay, e.g. "0.1s" */
   delay?: string;
+  /** Optional anchor id, e.g. a package row that other sections link to. */
+  id?: string;
 };
 
-export default function FadeUp({ children, className = "", delay }: FadeUpProps) {
+export default function FadeUp({ children, className = "", delay, id }: FadeUpProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -36,6 +38,7 @@ export default function FadeUp({ children, className = "", delay }: FadeUpProps)
   return (
     <div
       ref={ref}
+      id={id}
       className={`fade-up ${visible ? "visible" : ""} ${className}`}
       style={delay ? { transitionDelay: delay } : undefined}
     >

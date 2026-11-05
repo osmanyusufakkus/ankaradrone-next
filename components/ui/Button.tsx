@@ -20,7 +20,7 @@ type ButtonProps =
 
 const VARIANT_CLASSES: Record<"primary" | "outline", string> = {
   primary:
-    "bg-brand-blue text-white hover:bg-brand-blue-dark hover:shadow-[0_12px_36px_rgba(33,150,243,.35)]",
+    "bg-brand-blue-cta text-white hover:bg-brand-blue-dark hover:shadow-[0_12px_36px_rgba(33,150,243,.35)]",
   outline:
     "border-[1.5px] border-white/25 font-semibold text-brand-offwhite hover:border-brand-blue hover:text-brand-blue",
 };

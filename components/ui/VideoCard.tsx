@@ -190,7 +190,9 @@ export default function VideoCard({
       {tintClassName && (
         <div
           aria-hidden
-          className={`absolute inset-0 transition-opacity duration-500 ${tintClassName} ${playing ? "opacity-15" : "opacity-70"}`}
+          // Durağan hâlde %40: %70'te kapak (yani asıl çekim) neredeyse
+          // görünmüyordu; renk tonu yine okunuyor.
+          className={`absolute inset-0 transition-opacity duration-500 ${tintClassName} ${playing ? "opacity-15" : "opacity-40"}`}
         />
       )}
 
