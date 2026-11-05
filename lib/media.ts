@@ -14,21 +14,32 @@ export const PLACEHOLDER_VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4
  * sıkıştırılmış iki sürüm. Kaynak dosya 1080p, ~17 Mbps, 97 MB'tı; sayfa her
  * açıldığında tamamı iniyordu.
  *
- * - landscape: 1280x720, 24 fps, ~13 MB — yatay ekranlar (masaüstü, yatay tablet)
- * - portrait:  540x960 dikey kırpım, 24 fps, ~7 MB — telefonlar. Dikey ekranda
- *   yatay videonun zaten yalnızca orta şeridi görünüyordu; o şeridi ayrı
- *   kodlamak aynı görüntüyü çok daha az veriyle veriyor.
+ * - landscape: 1920x1080, 29,97 fps, ~5,6 Mbps, ~30 MB — yatay ekranlar
+ * - portrait:  608x1080 dikey kırpım (kaynağın kırpılmadan verebildiği en
+ *   yüksek çözünürlük), 29,97 fps, ~3,7 Mbps, ~20 MB — telefonlar. Dikey
+ *   ekranda yatay videonun yalnızca orta şeridi görünüyor; o şeridi ayrı
+ *   kodlamak aynı görüntüyü daha az veriyle veriyor.
+ *
+ * Kalite notları (ilk sürüm 24 fps / 720p / 540p'ydi ve kalitesiz duruyordu):
+ * - Kare hızı kaynağın (59,94) tam yarısı olmalı. 24 fps'te kareler eşit
+ *   aralıkla atlanmıyor, drone'un yavaş kaydırma hareketleri takılıyordu.
+ * - Gürültü azaltma filtresi kullanmayın; ince detayı (pencereler, uzak
+ *   ışıklar) siliyordu.
+ * - Gece şehir görüntüsü çok detaylı: ~1,2 Mbps'de binalar bloklaşıyordu.
  *
  * Poster kareleri video inene kadar (ve "hareketi azalt" / veri tasarrufu açık
- * cihazlarda video hiç oynatılmadan) gösterilir.
+ * cihazlarda video hiç oynatılmadan) gösterilir; videonun ilk karesi, aynı
+ * çözünürlükte.
  *
- * Videoyu değiştirirseniz iki sürümü yeniden üretin, örnek komutlar:
- *   ffmpeg -i kaynak.mp4 -an -vf "scale=1280:-2,fps=24" -c:v libx264 -crf 28 -preset slow -movflags +faststart kale_loop-720p.mp4
- *   ffmpeg -i kaynak.mp4 -an -vf "crop=ih*9/16:ih,scale=540:960,fps=24" -c:v libx264 -crf 28 -preset slow -movflags +faststart kale_loop-mobile.mp4
+ * Videoyu değiştirirseniz iki sürümü yeniden üretin, örnek komutlar (libx264;
+ * bu dosyalar NVIDIA h264_nvenc ile, aynı ayarlar ve hedef bit hızlarıyla
+ * üretildi):
+ *   ffmpeg -i kaynak.mp4 -an -vf "fps=30000/1001" -c:v libx264 -preset slow -b:v 4500k -maxrate 5500k -bufsize 11000k -movflags +faststart kale_loop-1080p.mp4
+ *   ffmpeg -i kaynak.mp4 -an -vf "crop=608:1080,fps=30000/1001" -c:v libx264 -preset slow -b:v 3000k -maxrate 3600k -bufsize 7200k -movflags +faststart kale_loop-mobile-1080.mp4
  */
 export const HERO_VIDEO = {
-  landscape: "/video/kale_loop-720p.mp4",
-  portrait: "/video/kale_loop-mobile.mp4",
+  landscape: "/video/kale_loop-1080p.mp4",
+  portrait: "/video/kale_loop-mobile-1080.mp4",
   posterLandscape: "/video/kale_loop-poster.jpg",
   posterPortrait: "/video/kale_loop-poster-mobile.jpg",
 } as const;
